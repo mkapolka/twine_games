@@ -1,0 +1,48 @@
+::MackDisplay
+Mack is here, looking sexy. [[Fuck him?|FuckMack]]
+
+::FuckMack
+<<if Math.random() < .8>>
+    <<set $gained_sex = Math.ceil(Math.random() * 30)>>
+    You fuck Mack. That sure hit the spot! You relieved <<print $gained_sex>> sex need.
+    <<run add_need("sex_need", $gained_sex)>>
+<<else>>
+    You tried to fuck Mack but he couldn't get it up.
+<</if>>
+<<run atrophy_needs()>>
+[[continue|Main]]
+
+::JenDisplay
+Jen is here. You bet she has some funny jokes for you. [[Joke around with Jen|JokeJen]]
+
+::JokeJen
+<<if Math.random() < .7>>\
+    <<set $gained_funny = Math.ceil(Math.random() * 30)>>
+    <<run add_need("funny_need", $gained_funny)>>\
+    Jen tells you a great joke! You gain <<print $gained_funny>> humor need.
+<<else>>\
+Jen tries to tell you a joke, but it's a real stinker. You gain no humor points.
+<</if>>\
+<<run atrophy_needs()>>\
+[[continue|Main]]
+
+::BlaiseDisplay
+Blaise looks optimistic. [[Hang out with Blaise|HangBlaise]]
+
+::HangBlaise
+<<if Math.random() < .7>>\
+    <<set $gained_hope = Math.ceil(Math.random() * 30)>>\
+    <<random>>\
+        Blaise tells you, "Never let someone else tell you who you are. You are you."\
+    <<or>>\
+        Blaise points to a flower. "Does the flower ask whether others thinks its cool? No? Be like the flower." \
+    <<or>>\
+        Blaise shows you a picture on his smartphone. It's a picture of a sunny hillside with the text "Believe" overlain. You believe. \
+    <</random>>\
+    You gain <<print $gained_hope>> hope need.
+    <<run add_need("hope_need", $gained_hope)>>\
+<<else>>\
+    Blaise doesn't really feel like hanging out. He's kind of a loner.
+<</if>>\
+<<run atrophy_needs()>>\
+[[continue|Main]]

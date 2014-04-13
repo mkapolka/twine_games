@@ -1,0 +1,65 @@
+::Buy things
+<<if !$visited_store>>
+You go to the mall. It's your first time in this new town. You're nervous and excited at the possibilities.<<set $visited_store=true>>
+<<endif>>
+There are all kinds of diverse and interesting things here.
+
+[[A charming lamp]] catches your eye.
+
+You find a [[strange white box]] at work.
+
+::A charming lamp
+You bravely walk up and begin examining the lamp. It's a squat table lamp, about two feet tall with a paunchy olive base and a tasteful, if dorky, beige shade. 
+An [[informative label]] hangs from its neck.
+
+::informative label
+The label says this is a "Timothy Table Lamp." Apparently it's a Gushing \
+Meadows native- designed and manufactured on the Clarkson's Home Furnishing \
+campus.  Reading the note you learn more about the Clarkson company and its \
+role in the history of Gushing Meadows. The "Timothy Table Lamp" is part of a \
+long line of local table lamps. For almost a hundred years Clarkson's table \
+lamps have been lighting the homes of the good people of Gushing Meadows, and \
+they hope to continue to do so for as long as they can.
+
+You feel this lamp will be the perfect introduction to your new home town. You buy the lamp and take it home.
+
+You have gained 30 thing need. <<run add_need("thing_need", 30)>><<set $has_lamp = true>>
+
+[[Continue|Main]]
+
+::ThingsMain
+<<if $has_lamp>>\
+The [["Timothy Table Lamp"|LampVisit]] sits on a desk.
+<</if>>\
+
+::LampVisit
+<<random>>\
+You turn on the lamp. It shines light on all your friends. It's such a joy to have around. You gain 10 thing need. <<run add_need("thing_need", 10)>>
+<<or>>\
+<</random>>\
+
+[[Continue|Main]]
+
+::strange white box
+The box, rounded at the corners and slightly bigger than a person, seems to have a door on the front.
+
+[[open the door]]
+
+::open the door
+You swing the door open and!! The box is cold and filled with food. There are so many kinds of food in here.
+There are hoagies wrapped in plastic bags, styrofoam containers filled with chicken parmesan, take out containers of chinese food.
+A world of sinful opportunities unfurls before your eyes. You had never really considered the vast possibilities of culinary delight available to you.
+
+::EatFood
+<<random>>\
+You pierce a bulging grape with your canine tooth and let the juice slide down your throat. The feeling of cold liquid sliding down you makes you shiver.
+<<or>>\
+With careful precision you bind a nugget of orange chicken with a rope of chow mein. You dangle it above your mouth and let the syrup drip into your mouth before gobbling it up whole.
+<<or>>\
+Over the course of several encounters you savor a piece of devils food cake. Each time you split it in half, foolishly thinking that you can keep your affair going indefinitely by infinitely subdividing your affections.
+When you eat the second to last unsatisfying sliver you spitefully devour the last morsel. This proves to you that the only sustianable culinary model is constant motion.
+<</random>>\
+
+You gain 10 thing need. <<run add_need("thing_need", 10)>>
+
+[[Continue|Main]]

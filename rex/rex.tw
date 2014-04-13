@@ -1,0 +1,55 @@
+:: StoryTitle
+REX
+
+:: StartProper [nobr]
+<<display IntroGreeting>>
+
+:: Start [nobr]
+<<display D1Morning>>
+
+::StoryInit
+<<set $wetnurse_following = true>>
+
+:: Prompt name
+Hi there. What's your name?
+<<textbox "$player_name" "" "IntroGreeting">>
+
+:: GreetWithName
+Hello <<print $player_name>>. I'm Septimus.
+<<display IntroGreeting>>
+
+:: IntroGreeting
+<<room_title "The Prince's Annex">>\
+I'm the last one awake. Today our father has an important announcement to
+make. It's going to make my life very complicated. I hope that you can help me
+out.
+
+My brothers are all headed to the throne room. I should [[go there now|ThroneRoomIntro]].
+
+::PassageDone
+<<replace "header.header">><<print $current_room_title>><</replace>>
+
+::ThroneRoomIntro
+<<room_title "The Throne Room">>\
+It's early in the morning still. The affairs of the day haven't yet begun.
+Father talks quickly. He has many things to take care of today.
+The time has come for him to choose a successor. Since my brothers and I are all the same age
+he will decide who will earn the crown by our virtues. From this point onward all of our actions
+will be judged accordingly.
+
+[[Quite the tall order!|D1Morning]]
+
+::D1Morning
+It's morning. What should I do now?
+The king is holding court. [[I could join him|court]], but I'd be neglecting my [[studies]]
+<<if $wetnurse_following>>\
+The [[wetnurse]] is keeping an eye on me. I won't be able to get away with much mischief.
+<<endif>>
+
+
+::wetnurse
+She's always trying to get me into trouble. She tells me, "You should be running along to your [[studies]] now."
+
+<<back>>
+
+::court

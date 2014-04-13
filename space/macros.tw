@@ -1,0 +1,197 @@
+:: _each_macro [script]
+macros.add('each', {
+    version: [1, 0, 0],
+    tags: null,
+    handler: function() {
+        var ary = eval(Wikifier.parse(this.args[0]))
+        var iterator_key = 'i';
+        if (this.args.length > 1) {
+            iterator_key = this.args[1]
+        }
+        var object_key = 'o'
+        if (this.args.length > 2) {
+            object_key = this.args[2]
+        }
+        var old_o = state.active.variables[object_key]
+        var old_i = state.active.variables[iterator_key]
+        for (var i = 0, len = ary.length; i < len; i++) {
+            state.active.variables.o = ary[i]
+            state.active.variables.i = i
+            new Wikifier(this.output, this.payload[0].contents)
+        }
+        state.active.variables[iterator_key] = old_i
+        state.active.variables[object_key] = old_o
+    }
+}, false)
+
+:: _dynamic_display_macro [script]
+//Dynamic display: eval the args then <<display>> that
+macros.add('dyn_display', {
+    handler: function() {
+        var target = eval(this.args.full)
+        new Wikifier(this.output, "<<display " + target + ">>")
+    }
+})
+
+:: room_title [widget nobr]
+<<widget room_title>><<set $current_room_title = $args[0]>><</widget>>
+
+:: _speaker [script]
+macros.add('speaker', {
+    tags: null,
+    handler: function(){
+        var payload = "<div class='greenbox dialog'><div class='dialog_speaker'>"
+        payload += this.args[0] + ":"
+        payload += "</div><div class='dialog_content'>"
+        payload += this.payload[0].contents
+        payload += "</div></div>"
+        new Wikifier(this.output, payload)
+    }
+}, false)
+
+:: _show_or_hide_header [script nobr]
+macros.add('show_header', {
+    handler: function() {
+        jQuery(".header").show()
+    }
+}, false)
+
+macros.add('hide_header', {
+    handler: function() {
+        jQuery(".header").hide()
+    }
+}, false)
+
+:: _board_init [script]
+window.init_boards = function(){
+    var boards = tale.lookup("tags", "board")
+    state.active.variables.boards = []
+    boards.forEach(function(board, index, array) {
+        var topics = []
+        var leftover_tags = []
+        var in_topics = false
+        board.tags.forEach(function(tag) {
+            if (/topics\(/.test(tag)) {
+                in_topics = true
+                topics.push(tag.replace(/topics\((.+)/, "$1 "))
+            } else {
+                topics.push(tag.replace(/\)/, ''))
+            }
+
+            if (in_topics) {
+                if (/\)$/.test(tag)) {
+                    in_topics = false
+                }
+                topics.push(tag.replace(/\)/, ''))
+            }
+        })
+        board.tags = leftover_tags
+
+        var board_object = {
+            'id': board.title,
+            'topics': topics,
+            'posts': []
+        }
+        state.active.variables.boards.push(board_object)
+    })
+}
+
+:: _boards [script]
+
+window.new_board = function(id, name, tags) {
+    var board = {
+        id: id,
+        name: name,
+        tags: tags,
+        media: []
+    }
+    state.active.variables._boards.push(board)
+    return board
+}
+
+window.board_add_media = function(board, media) {
+    if (board.media.indexOf(media.id) === -1) {
+        board.media.push(media.id)
+    }
+}
+
+window.board_by_id = function(id) {
+    return jQuery.grep(state.active.variables._boards, function(board, index) {
+        return board.id === id
+    })[0]
+}
+
+:: _media [script]
+window.player_add_media = function(media) {
+    state.active.variables.player.media.push(media.id)
+}
+
+window.new_media = function(name, tags=[]) {
+    var media = {
+        name: name,
+        id: Math.round(Math.random() * 50000000),
+        tags: tags
+    }
+    state.active.variables._media.push(media)
+
+    return media
+}
+
+window.media_by_id = function(id) {
+    return jQuery.grep(state.active.variables._media, function(media, index) {
+        return media.id === id
+    })[0]
+}
+
+window.get_player_media = function() {
+    var ary = state.active.variables.player_media.map(function(id) {
+        return media_by_id(id)
+    })
+    return ary
+}
+
+//Returns how much karma the player will gain
+// by posting that media on that board
+window.get_karma_value = function(media, board) {
+    var value = 0
+    media.tags.forEach(function(tag) {
+        if (board.tags.indexOf(tag) !== -1) {
+            value += 1
+        }
+    });
+    return Math.floor(value * value * 100 * (.3 + Math.random() * .7))
+}
+
+window.post_to_board = function(poster, media, board) {
+    poster.karma += get_karma_value(media, board)
+    board_add_media(board, media)
+}
+
+:: _user [script]
+window.new_user = function(name) {
+    var user = {
+        name: name,
+        id: Math.floor(Math.random() * 500000000),
+        media: [],
+        karma: 0
+    }
+    state.active.variables._users.push(user)
+    return user
+}
+
+window.user_add_media = function(user, media) {
+    if (user.media.indexOf(media.id) === -1) {
+        user.media.push(media)
+    }
+}
+
+:: _add_media_widget [nobr widget]
+<<widget add_media>>\
+    <<set $m = new_media($args[0])>>\
+    <<run user_add_media($player, $m)>>\
+<</widget>>\
+
+:: _print_media [widget nobr]
+<<widget print_media>>\
+<div class="media greenbox"><<print $args[0].name>></div>\
+<</widget>>\

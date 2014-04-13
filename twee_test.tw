@@ -1,0 +1,86 @@
+:: a_script [what script]
+macros.add('each', {
+    version: [1, 0, 0],
+    tags: null,
+    handler: function() {
+        var ary = eval(Wikifier.parse(this.args[0]))
+        var old_o = state.active.variables.o
+        var old_i = state.active.variables.i
+        for (var i = 0, len = ary.length; i < len; i++) {
+            state.active.variables['o'] = ary[i]
+            state.active.variables['i'] = i
+            new Wikifier(this.output, this.payload[0].contents)
+        }
+        state.active.variables.i = old_i
+        state.active.variables.o = old_o
+    }
+}, false)
+
+//Dynamic display: eval the args then <<display>> that
+macros.add('dyn_display', {
+    handler: function() {
+        var target = eval(this.args.full)
+        new Wikifier(this.output, "<<display " + target + ">>")
+    }
+})
+
+window.things_here = function() {
+    return ['banana', 'apple', 'orange']
+}
+
+window.concat = function(a,b) {
+    return a + b
+}
+
+:: StoryTitle [what]
+The best test game in the world
+
+:: Start
+<<set $a to {}>>
+<<set $a.test to 0>>
+[[Increment|inc_var]]
+
+::inc_var
+<<set $a.test += 1>>
+<<print $a.test>>
+[[once more|inc_var]]
+
+:: apple_ok
+This sure is an apple
+
+:: banana_ok
+this is def. a banana
+
+:: orange_ok
+What? Is this an orange? The truth will set you free
+
+:: ActualStart
+<<if (Math.random() < .5)>>
+Neat
+<<else>>
+Not cool
+<<endif>>
+[[ActualStart]]
+do what now?
+[[LoopyState][$varname = Math.random()]]
+<<display prompt>>
+
+:: LoopyState
+<<print $varname>>
+[[LoopyState][$varname = Math.random()]]
+
+:: ShowState
+<<print q("varname")>>
+
+::prompt
+<<display places_to_go>>
+
+::places_to_go
+Go to...
+[[The Throne Room]]
+[[the Kitchen]]
+
+:: nearby_events
+<<each blah>>
+
+<<end>>

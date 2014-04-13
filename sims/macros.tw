@@ -1,0 +1,89 @@
+:: _each_macro [script]
+macros.add('each', {
+    version: [1, 0, 0],
+    tags: null,
+    handler: function() {
+        var ary = eval(Wikifier.parse(this.args[0]))
+        var iterator_key = 'i';
+        if (this.args.length > 1) {
+            iterator_key = this.args[1]
+        }
+        var object_key = 'o'
+        if (this.args.length > 2) {
+            object_key = this.args[2]
+        }
+        var old_o = state.active.variables[object_key]
+        var old_i = state.active.variables[iterator_key]
+        for (var i = 0, len = ary.length; i < len; i++) {
+            state.active.variables.o = ary[i]
+            state.active.variables.i = i
+            new Wikifier(this.output, this.payload[0].contents)
+        }
+        state.active.variables[iterator_key] = old_i
+        state.active.variables[object_key] = old_o
+    }
+}, false)
+
+:: _on_of_macro [script]
+macros.add('random', {
+    tags: ['or'],
+    handler: function() {
+        new Wikifier(this.output, this.payload.random().contents)
+    }
+})
+
+:: _dynamic_display_macro [script]
+//Dynamic display: eval the args then <<display>> that
+macros.add('dyn_display', {
+    handler: function() {
+        var target = eval(this.args.full)
+        new Wikifier(this.output, "<<display " + target + ">>")
+    }
+})
+
+::_scripts [script]
+window.atrophy_needs = function() {
+    var vars = state.active.variables
+    vars.funny_need -= Math.floor(Math.random() * 10)
+    vars.sex_need -= Math.floor(Math.random() * 10)
+    vars.cool_need -= Math.floor(Math.random() * 10)
+    vars.anger_need -= Math.floor(Math.random() * 10)
+    vars.things_need -= Math.floor(Math.random() * 10)
+}
+
+window.create_friend = function(name, display_passage, friend_cost) {
+    var friend = {
+        name: name,
+        display_passage: display_passage,
+        id: Math.floor(Math.random() * 100000),
+        cost: friend_cost
+    }
+    return friend
+}
+
+window.friend_by_id = function(id) {
+    var friends = state.active.variables.friends
+    for (var i = 0; i < friends.length; i++) {
+        if (friends[i].id === id) {
+            return friends[i]
+        }
+    }
+    return null
+}
+
+window.remove_friend = function(friend) {
+    var friends = state.active.variables.friends
+    for (var i = 0; i < friends.length; i++) {
+        if (friends[i].id === friend.id) {
+            friends.splice(i, 1)
+            return
+        }
+    }
+}
+
+window.add_need = function(need, value) {
+    state.active.variables[need] += value
+    if (state.active.variables[need] > 100) {
+        state.active.variables[need] = 100
+    }
+}

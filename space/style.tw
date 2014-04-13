@@ -1,0 +1,48 @@
+:: Style [stylesheet]
+
+body {
+    font-family: monospace;
+    color: limegreen;
+}
+
+.passage {
+    font-size: medium;
+    color: limegreen;
+}
+
+a.link-internal {
+    color: black;
+    background: limegreen;
+    padding: 3px;
+
+    border: 1px limegreen solid;
+}
+
+a.link-internal:hover {
+    background: black;
+    color: limegreen;
+    text-decoration: none;
+}
+
+.greenbox {
+    border: 1px limegreen solid;
+    padding: 5px;
+}
+
+div.dialog {
+}
+
+div.dialog_speaker {
+    //text-decoration: underline;
+    font-weight: bold;
+}
+
+div.dialog_content {
+    padding-left: 20px;
+}
+
+.header {
+    color: limegreen;
+    padding: 3px;
+    border: 1px green dashed;
+}

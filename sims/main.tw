@@ -1,0 +1,122 @@
+::StoryTitle
+Friendship Need
+
+::StoryInit
+<<nobr>>
+<<set $sex_need = 100>>
+<<set $anger_need = 100>>
+<<set $funny_need = 100>>
+<<set $hope_need = 100>>
+<<set $things_need = 100>>
+<<set $rapport = 0>>
+<<set $friends = []>>
+<<set $friendship_tier = 0>>
+<<set $friendship_xp = 0>>
+
+<<set $rapport = 1000>>
+<<set $anger_need=25>>
+
+<<run $friends.push(create_friend("Mack", "MackDisplay", 100))>>
+<<run $friends.push(create_friend("Jen", "JenDisplay", 100))>>
+<<run $friends.push(create_friend("Blaise", "BlaiseDisplay", 100))>>
+<</nobr>>
+
+:: Start
+You just moved into a cute house in Gushing Meadows. All of your friends are living with you! Time to start [[chasing that american dream|Main]]!!!
+
+::Main
+Needs: Violence (<<print $anger_need>>) Sex (<<print $sex_need>>) Humor (<<print $funny_need>>) Hope (<<print $hope_need>>) Things (<<print $things_need>>)
+Rapport: <<print $rapport>>
+
+<<if $anger_need < 50>>\
+    You are very angry.
+    <<each $friends>>\
+        <<if $anger_need > 25>>\
+            <<print "[[Beat " + $o.name + "|BeatFriend][$beat_friend_id="+$o.id+"]]">>
+        <<else>>\
+            <<print "[[Kill " + $o.name + "|KillFriend][$kill_friend_id="+$o.id+"]]">>
+        <</if>>\
+    <</each>>\
+
+<</if>>\
+\
+<<if $friends.length == 0>>\
+You don't have any friends yet.
+
+<</if>>\
+<<each $friends>>\
+<<dyn_display $o.display_passage>>
+<</each>>\
+
+<<display ThingsMain>>\
+
+[[Go party]]
+[[Invite friends over]]
+[[Buy things]]
+
+::Go party
+<<set $rapport_gained = Math.floor(Math.random() * 100)>>\
+<<set $rapport += $rapport_gained>>\
+You party for 8 hours. You gain <<print $rapport_gained>> rapport.
+<<run atrophy_needs()>>\
+
+[[Return home|Main]]
+
+::Invite friends over
+If you spend your RAPPORT you can invite your friends to your house.
+Who do you want to invite?
+[[Mack|BuyFriend][$friend_cost=100, $friend_name="Mack"]] is a sexy friend who you can fuck. Cost: 100 Rapport
+[[Jen|BuyFriend][$friend_cost=50, $friend_name="Jen"]] is a funny friend who you can joke around with. Cost: 50 Rapport
+[[Blaise|BuyFriend][$friend_cost=75, $friend_name="Blaise"]] loves inspiring quotes and posters. Cost: 75 Rapport
+\
+<<if $friend_tier > 0>>\
+
+[[Eve|BuyFriend][$friend_cost=500, $friend_name="Eve"]] is even sexier than Mack and much healthier. Cost: 500 Rapport.
+[[Karl|BuyFriend][$friend_cost=750, $friend_name="Karl"]] is a lot like Jen, but he makes up his own jokes instead of taking them from joke books. Cost: 750 Rapport.
+[[Samantha|BuyFriend][$friend_cost=800, $friend_name="Samantha"]] is super cool. She runs a fashion blog and knows about all the hot new trends. Cost: 800 Rapport.
+<</if>>\
+
+[[Return home|Main]]
+
+::BuyFriend
+<<if $friends.length < 3>>\
+    <<if $rapport >= $friend_cost>>\
+        You invite <<print $friend_name>> over to your house. You lose <<print $friend_cost>> rapport.
+        <<run $friends.push(create_friend($friend_name, $friend_name + "Display", $friend_cost))>>\
+        <<set $rapport -= $friend_cost>>\
+        [[continue|Main]]
+    <<else>>\
+        You don't have enough rapport to invite <<print $friend_name>> to your house.
+        [[return|Invite friends over]]
+    <</if>>\
+<<else>>\
+Your house is too full of your friends! You'll have to kick one out.
+<<each $friends>>\
+    <<print "[[Evict "+$o.name+"|EvictFriend][$evicted_friend_id = "+$o.id+"]]">>
+<</each>>\
+
+[[Nevermind|Main]]
+<<endif>>\
+
+::EvictFriend
+<<set $friend = friend_by_id($evicted_friend_id)>>\
+<<run remove_friend($friend)>>\
+<<set $recouped_cost = Math.floor($friend.cost * .5)>>\
+You kick <<print $friend.name>> out. You get back <<print $recouped_cost>> of the rapport you used on them in the first place.
+
+<<display BuyFriend>>
+
+::BeatFriend
+<<set $friend = friend_by_id($beat_friend_id)>>\
+<<set $gained_anger = Math.ceil(Math.random() * 50) + 25>>\
+<<run add_need("anger_need", $gained_anger)>>\
+You savagely beat <<print $friend.name>>. That was very cathartic. You gain <<print $gained_anger>> anger need.
+<<run atrophy_needs()>>\
+[[continue|Main]]
+
+::KillFriend
+<<set $friend = friend_by_id($kill_friend_id)>>\
+<<run remove_friend($friend)>>\
+You kill <<print $friend.name>>. All of your pent up range melts away.
+<<set $anger_need = 100>>\
+[[continue|Main]]

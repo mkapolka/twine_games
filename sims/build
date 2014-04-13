@@ -1,0 +1,3 @@
+#!/bin/bash
+
+twee -t sugarcube *.tw > out.html && firefox out.html
