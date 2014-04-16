@@ -46,3 +46,56 @@ Blaise looks optimistic. [[Hang out with Blaise|HangBlaise]]
 <</if>>\
 <<run atrophy_needs()>>\
 [[continue|Main]]
+
+::EveDisplay
+Eve is here and she is down to fuck. [[Fuck her?|FuckEve]]
+
+::FuckEve
+<<set $gained_sex = 10 + Math.floor(Math.random() * 20)>>
+You do the nasty with Eve. Real grade-A fuckin'. Nice job! You gain <<print $gained_sex>> sex need.
+
+<<run atrophy_needs()>>\
+[[Continue|Main]]
+
+::KarlDisplay
+Karl is grinning like a fool. [[See what he's so happy about.|KarlJoke]]
+
+::KarlJoke
+<<set $gained_humor = 10 + Math.floor(Math.random() * 20)>>\
+Karl tells you some of his new material. What a riot! You gain <<print $gained_humor>> humor need.
+<<run add_need("funny_need", $gained_humor)>>\
+<<run atrophy_needs()>>\
+
+[[Continue|Main]]
+
+::SamanthaDisplay
+Samantha is pondering the mysteries of life. [[Ask her about her discoveries.|SamTalk]]
+
+::SamTalk
+<<set $gained_hope = 10 + Math.floor(Math.random() * 20)>>\
+Samantha tells you that God loves all his/her creations equally. You gain <<print $gained_hope>> hope need.
+<<run add_need("hope_need", $gained_hope)>>\
+<<run atrophy_needs()>>\
+
+[[Continue|Main]]
+
+::JimboDisplay
+Jimbo hangs from a hook on the wall. He wears a Nazi uniform. [[Fuck him?|FuckJimbo]]
+
+::FuckJimbo
+You grease up Jimbo's asshole and brutally fist him. You climax and he does not. You gain 100 sex and 100 violence need.
+<<run add_need("sex_need", 100)>>\
+<<run add_need("anger_need", 100)>>\
+<<run atrophy_needs()>>\
+
+[[Continue|Main]]
+
+::AnnaDisplay
+Anna is an example to us all. [[Learn from her?|LearnAnna]]
+
+::LearnAnna
+Anna tells you depressing stories about her life. You share heaving sobs of empathy. You gain 100 hope need.
+<<run add_need("hope_need", 100)>>\
+<<run atrophy_needs()>>\
+
+[[Continue|Main]]

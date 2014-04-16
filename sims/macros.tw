@@ -46,9 +46,14 @@ window.atrophy_needs = function() {
     var vars = state.active.variables
     vars.funny_need -= Math.floor(Math.random() * 10)
     vars.sex_need -= Math.floor(Math.random() * 10)
-    vars.cool_need -= Math.floor(Math.random() * 10)
+    vars.hope_need -= Math.floor(Math.random() * 10)
     vars.anger_need -= Math.floor(Math.random() * 10)
     vars.things_need -= Math.floor(Math.random() * 10)
+}
+
+window.player_dead = function() {
+    var vars = state.active.variables
+    return vars.funny_need <= 0 || vars.hope_need <= 0 || vars.anger_need <= 0 || vars.things_need <= 0
 }
 
 window.create_friend = function(name, display_passage, friend_cost) {
@@ -87,3 +92,55 @@ window.add_need = function(need, value) {
         state.active.variables[need] = 100
     }
 }
+
+window._window_cclick_contexts = []
+window._window_cclick_ids = 0
+
+macros.add('closure-click', {
+    tags: null,
+    handler: function() {
+        context = {
+            id: _window_cclick_ids += 1,
+            vars: state.active.variables
+        }
+        _window_cclick_contexts.push(context)
+        container = "<<click " + this.args.raw + ">>"
+        container += "<<set _window_cclick_stash = state.active.variables>>"
+        container += "<<set state.active.variables = _window_cclick_contexts[" + context.id + "]>>"
+        container += this.payload[0]
+        container += "<</click>>"
+    }
+})
+
+//Usage: <<stamp $var>> finds any instance of $var and replaces it with its evaluated version
+macros.add('stamp', {
+    tags: null,
+    handler: function() {
+        var text = this.payload[0].contents.replace(this.args.raw, function(str){eval(Wikifier.parse(str));console.log(Wikifier.parse(str))})
+        console.log(text)
+        new Wikifier(this.output, text)
+    }
+})
+
+macros.add('notify', {
+    tags: null,
+    handler: function() {
+        var payload = "<div class='attention'>"
+        payload += this.payload[0].contents
+        payload += "</div>"
+        new Wikifier(this.output, payload)
+    }
+})
+
+macros.add('first', {
+    tags: ['then'],
+    handler: function() {
+        var vars = state.active.variables
+        var iterator = vars[this.args[0]] || 0
+        if (iterator > this.payload.length) {
+            iterator = this.payload.length - 1
+        }
+        vars[this.args[0]] = iterator + 1
+        new Wikifier(this.output, this.payload[iterator].contents)
+    }
+})

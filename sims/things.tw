@@ -4,9 +4,9 @@ You go to the mall. It's your first time in this new town. You're nervous and ex
 <<endif>>
 There are all kinds of diverse and interesting things here.
 
-[[A charming lamp]] catches your eye.
-
-You find a [[strange white box]] at work.
+<<if not $done_lamp>>[[A charming lamp]] catches your eye.<<endif>>\
+<<if $done_lamp and not $done_fridge>>You find a [[strange white box]] at work.<<endif>>\
+<<if $done_fridge>>There's a beautiful [[leather chair]] in the corner of the furniture department.<<endif>>
 
 ::A charming lamp
 You bravely walk up and begin examining the lamp. It's a squat table lamp, about two feet tall with a paunchy olive base and a tasteful, if dorky, beige shade. 
@@ -21,22 +21,7 @@ long line of local table lamps. For almost a hundred years Clarkson's table \
 lamps have been lighting the homes of the good people of Gushing Meadows, and \
 they hope to continue to do so for as long as they can.
 
-You feel this lamp will be the perfect introduction to your new home town. You buy the lamp and take it home.
-
-You have gained 30 thing need. <<run add_need("thing_need", 30)>><<set $has_lamp = true>>
-
-[[Continue|Main]]
-
-::ThingsMain
-<<if $has_lamp>>\
-The [["Timothy Table Lamp"|LampVisit]] sits on a desk.
-<</if>>\
-
-::LampVisit
-<<random>>\
-You turn on the lamp. It shines light on all your friends. It's such a joy to have around. You gain 10 thing need. <<run add_need("thing_need", 10)>>
-<<or>>\
-<</random>>\
+You gain 30 thing need. <<run add_need("thing_need", 30)>><<set $done_lamp = true>>
 
 [[Continue|Main]]
 
@@ -50,16 +35,38 @@ You swing the door open and!! The box is cold and filled with food. There are so
 There are hoagies wrapped in plastic bags, styrofoam containers filled with chicken parmesan, take out containers of chinese food.
 A world of sinful opportunities unfurls before your eyes. You had never really considered the vast possibilities of culinary delight available to you.
 
+[[Try some food|EatFood]]
+
 ::EatFood
-<<random>>\
+<<set $met_fridge = true>>\
+<<first "which_eat">>\
 You pierce a bulging grape with your canine tooth and let the juice slide down your throat. The feeling of cold liquid sliding down you makes you shiver.
-<<or>>\
+<<then>>\
 With careful precision you bind a nugget of orange chicken with a rope of chow mein. You dangle it above your mouth and let the syrup drip into your mouth before gobbling it up whole.
-<<or>>\
+<<then>>\
 Over the course of several encounters you savor a piece of devils food cake. Each time you split it in half, foolishly thinking that you can keep your affair going indefinitely by infinitely subdividing your affections.
 When you eat the second to last unsatisfying sliver you spitefully devour the last morsel. This proves to you that the only sustianable culinary model is constant motion.
-<</random>>\
+<<then>>\
+After listlessly sucking a Baby Ruth down to the nougat you look back on your previous meals and feel that the time has come to give up your wandering ways. <<set $done_fridge = true>>
+<</first>>\
 
+<<run atrophy_needs()>>\
 You gain 10 thing need. <<run add_need("thing_need", 10)>>
+
+[[Continue|Main]]
+
+::ThingsMain
+<<if $met_lamp and not $done_lamp>>[[Turn on the lamp|VisitLamp]]<<endif>>
+<<if $met_fridge and not $done_fridge>>[[Eat some more food?|EatFood]]<<endif>>
+
+::leather chair
+Your eyes instinctively dart away, afraid of your habit of staring. The glance leaves an incomplete form in your imagination: a shiny brown shape, impossible welcoming curves, plush but firm cusions. \
+You approach carefully, pretending to examine a hideous green courduroy recliner. You audibly scoff and curse while fumbling with the recliner lever, then transfer to the chair. \
+You circle the chair exactly once, slowly. You don't want to seem timid or unsure. \
+You run your index finger along the ridge of the chair's back and your finger neither sticks nor chafes. You gently prod the armrest. Adrenaline shoots through your body when you start to sit in it. You decide there's no reason to rush.
+
+You gain 40 thing need.
+<<run atrophy_needs()>>\
+<<run add_need("thing_need", 40)>>\
 
 [[Continue|Main]]

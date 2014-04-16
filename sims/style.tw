@@ -1,0 +1,6 @@
+::Style [stylesheet]
+div.attention {
+   border: 1px solid yellow; 
+   color: yellow;
+   padding: 10px;
+}

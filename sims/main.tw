@@ -14,49 +14,70 @@ Friendship Need
 <<set $friendship_xp = 0>>
 
 <<set $rapport = 1000>>
-<<set $anger_need=25>>
+<<set $sex_need = 0>>
 
 <<run $friends.push(create_friend("Mack", "MackDisplay", 100))>>
 <<run $friends.push(create_friend("Jen", "JenDisplay", 100))>>
 <<run $friends.push(create_friend("Blaise", "BlaiseDisplay", 100))>>
+<<run $friends.push(create_friend("Eve", "EveDisplay", 100))>>
+<<run $friends.push(create_friend("Karl", "KarlDisplay", 100))>>
+<<run $friends.push(create_friend("Samantha", "SamanthaDisplay", 100))>>
+<<run $friends.push(create_friend("Jimbo", "JimboDisplay", 100))>>
+<<run $friends.push(create_friend("Anna", "AnnaDisplay", 100))>>
 <</nobr>>
 
 :: Start
 You just moved into a cute house in Gushing Meadows. All of your friends are living with you! Time to start [[chasing that american dream|Main]]!!!
 
 ::Main
-Needs: Violence (<<print $anger_need>>) Sex (<<print $sex_need>>) Humor (<<print $funny_need>>) Hope (<<print $hope_need>>) Things (<<print $things_need>>)
-Rapport: <<print $rapport>>
+<<if not player_dead()>>\
+    <<if $sex_need <= 0>>\
+        <<notify>>You cannot contain your horniness any longer! You jack off and leave a pool of sex liquids on the floor. You could have prevented this by keeping your sex need in check.<</notify>>
+        <<set $sex_need = 30>>\
+        <<set $splooged = true>>\
 
-<<if $anger_need < 50>>\
-    You are very angry.
+    <<endif>>\
+    Needs: Violence (<<print $anger_need>>) Sex (<<print $sex_need>>) Humor (<<print $funny_need>>) Hope (<<print $hope_need>>) Things (<<print $things_need>>)
+    Rapport: <<print $rapport>>
+
+    <<if $anger_need < 50>>\
+        You are very angry.
+        <<each $friends>>\
+            <<if $anger_need > 25>>\
+                <<print "[[Beat " + $o.name + "|BeatFriend][$beat_friend_id=$o.id]]">>
+            <<else>>\
+                <<print "[[Kill " + $o.name + "|KillFriend][$kill_friend_id=$o.id]]">>
+            <</if>>\
+        <</each>>\
+
+    <</if>>\
+    \
+    <<if $friends.length == 0>>\
+    You don't have any friends yet.
+
+    <</if>>\
+    \
     <<each $friends>>\
-        <<if $anger_need > 25>>\
-            <<print "[[Beat " + $o.name + "|BeatFriend][$beat_friend_id="+$o.id+"]]">>
-        <<else>>\
-            <<print "[[Kill " + $o.name + "|KillFriend][$kill_friend_id="+$o.id+"]]">>
-        <</if>>\
+    <<dyn_display $o.display_passage>>
     <</each>>\
 
-<</if>>\
-\
-<<if $friends.length == 0>>\
-You don't have any friends yet.
+    <<display ThingsMain>>\
 
-<</if>>\
-<<each $friends>>\
-<<dyn_display $o.display_passage>>
-<</each>>\
+    <<if $splooged>>\
+        There's a pool of sex liquids on the floor here.
+    <<endif>>\
 
-<<display ThingsMain>>\
-
-[[Go party]]
-[[Invite friends over]]
-[[Buy things]]
+    [[Go party]]
+    [[Invite friends over]]
+    [[Buy things]]
+<<else>>
+    <<display Dead>>
+<<endif>>
 
 ::Go party
 <<set $rapport_gained = Math.floor(Math.random() * 100)>>\
 <<set $rapport += $rapport_gained>>\
+<<set $party_atrophy = 0>>\
 You party for 8 hours. You gain <<print $rapport_gained>> rapport.
 <<run atrophy_needs()>>\
 
@@ -68,13 +89,13 @@ Who do you want to invite?
 [[Mack|BuyFriend][$friend_cost=100, $friend_name="Mack"]] is a sexy friend who you can fuck. Cost: 100 Rapport
 [[Jen|BuyFriend][$friend_cost=50, $friend_name="Jen"]] is a funny friend who you can joke around with. Cost: 50 Rapport
 [[Blaise|BuyFriend][$friend_cost=75, $friend_name="Blaise"]] loves inspiring quotes and posters. Cost: 75 Rapport
-\
-<<if $friend_tier > 0>>\
 
 [[Eve|BuyFriend][$friend_cost=500, $friend_name="Eve"]] is even sexier than Mack and much healthier. Cost: 500 Rapport.
 [[Karl|BuyFriend][$friend_cost=750, $friend_name="Karl"]] is a lot like Jen, but he makes up his own jokes instead of taking them from joke books. Cost: 750 Rapport.
-[[Samantha|BuyFriend][$friend_cost=800, $friend_name="Samantha"]] is super cool. She runs a fashion blog and knows about all the hot new trends. Cost: 800 Rapport.
-<</if>>\
+[[Samantha|BuyFriend][$friend_cost=800, $friend_name="Samantha"]] is a unitarian priest. She can provide you with spiritual support. Cost: 800 Rapport.
+
+[[Jimbo|BuyFriend][$friend_cost=1200, $friend_name="Jimbo"]] is a fascist and masochist. Sex with him will slake your SEX and VIOLENCE needs. Cost: 1200 Rapport.
+[[Anna|BuyFriend][$friend_cost=1800, $friend_name="Anna"]] is a blind and deaf quadruple amputee with an intellectual developmental disorder and an M.D. degree. Her triumph in the face of adversity gives you great HOPE need. Cost: 1800 Rapport.
 
 [[Return home|Main]]
 
@@ -120,3 +141,10 @@ You savagely beat <<print $friend.name>>. That was very cathartic. You gain <<pr
 You kill <<print $friend.name>>. All of your pent up range melts away.
 <<set $anger_need = 100>>\
 [[continue|Main]]
+
+::Dead
+<<if $anger_need <= 0>>
+You failed to keep your anger need sated! You die of an aneurism.
+<<elseif $sex_need <= 0>>
+
+<<endif>>
