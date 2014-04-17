@@ -6,7 +6,7 @@ There are all kinds of diverse and interesting things here.
 
 <<if not $done_lamp>>[[A charming lamp]] catches your eye.<<endif>>\
 <<if $done_lamp and not $done_fridge>>You find a [[strange white box]] at work.<<endif>>\
-<<if $done_fridge>>There's a beautiful [[leather chair]] in the corner of the furniture department.<<endif>>
+<<if $done_fridge>>There's a beautiful [[leather chair|ChairVisit]] in the corner of the furniture department.<<endif>>
 
 ::A charming lamp
 You bravely walk up and begin examining the lamp. It's a squat table lamp, about two feet tall with a paunchy olive base and a tasteful, if dorky, beige shade. 
@@ -59,14 +59,26 @@ You gain 10 thing need. <<run add_need("thing_need", 10)>>
 <<if $met_lamp and not $done_lamp>>[[Turn on the lamp|VisitLamp]]<<endif>>
 <<if $met_fridge and not $done_fridge>>[[Eat some more food?|EatFood]]<<endif>>
 
-::leather chair
-Your eyes instinctively dart away, afraid of your habit of staring. The glance leaves an incomplete form in your imagination: a shiny brown shape, impossible welcoming curves, plush but firm cusions. \
-You approach carefully, pretending to examine a hideous green courduroy recliner. You audibly scoff and curse while fumbling with the recliner lever, then transfer to the chair. \
-You circle the chair exactly once, slowly. You don't want to seem timid or unsure. \
-You run your index finger along the ridge of the chair's back and your finger neither sticks nor chafes. You gently prod the armrest. Adrenaline shoots through your body when you start to sit in it. You decide there's no reason to rush.
+::ChairVisit
+<<first>>
+    Your eyes instinctively dart away, afraid of your habit of staring. The glance leaves an incomplete form in your imagination: a shiny brown shape, impossible welcoming curves, plush but firm cusions. \
+    You approach carefully, pretending to examine a hideous green courduroy recliner. You audibly scoff and curse while fumbling with the recliner lever, then transfer to the chair. \
+    You circle the chair exactly once, slowly. You don't want to seem timid or unsure. \
+    You run your index finger along the ridge of the chair's back and your finger neither sticks nor chafes. You gently prod the armrest. Adrenaline shoots through your body when you start to sit in it. You decide there's no reason to rush.
 
-You gain 40 thing need.
-<<run atrophy_needs()>>\
-<<run add_need("thing_need", 40)>>\
+    You gain 40 thing need.
+    <<run atrophy_needs()>>\
+    <<run add_need("thing_need", 40)>>\
+<<then>>
+    You cordially approach the chair and sit down in it with your back straight. You bounce up and down a bit to test its give. You aren't sure what to do with your hands so you set them on the armrests. \
+    You suddenly feel very self conscious. You are worried that you have made a mistake and this might not be the chair for you. \
+    Another customer walks up, nods and smiles at the chair. You walk away. You are sure this other customer is going to buy the chair and live a happy life with it.
+
+    You feel despondent. You lose 10 thing need.
+    <<run atrophy_needs()>>\
+    <<run add_need("thing_need", -10)>>\
+<<then>>
+    The chair is still here! The other customer did not buy it. You decide to not waste any more time and welcome the chair into your home.
+<</first>>
 
 [[Continue|Main]]
