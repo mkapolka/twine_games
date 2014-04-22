@@ -1,12 +1,62 @@
+:: _init_things [script]
+window.init_things = function() {
+    state.active.variables.things = [
+        {
+            id: "lamp",
+            relationship: 0,
+            name: "the 'Timothy' Table Lamp"
+        },
+        {
+            id: 'tv',
+            relationship: 0,
+            name: "the 'Akira' Television"
+        }
+    ]
+}
+
+window.thing_by_id = function(id) {
+    var things = state.active.variables.things
+    for (var i = 0; i < things.length; i++) {
+        if (things[i].id === id) {
+            return things[i]
+        }
+    }
+    return null
+}
+
+window.relationship_names = [
+    'Strangers',
+    'Just Met!',
+    'Acquantances',
+    'Friends',
+    'Lovers'
+]
+window.MAX_RELATIONSHIP = window.relationship_names.length
+
+window.add_relationship = function(thing, amount) {
+    var relationship = thing.relationship || 0
+    relationship += amount
+    if (relationship >= window.MAX_RELATIONSHIP) {
+        relationship = window.MAX_RELATIONSHIP
+    }
+    thing.relationship = relationship
+}
+
+window.get_relationship_name = function(value) {
+    return relationship_names[value]
+}
+
 ::Buy things
 <<if !$visited_store>>
 You go to the mall. It's your first time in this new town. You're nervous and excited at the possibilities.<<set $visited_store=true>>
 <<endif>>
 There are all kinds of diverse and interesting things here.
 
+There's a [[television|TVMain]] here.
+
 <<if not $done_lamp>>[[A charming lamp]] catches your eye.<<endif>>\
 <<if $done_lamp and not $done_fridge>>You find a [[strange white box]] at work.<<endif>>\
-<<if $done_fridge>>There's a beautiful [[leather chair|ChairVisit]] in the corner of the furniture department.<<endif>>
+<<if $done_fridge and not $chair_home>>There's a beautiful [[leather chair|ChairVisit]] in the corner of the furniture department.<<endif>>
 
 ::A charming lamp
 You bravely walk up and begin examining the lamp. It's a squat table lamp, about two feet tall with a paunchy olive base and a tasteful, if dorky, beige shade. 
@@ -56,8 +106,9 @@ You gain 10 thing need. <<run add_need("thing_need", 10)>>
 [[Continue|Main]]
 
 ::ThingsMain
-<<if $met_lamp and not $done_lamp>>[[Turn on the lamp|VisitLamp]]<<endif>>
-<<if $met_fridge and not $done_fridge>>[[Eat some more food?|EatFood]]<<endif>>
+<<if $chair_home>>\
+Your [[leather chair|ChairHome]] is here.
+<<endif>>\
 
 ::ChairVisit
 <<first>>
@@ -69,6 +120,8 @@ You gain 10 thing need. <<run add_need("thing_need", 10)>>
     You gain 40 thing need.
     <<run atrophy_needs()>>\
     <<run add_need("thing_need", 40)>>\
+    
+    Your relationship with the chair has risen to 'Just Met!'.
 <<then>>
     You cordially approach the chair and sit down in it with your back straight. You bounce up and down a bit to test its give. You aren't sure what to do with your hands so you set them on the armrests. \
     You suddenly feel very self conscious. You are worried that you have made a mistake and this might not be the chair for you. \
@@ -77,8 +130,51 @@ You gain 10 thing need. <<run add_need("thing_need", 10)>>
     You feel despondent. You lose 10 thing need.
     <<run atrophy_needs()>>\
     <<run add_need("thing_need", -10)>>\
+
+    Your relationship with the chair has risen to 'Acquaintance'.
 <<then>>
     The chair is still here! The other customer did not buy it. You decide to not waste any more time and welcome the chair into your home.
+
+    After some initial awkardness finding the right spot in your living room the chair fits right in. <<if $friends.length > 0>>You offer the chair to seat <<print $friends.random().name>> and they gleefully accept.<<endif>>
+
+    You feel that a new chapter in your life is opening up. You gain 10 thing need and 10 hope need.
+    <<run add_need("thing_need", 10); add_need("hope_need", 10)>>\
+    <<set $chair_home = true>>\
+
+    Your relationship with the chair has risen to 'Owner'.
 <</first>>
+
+[[Continue|Main]]
+
+::ChairHome
+<<first>>\
+    You are still a little nervous to be alone with the chair. You are worried that simply sitting in the chair will not be interesting. \
+<</first>>\
+
+[[Continue|Main]]
+
+::TVMain
+What do you want to do with the TV?
+[[turn it on|TurnOnTV]]
+[[watch some cartoons|WatchCartoons]]
+[[fiddle with the volume nob]]
+
+::TurnOnTV
+You turn on the television and admire the sudden flash of light as it starts up. You applaud.
+<<set $tv = thing_by_id("tv")>>\
+<<AddRelationship $tv 1>>
+
+<<run atrophy_needs()>>\
+[[Continue|Main]]
+
+::WatchCartoons
+<<if thing_by_id("tv").relationship < 2>>\
+You accidentally tune the TV to the wrong channel. You squirm and sigh in boredom as you accidentally watch talk shows.
+You are not familiar enough with the TV to do this.
+<<else>>
+You watch cartoons and laugh and laugh.
+<<set $tv = thing_by_id("tv")>>\
+<<AddRelationship $tv 1>>
+<<endif>>
 
 [[Continue|Main]]

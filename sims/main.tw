@@ -10,8 +10,10 @@ Friendship Need
 <<set $things_need = 100>>
 <<set $rapport = 0>>
 <<set $friends = []>>
+<<set $things = []>>
 <<set $friendship_tier = 0>>
 <<set $friendship_xp = 0>>
+<<run init_things()>>
 
 <<set $rapport = 1000>>
 <<set $sex_need = 0>>

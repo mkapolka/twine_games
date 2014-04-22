@@ -144,3 +144,9 @@ macros.add('first', {
         new Wikifier(this.output, this.payload[iterator].contents)
     }
 })
+
+:: _thing_relationship_widgets [widget]
+<<widget AddRelationship>>
+<<run add_relationship($args[0], $args[1])>>\
+Your relationship level with <<print $args[0].name>> is now <<print get_relationship_name($args[0].relationship)>>.\
+<</widget>>
