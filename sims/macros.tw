@@ -145,8 +145,23 @@ macros.add('first', {
     }
 })
 
+window.need_name = function(id) {
+    return {
+        'things_need': 'Thing Need',
+        'sex_need': 'Sex Need',
+        'anger_need': 'Anger Need',
+        'hope_need': 'Hope Need',
+        'funny_need': 'Laughter Need'
+    }[id]
+}
+
 :: _thing_relationship_widgets [widget]
 <<widget AddRelationship>>
 <<run add_relationship($args[0], $args[1])>>\
 Your relationship level with <<print $args[0].name>> is now <<print get_relationship_name($args[0].relationship)>>.\
 <</widget>>
+
+<<widget AddNeed>>\
+<<run add_need($args[0], $args[1])>>\
+You gain <<print $args[1]>> <<print need_name($args[0])>>.\
+<</widget>>\

@@ -71,7 +71,7 @@ long line of local table lamps. For almost a hundred years Clarkson's table \
 lamps have been lighting the homes of the good people of Gushing Meadows, and \
 they hope to continue to do so for as long as they can.
 
-You gain 30 thing need. <<run add_need("thing_need", 30)>><<set $done_lamp = true>>
+You gain 30 thing need. <<run add_need("things_need", 30)>><<set $done_lamp = true>>
 
 [[Continue|Main]]
 
@@ -101,7 +101,7 @@ After listlessly sucking a Baby Ruth down to the nougat you look back on your pr
 <</first>>\
 
 <<run atrophy_needs()>>\
-You gain 10 thing need. <<run add_need("thing_need", 10)>>
+You gain 10 thing need. <<run add_need("things_need", 10)>>
 
 [[Continue|Main]]
 
@@ -119,7 +119,7 @@ Your [[leather chair|ChairHome]] is here.
 
     You gain 40 thing need.
     <<run atrophy_needs()>>\
-    <<run add_need("thing_need", 40)>>\
+    <<run add_need("things_need", 40)>>\
     
     Your relationship with the chair has risen to 'Just Met!'.
 <<then>>
@@ -129,7 +129,7 @@ Your [[leather chair|ChairHome]] is here.
 
     You feel despondent. You lose 10 thing need.
     <<run atrophy_needs()>>\
-    <<run add_need("thing_need", -10)>>\
+    <<run add_need("things_need", -10)>>\
 
     Your relationship with the chair has risen to 'Acquaintance'.
 <<then>>
@@ -138,7 +138,7 @@ Your [[leather chair|ChairHome]] is here.
     After some initial awkardness finding the right spot in your living room the chair fits right in. <<if $friends.length > 0>>You offer the chair to seat <<print $friends.random().name>> and they gleefully accept.<<endif>>
 
     You feel that a new chapter in your life is opening up. You gain 10 thing need and 10 hope need.
-    <<run add_need("thing_need", 10); add_need("hope_need", 10)>>\
+    <<run add_need("things_need", 10); add_need("hope_need", 10)>>\
     <<set $chair_home = true>>\
 
     Your relationship with the chair has risen to 'Owner'.
@@ -169,12 +169,36 @@ You turn on the television and admire the sudden flash of light as it starts up.
 
 ::WatchCartoons
 <<if thing_by_id("tv").relationship < 2>>\
-You accidentally tune the TV to the wrong channel. You squirm and sigh in boredom as you accidentally watch talk shows.
-You are not familiar enough with the TV to do this.
+    <<set $watched = [["porn", "sex_need"], ["cop shows", "anger_need"], ["news", "hope_need"]].random()>>
+    You accidentally tune the TV to the wrong channel. You squirm and sigh in boredom as you watch <<print $watched[0]>>.
+    You are not familiar enough with the TV to do this.
+
+    <<AddNeed $watched[1] -10>>
+    <<AddNeed "things_need" -10>>
 <<else>>
-You watch cartoons and laugh and laugh.
-<<set $tv = thing_by_id("tv")>>\
-<<AddRelationship $tv 1>>
+    You watch cartoons and laugh and laugh.
+
+    <<AddNeed "things_need" 10>>
+    <<set $tv = thing_by_id("tv")>>\
+    <<AddRelationship $tv 1>>
 <<endif>>
 
+<<run atrophy_needs()>>\
+[[Continue|Main]]
+
+::fiddle with the volume nob
+<<if thing_by_id("tv").relationship < 4>>\
+    You try to fiddle with the volume knob but accidentally hit the power instead. The TV turns off and then tips over and falls on top of you. \
+    You sulk away, embarassed.
+    
+    You are not familiar enough with the TV to do this.
+    <<AddNeed "things_need" -10>>
+    <<AddNeed "anger_need" -10>>
+<<else>>
+    You turn the volume up and down and up and down and then waaaay up and all the way silent. What a treat!
+    <<AddNeed "things_need" 10>>
+    <<AddRelationship $tv 1>>
+<<endif>>
+
+<<run atrophy_needs()>>\
 [[Continue|Main]]
