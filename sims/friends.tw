@@ -52,7 +52,8 @@ Eve is here and she is down to fuck. [[Fuck her?|FuckEve]]
 
 ::FuckEve
 <<set $gained_sex = 10 + Math.floor(Math.random() * 20)>>
-You do the nasty with Eve. Real grade-A fuckin'. Nice job! You gain <<print $gained_sex>> sex need.
+You do the nasty with Eve. Real grade-A fuckin'. Nice job!
+<<AddNeed "sex_need" $gained_sex>>
 
 <<run atrophy_needs()>>\
 [[Continue|Main]]

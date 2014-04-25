@@ -32,7 +32,7 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
 ::Main
 <<if not player_dead()>>\
     <<if $sex_need <= 0>>\
-        <<notify>>You cannot contain your horniness any longer! You jack off and leave a pool of sex liquids on the floor. You could have prevented this by keeping your sex need in check.<</notify>>
+        <<notify>>You cannot contain your horniness any longer! You jack off and leave a pool of sex liquids on the floor. You could have prevented this by keeping your sex need in check. You name the pool "Jacky."<</notify>>
         <<set $sex_need = 30>>\
         <<set $splooged = true>>\
 
@@ -59,16 +59,23 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
     \
     <<each $friends>>\
         <<if not $o.dead>>\
-            <<dyn_display $o.display_passage>>
+                <<dyn_display $o.display_passage>>
         <<else>>\
             <<print $o.name>> is dead. <<print "[[Clean up their corpse|CleanCorpse][$corpse_id="+$o.id+"]]">>
+            <<if $o.rotting>>\
+                <<set $rneed = random_need(); $r = Math.floor(Math.random() * -10)>>\
+                <<print $o.name>>'s corpse really stinks! <<AddNeed $rneed $r>>
+
+            <<endif>>\
         <<endif>>\
     <</each>>\
 
     <<display ThingsMain>>\
 
     <<if $splooged>>\
-        There's a pool of sex liquids on the floor here.
+        There's a pool of sex liquids named "Jacky" on the floor here.
+        [[Play with Jacky. (Paragon)|PlayWithLiquid]]
+        [[Attempt to clean her up. (Renegade)|CleanUpSexLiquid]]
     <<endif>>\
 
     [[Go party]]

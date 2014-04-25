@@ -10,6 +10,11 @@ window.init_things = function() {
             id: 'tv',
             relationship: 0,
             name: "the 'Akira' Television"
+        },
+        {
+            id: 'sex',
+            relationship: 0,
+            name: "'Jacky', the puddle of ejaculate"
         }
     ]
 }
@@ -28,8 +33,14 @@ window.relationship_names = [
     'Strangers',
     'Just Met!',
     'Acquantances',
+    'Chums',
     'Friends',
-    'Lovers'
+    'Pals',
+    'Buddies',
+    'Lovers',
+    'Partners',
+    'Married',
+    'Soul Mate'
 ]
 window.MAX_RELATIONSHIP = window.relationship_names.length
 
@@ -213,6 +224,8 @@ You turn on the television and admire the sudden flash of light as it starts up.
 <<run atrophy_needs()>>\
 [[Continue|Main]]
 
+::note to self [comment]
+Life is the free trial to amazon prime, and dying is the 2-day delivery to the afterlife
 ::BuryTV
 You fit the TV into a cardboard box, snug with custom shaped styrofoam and all its accessories in little plastic bags. You are preparing it for the Great Free 2-Day Delivery With a Free Trial of Amazon Prime to the afterlife. \
 You gently lower it into the ground. You and all the TV's viewers say a few words about what the TV meant to you. It was an old TV but you hoped to have many more years of entertainment out of it. In the end you're not
@@ -221,4 +234,15 @@ God and neither are the TV repair men who kept the TV alive all these years. You
 <<set $tv_buried = true>>\
 <<run atrophy_needs()>>\
 <<AddNeed "hope_need" 30>>\
+[[Continue|Main]]
+
+::PlayWithLiquid
+You dip your fingers into Jacky and have a little whiff. You wipe her off on your pants.
+
+Playing with Jacky makes you remember all the good sex you've had.
+<<AddNeed "sex_need" -10>>
+<<set $_sex = thing_by_id("sex")>>\
+<<AddRelationship $_sex 1>>
+
+<<run atrophy_needs()>>\
 [[Continue|Main]]

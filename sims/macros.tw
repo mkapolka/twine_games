@@ -49,6 +49,12 @@ window.atrophy_needs = function() {
     vars.hope_need -= Math.floor(Math.random() * 10)
     vars.anger_need -= Math.floor(Math.random() * 10)
     vars.things_need -= Math.floor(Math.random() * 10)
+
+    vars.friends.forEach(function(friend) {
+        if (friend.dead) {
+            friend.rotting = true
+        }
+    })
 }
 
 window.player_dead = function() {
@@ -151,8 +157,18 @@ window.need_name = function(id) {
         'sex_need': 'Sex Need',
         'anger_need': 'Anger Need',
         'hope_need': 'Hope Need',
-        'funny_need': 'Laughter Need'
+        'funny_need': 'Humor Need'
     }[id]
+}
+
+window.random_need = function() {
+    return [
+        "things_need",
+        "anger_need",
+        "sex_need",
+        "hope_need",
+        "funny_need"
+    ].random()
 }
 
 :: _thing_relationship_widgets [widget]
