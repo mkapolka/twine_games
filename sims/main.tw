@@ -35,6 +35,7 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
         <<notify>>You cannot contain your horniness any longer! You jack off and leave a pool of sex liquids on the floor. You could have prevented this by keeping your sex need in check. You name the pool "Jacky."<</notify>>
         <<set $sex_need = 30>>\
         <<set $splooged = true>>\
+        <<run thing_by_id("sex").relationship = 0>>\
 
     <<endif>>\
     Needs: Violence (<<print $anger_need>>) Sex (<<print $sex_need>>) Humor (<<print $funny_need>>) Hope (<<print $hope_need>>) Things (<<print $things_need>>)

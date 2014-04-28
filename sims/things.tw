@@ -42,6 +42,14 @@ window.relationship_names = [
     'Married',
     'Soul Mate'
 ]
+
+window.antagonism_names = [
+    'Offputting',
+    'Rude',
+    'Enemy',
+    'Rival',
+    'Nemesis'
+]
 window.MAX_RELATIONSHIP = window.relationship_names.length
 
 window.add_relationship = function(thing, amount) {
@@ -54,7 +62,11 @@ window.add_relationship = function(thing, amount) {
 }
 
 window.get_relationship_name = function(value) {
-    return relationship_names[value]
+    if (value >= 0) {
+        return relationship_names[value]
+    } else {
+        return antagonism_names[-value]
+    }
 }
 
 ::Buy things
@@ -228,21 +240,46 @@ You turn on the television and admire the sudden flash of light as it starts up.
 Life is the free trial to amazon prime, and dying is the 2-day delivery to the afterlife
 ::BuryTV
 You fit the TV into a cardboard box, snug with custom shaped styrofoam and all its accessories in little plastic bags. You are preparing it for the Great Free 2-Day Delivery With a Free Trial of Amazon Prime to the afterlife. \
-You gently lower it into the ground. You and all the TV's viewers say a few words about what the TV meant to you. It was an old TV but you hoped to have many more years of entertainment out of it. In the end you're not
+You gently lower it into the ground. You and all the TV's viewers say a few words about what the TV meant to you. It was an old TV but you hoped to have many more years of entertainment out of it. In the end you're not \
 God and neither are the TV repair men who kept the TV alive all these years. You all did your best and you gave the TV a good life. It's time to let go. You cry. Everyone cries.
 
 <<set $tv_buried = true>>\
 <<run atrophy_needs()>>\
-<<AddNeed "hope_need" 30>>\
+<<AddNeed "hope_need" 30>>
 [[Continue|Main]]
 
 ::PlayWithLiquid
+<<first>>
 You dip your fingers into Jacky and have a little whiff. You wipe her off on your pants.
+<<then>>
+You find that Jackie has dried out. You break off a calcified flake and whip it across the room like a ninja star.
+<</first>>
 
 Playing with Jacky makes you remember all the good sex you've had.
 <<AddNeed "sex_need" -10>>
+<<AddNeed "thing_need" 5>>
 <<set $_sex = thing_by_id("sex")>>\
 <<AddRelationship $_sex 1>>
+
+<<run atrophy_needs()>>\
+[[Continue|Main]]
+
+::CleanUpSexLiquid
+<<first>>\
+You try to pick Jackie up with your hands but it just isn't working!
+<<then>>\
+You try to clean up Jackie but you end up just spreading her around.
+<<then>>\
+You go in with the sponge but Jackie slips you and you fall on your tuckus.
+<<then>>\
+You successfully clean up the sex liquid.
+<<set $splooged = false>>\
+<</first>>\
+
+<<set $_sex = thing_by_id("sex")>>\
+<<AddRelationship $_sex -1>>
+<<AddNeed "sex_need" -10>>
+<<AddNeed "things_need" 5>>
 
 <<run atrophy_needs()>>\
 [[Continue|Main]]
