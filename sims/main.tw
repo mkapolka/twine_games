@@ -157,13 +157,15 @@ You kill <<print $friend.name>>. All of your pent up range melts away.
 [[continue|Main]]
 
 ::Dead
-<<if $anger_need <= 0>>
+<<if $anger_need <= 0>>\
 You failed to keep your anger need sated! You die of an aneurism.
-<<elseif $sex_need <= 0>>
+<<elseif $hope_need <= 0>>\
+You failed to keep your hope need sated. You no longer have the will to live. You simply stop living.
+<<elseif $funny_need <= 0>>\
+You failed to keep your humor need sated. Your mind collapses in simplicity into a zero dimensional point. You live out the rest of your days as a mindless automaton.
+<<endif>>\
 
-<<endif>>
-
-The End.
+Game Over.
 
 ::CleanCorpse
 <<set $corpse_owner = friend_by_id($corpse_id)>>\

@@ -253,6 +253,8 @@ God and neither are the TV repair men who kept the TV alive all these years. You
 <<when 0>>\
 You dip your fingers into Jacky and have a little whiff. You wipe her off on your pants.
 <<when 1>>\
+You jump into Jacky like a puddle and splash around.
+<<when 2>>\
 You find that Jackie has dried out. You break off a calcified flake and whip it across the room like a ninja star.
 <<else>>\
 I guess there's nothing left
@@ -268,16 +270,17 @@ Playing with Jacky makes you remember all the good sex you've had.
 [[Continue|Main]]
 
 ::CleanUpSexLiquid
-<<first>>\
+<<switch thing_by_id("sex").relationship>>\
+<<when 0>>
 You try to pick Jackie up with your hands but it just isn't working!
-<<then>>\
+<<when -1>>\
 You try to clean up Jackie but you end up just spreading her around.
-<<then>>\
+<<when -2>>\
 You go in with the sponge but Jackie slips you and you fall on your tuckus.
-<<then>>\
+<<when -3>>\
 You successfully clean up the sex liquid.
 <<set $splooged = false>>\
-<</first>>\
+<</switch>>\
 
 <<set $_sex = thing_by_id("sex")>>\
 <<AddRelationship $_sex -1>>
