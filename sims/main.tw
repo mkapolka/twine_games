@@ -21,7 +21,6 @@ Friendship Need
 <<run $friends.push(create_friend("Mack", "MackDisplay", 100))>>
 <<run $friends.push(create_friend("Jen", "JenDisplay", 100))>>
 <<run $friends.push(create_friend("Blaise", "BlaiseDisplay", 100))>>
-<<set $anger_need = 20>>
 <<set $tv = thing_by_id('tv')>>
 <<AddRelationship $tv 0>>
 <</nobr>>
@@ -37,6 +36,9 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
         <<set $splooged = true>>\
         <<run thing_by_id("sex").relationship = 0>>\
 
+    <<endif>>\
+    <<if $anger_need < 30>>\
+        <<notify>>Your anger need is getting dangerously low! You'd better take your aggressions out on one of your friends.<</notify>>
     <<endif>>\
     Needs: Violence (<<print $anger_need>>) Sex (<<print $sex_need>>) Humor (<<print $funny_need>>) Hope (<<print $hope_need>>) Things (<<print $things_need>>)
     Rapport: <<print $rapport>>

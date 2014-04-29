@@ -151,6 +151,21 @@ macros.add('first', {
     }
 })
 
+macros.add('switch', {
+    tags: ['when', 'else'],
+    handler: function() {
+        var iter = eval(this.args[0])
+        var payload = null
+        for (var i = 0; i < this.payload.length; i++) {
+            if (this.payload[i].name == 'switch') continue;
+            if (eval(this.payload[i].arguments) === iter || (payload == null && this.payload[i].name === 'else')) {
+                payload = this.payload[i]
+            }
+        }
+        new Wikifier(this.output, payload.contents)
+    }
+})
+
 window.need_name = function(id) {
     return {
         'things_need': 'Thing Need',

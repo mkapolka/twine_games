@@ -249,15 +249,18 @@ God and neither are the TV repair men who kept the TV alive all these years. You
 [[Continue|Main]]
 
 ::PlayWithLiquid
-<<first>>
+<<switch thing_by_id("sex").relationship>>\
+<<when 0>>\
 You dip your fingers into Jacky and have a little whiff. You wipe her off on your pants.
-<<then>>
+<<when 1>>\
 You find that Jackie has dried out. You break off a calcified flake and whip it across the room like a ninja star.
-<</first>>
+<<else>>\
+I guess there's nothing left
+<</switch>>\
 
 Playing with Jacky makes you remember all the good sex you've had.
 <<AddNeed "sex_need" -10>>
-<<AddNeed "thing_need" 5>>
+<<AddNeed "things_need" 5>>
 <<set $_sex = thing_by_id("sex")>>\
 <<AddRelationship $_sex 1>>
 
