@@ -4,3 +4,11 @@ div.attention {
    color: yellow;
    padding: 10px;
 }
+
+span.green_pips {
+    color: green
+}
+
+span.red_pips {
+    color: red
+}

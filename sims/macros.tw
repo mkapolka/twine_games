@@ -156,6 +156,23 @@ window.random_need = function() {
     ].random()
 }
 
+macros.add('display_need', {
+    handler: function() {
+        var value = state.active.variables[this.args[0]]
+        var pips = value / 20
+        var output = "<span class='green_pips'>"
+        for (var i = 0; i < pips; i++) {
+            output += "|"
+        }
+        output += "</span><span class='red_pips'>"
+        for (var i = pips; i < 5; i++) {
+            output += "|"
+        }
+        output += "</span>"
+        new Wikifier(this.output, output)
+    }
+})
+
 :: _thing_relationship_widgets [widget]
 <<widget AddRelationship>>
 <<run add_relationship($args[0], $args[1])>>\

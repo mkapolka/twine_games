@@ -21,33 +21,33 @@ window.init_friends = function() {
         },
         {
             id: 'sexier',
-            name: 'your even sexier friend',
+            name: 'a sexy dancer',
             cost: 500,
             passage: 'SexierDisplay'
         },
         {
             id: 'funnier',
-            name: 'your even funnier friend',
+            name: 'a clown',
             cost: 750,
             passage: 'FunnierDisplay'
         },
         {
             id: 'priest',
-            name: 'your unitarian priest friend',
+            name: 'a unitarian priest',
             cost: 800,
             passage: 'PriestDisplay'
         },
         {
             id: 'fascist',
-            name: 'your fascist friend',
+            name: 'the fascist',
             cost: 1200,
             passage: 'FascistDisplay'
         },
         {
-            id: 'pathetic',
-            name: 'your pathetic friend',
+            id: 'enduring',
+            name: 'your enduring friend',
             cost: 1800,
-            passage: 'PatheticDisplay'
+            passage: 'EnduringDisplay'
         }
     ]
 }
@@ -97,16 +97,17 @@ window.remove_friend = function(friend) {
 ::Invite friends over
 If you spend your RAPPORT you can invite your friends to your house.
 Who do you want to invite?
-[[A sexy friend you who can fuck.|BuyFriend][$friend_template_id="sex"]]] Cost: 50 Rapport
+
+[[A sexy friend you who can fuck.|BuyFriend][$friend_template_id="sex"]] Cost: 50 Rapport
 [[A friend who loves inpsiring quotes and posters|BuyFriend][$friend_template_id="inspiring"]]. Cost: 75 Rapport
 [[A funny friend who will make you laugh.|BuyFriend][$friend_template_id="funny"]] Cost: 120 Rapport
 
-[[Eve|BuyFriend][$friend_cost=500, $friend_name="Eve"]] is even sexier than Mack and much healthier. Cost: 500 Rapport.
-[[Karl|BuyFriend][$friend_cost=750, $friend_name="Karl"]] is a lot like Jen, but he makes up his own jokes instead of taking them from joke books. Cost: 750 Rapport.
-[[Samantha|BuyFriend][$friend_cost=800, $friend_name="Samantha"]] is a unitarian priest. She can provide you with spiritual support. Cost: 800 Rapport.
+[[A sexy dancer|BuyFriend][$friend_template_id="sexier"]] who is even sexier than your sexy friend and much healthier. Cost: 500 Rapport.
+[[A very funny clown|BuyFriend][$friend_template_id="funnier"]]. Cost: 750 Rapport.
+[[A unitarian priest|BuyFriend][$friend_template_id="priest"]] who can provide you with spiritual guidance. Cost: 800 Rapport.
 
-[[Jimbo|BuyFriend][$friend_cost=1200, $friend_name="Jimbo"]] is a fascist and masochist. Sex with him will slake your SEX and VIOLENCE needs. Cost: 1200 Rapport.
-[[Anna|BuyFriend][$friend_cost=1800, $friend_name="Anna"]] is a blind and deaf quadruple amputee with an intellectual developmental disorder and an M.D. degree. Her triumph in the face of adversity gives you great HOPE need. Cost: 1800 Rapport.
+[[A fascist|BuyFriend][$friend_template_id="fascist"]]. Sex with him will slake your SEX and VIOLENCE needs. Cost: 1200 Rapport.
+[[A blind and deaf quadruple amputee|BuyFriend][$friend_template_id="enduring"]] with an intellectual developmental disorder and an M.D. degree. Her triumph in the face of adversity gives you great HOPE need. Cost: 1800 Rapport.
 
 [[Return home|Main]]
 
@@ -217,11 +218,11 @@ You do the nasty with your sexier friend. Real grade-A fuckin'. Nice job!
 [[Continue|Main]]
 
 ::FunnierDisplay
-Your comedian friend is grinning like a fool. [[See what he's so happy about.|FunnierJoke]]
+The clown is grinning like a fool. [[See what he's so happy about.|FunnierJoke]]
 
 ::FunnierJoke
 <<set $gained_humor = 10 + Math.floor(Math.random() * 20)>>\
-Your funnier friend tells you some of his new material. What a riot! You gain <<print $gained_humor>> humor need.
+The clown throws a pie into the air and it lands on his face. What a riot! You gain <<print $gained_humor>> humor need.
 <<run add_need("funny_need", $gained_humor)>>\
 <<run atrophy_needs()>>\
 
@@ -249,7 +250,7 @@ You grease up your friend's asshole and brutally fist him. You climax and he doe
 
 [[Continue|Main]]
 
-::InspiringDisplay
+::EnduringDisplay
 Your inspiring friend is an example to us all. [[Learn from her?|LearnInpsiring]]
 
 ::LearnInspiring

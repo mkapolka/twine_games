@@ -186,7 +186,7 @@ Your [[leather chair|ChairHome]] is here.
     [[watch some cartoons|WatchCartoons]]
     [[fiddle with the volume nob]]
 <<else>>
-    You turn the TV on but its picture starts weak and slowly fades away. Further pressing the power button does nothing. You cry.
+    You turn the TV on but its picture starts weak and slowly fades away. Further pressing the power button does nothing. Your stomach feels heavy.
 
     [[Bury the TV|BuryTV]]
 <<endif>>

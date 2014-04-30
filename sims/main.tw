@@ -17,7 +17,6 @@ Friendship Need
 <<run init_friends()>>
 
 <<set $rapport = 1000>>
-<<set $sex_need = 0>>
 
 <<set $tv = thing_by_id('tv')>>
 <<AddRelationship $tv 0>>
@@ -38,7 +37,7 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
     <<if $anger_need < 30>>\
         <<notify>>Your anger need is getting dangerously low! You'd better take your aggressions out on one of your friends.<</notify>>
     <<endif>>\
-    Needs: Violence (<<print $anger_need>>) Sex (<<print $sex_need>>) Humor (<<print $funny_need>>) Hope (<<print $hope_need>>) Things (<<print $things_need>>)
+    Needs: Violence (<<display_need "anger_need">>) Sex (<<display_need "sex_need">>) Humor (<<display_need "funny_need">>) Hope (<<display_need "hope_need">>) Things (<<display_need "things_need">>)
     Rapport: <<print $rapport>>
 
     <<if $anger_need < 50>>\
@@ -56,8 +55,7 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
     <<if $friends.length == 0>>\
     You don't have any friends yet.
 
-    <</if>>\
-    \
+    <<else>>\
     <<each $friends>>\
         <<if not $o.dead>>\
                 <<dyn_display $o.display_passage>>
@@ -70,13 +68,15 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
             <<endif>>\
         <<endif>>\
     <</each>>\
+
+    <</if>>\
     <<display ThingsMain>>\
     <<if $splooged>>\
         There's a pool of ejaculate named "Jacky" on the floor here.
         [[Play with Jacky. (Paragon)|PlayWithLiquid]]
         [[Attempt to clean her up. (Renegade)|CleanUpSexLiquid]]
-    <<endif>>\
 
+    <<endif>>\
     [[Go party]]
     [[Invite friends over]]
     [[Buy things]]
