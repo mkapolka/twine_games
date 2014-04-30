@@ -12,3 +12,34 @@ span.green_pips {
 span.red_pips {
     color: red
 }
+
+body {
+    background-color: #A8E6CE
+}
+
+.passage {
+    border-radius: 10px;
+    background-color: #FFD3B5;
+    padding: 10px;
+    color: black;
+
+    font-size: medium;
+}
+
+div.status-bar {
+    background-color: #DCEDC2;
+    padding: 10px;
+    border-radius: 10px;
+
+    width: fit-content;
+    //display: inline-block;
+    text-align: center;
+}
+
+.status-bar h3 {
+    padding: 0px;
+    border: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    display: inline;
+}

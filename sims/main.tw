@@ -16,6 +16,8 @@ Friendship Need
 <<run init_things()>>
 <<run init_friends()>>
 
+<<run $friends.push(init_friend_by_id("sex"))>>
+
 <<set $rapport = 1000>>
 
 <<set $tv = thing_by_id('tv')>>
@@ -37,8 +39,10 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
     <<if $anger_need < 30>>\
         <<notify>>Your anger need is getting dangerously low! You'd better take your aggressions out on one of your friends.<</notify>>
     <<endif>>\
-    Needs: Violence (<<display_need "anger_need">>) Sex (<<display_need "sex_need">>) Humor (<<display_need "funny_need">>) Hope (<<display_need "hope_need">>) Things (<<display_need "things_need">>)
-    Rapport: <<print $rapport>>
+    <div class="status-bar">\
+    <h3>Needs: </h3>Violence (<<display_need "anger_need">>) Sex (<<display_need "sex_need">>) Humor (<<display_need "funny_need">>) Hope (<<display_need "hope_need">>) Things (<<display_need "things_need">>)
+    <h3>Rapport: </h3><<print $rapport>>
+    </div>
 
     <<if $anger_need < 50>>\
         You are very angry.
@@ -77,9 +81,11 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
         [[Attempt to clean her up. (Renegade)|CleanUpSexLiquid]]
 
     <<endif>>\
-    [[Go party]]
-    [[Invite friends over]]
-    [[Buy things]]
+    <ul>
+    <li>[[Go party]]</li>
+    <li>[[Invite friends over]]</li>
+    <li>[[Buy things]]</li>
+    </ul>
 <<else>>
     <<display Dead>>
 <<endif>>
