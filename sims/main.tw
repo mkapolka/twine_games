@@ -14,13 +14,11 @@ Friendship Need
 <<set $friendship_tier = 0>>
 <<set $friendship_xp = 0>>
 <<run init_things()>>
+<<run init_friends()>>
 
 <<set $rapport = 1000>>
 <<set $sex_need = 0>>
 
-<<run $friends.push(create_friend("Mack", "MackDisplay", 100))>>
-<<run $friends.push(create_friend("Jen", "JenDisplay", 100))>>
-<<run $friends.push(create_friend("Blaise", "BlaiseDisplay", 100))>>
 <<set $tv = thing_by_id('tv')>>
 <<AddRelationship $tv 0>>
 <</nobr>>
@@ -72,11 +70,9 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
             <<endif>>\
         <<endif>>\
     <</each>>\
-
     <<display ThingsMain>>\
-
     <<if $splooged>>\
-        There's a pool of sex liquids named "Jacky" on the floor here.
+        There's a pool of ejaculate named "Jacky" on the floor here.
         [[Play with Jacky. (Paragon)|PlayWithLiquid]]
         [[Attempt to clean her up. (Renegade)|CleanUpSexLiquid]]
     <<endif>>\
@@ -96,65 +92,6 @@ You party for 8 hours. You gain <<print $rapport_gained>> rapport.
 <<run atrophy_needs()>>\
 
 [[Return home|Main]]
-
-::Invite friends over
-If you spend your RAPPORT you can invite your friends to your house.
-Who do you want to invite?
-[[Mack|BuyFriend][$friend_cost=100, $friend_name="Mack"]] is a sexy friend who you can fuck. Cost: 100 Rapport
-[[Jen|BuyFriend][$friend_cost=50, $friend_name="Jen"]] is a funny friend who you can joke around with. Cost: 50 Rapport
-[[Blaise|BuyFriend][$friend_cost=75, $friend_name="Blaise"]] loves inspiring quotes and posters. Cost: 75 Rapport
-
-[[Eve|BuyFriend][$friend_cost=500, $friend_name="Eve"]] is even sexier than Mack and much healthier. Cost: 500 Rapport.
-[[Karl|BuyFriend][$friend_cost=750, $friend_name="Karl"]] is a lot like Jen, but he makes up his own jokes instead of taking them from joke books. Cost: 750 Rapport.
-[[Samantha|BuyFriend][$friend_cost=800, $friend_name="Samantha"]] is a unitarian priest. She can provide you with spiritual support. Cost: 800 Rapport.
-
-[[Jimbo|BuyFriend][$friend_cost=1200, $friend_name="Jimbo"]] is a fascist and masochist. Sex with him will slake your SEX and VIOLENCE needs. Cost: 1200 Rapport.
-[[Anna|BuyFriend][$friend_cost=1800, $friend_name="Anna"]] is a blind and deaf quadruple amputee with an intellectual developmental disorder and an M.D. degree. Her triumph in the face of adversity gives you great HOPE need. Cost: 1800 Rapport.
-
-[[Return home|Main]]
-
-::BuyFriend
-<<if $friends.length < 3>>\
-    <<if $rapport >= $friend_cost>>\
-        You invite <<print $friend_name>> over to your house. You lose <<print $friend_cost>> rapport.
-        <<run $friends.push(create_friend($friend_name, $friend_name + "Display", $friend_cost))>>\
-        <<set $rapport -= $friend_cost>>\
-        [[continue|Main]]
-    <<else>>\
-        You don't have enough rapport to invite <<print $friend_name>> to your house.
-        [[return|Invite friends over]]
-    <</if>>\
-<<else>>\
-Your house is too full of your friends! You'll have to kick one out.
-<<each $friends>>\
-    <<print "[[Evict "+$o.name+"|EvictFriend][$evicted_friend_id = "+$o.id+"]]">>
-<</each>>\
-
-[[Nevermind|Main]]
-<<endif>>\
-
-::EvictFriend
-<<set $friend = friend_by_id($evicted_friend_id)>>\
-<<run remove_friend($friend)>>\
-<<set $recouped_cost = Math.floor($friend.cost * .5)>>\
-You kick <<print $friend.name>> out. You get back <<print $recouped_cost>> of the rapport you used on them in the first place.
-
-<<display BuyFriend>>
-
-::BeatFriend
-<<set $friend = friend_by_id($beat_friend_id)>>\
-<<set $gained_anger = Math.ceil(Math.random() * 50) + 25>>\
-<<run add_need("anger_need", $gained_anger)>>\
-You savagely beat <<print $friend.name>>. That was very cathartic. You gain <<print $gained_anger>> anger need.
-<<run atrophy_needs()>>\
-[[continue|Main]]
-
-::KillFriend
-<<set $friend = friend_by_id($kill_friend_id)>>\
-<<set $friend.dead = true>>\
-You kill <<print $friend.name>>. All of your pent up range melts away.
-<<set $anger_need = 100>>\
-[[continue|Main]]
 
 ::Dead
 <<if $anger_need <= 0>>\

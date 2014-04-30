@@ -136,7 +136,6 @@ You gain 10 thing need. <<run add_need("things_need", 10)>>
 <<if $chair_home>>\
 Your [[leather chair|ChairHome]] is here.
 <<endif>>\
-
 ::ChairVisit
 <<first>>
     Your eyes instinctively dart away, afraid of your habit of staring. The glance leaves an incomplete form in your imagination: a shiny brown shape, impossible welcoming curves, plush but firm cusions. \

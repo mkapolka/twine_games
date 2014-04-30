@@ -62,36 +62,6 @@ window.player_dead = function() {
     return vars.funny_need <= 0 || vars.hope_need <= 0 || vars.anger_need <= 0 || vars.things_need <= 0
 }
 
-window.create_friend = function(name, display_passage, friend_cost) {
-    var friend = {
-        name: name,
-        display_passage: display_passage,
-        id: Math.floor(Math.random() * 100000),
-        cost: friend_cost
-    }
-    return friend
-}
-
-window.friend_by_id = function(id) {
-    var friends = state.active.variables.friends
-    for (var i = 0; i < friends.length; i++) {
-        if (friends[i].id === id) {
-            return friends[i]
-        }
-    }
-    return null
-}
-
-window.remove_friend = function(friend) {
-    var friends = state.active.variables.friends
-    for (var i = 0; i < friends.length; i++) {
-        if (friends[i].id === friend.id) {
-            friends.splice(i, 1)
-            return
-        }
-    }
-}
-
 window.add_need = function(need, value) {
     state.active.variables[need] += value
     if (state.active.variables[need] > 100) {
