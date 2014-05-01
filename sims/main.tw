@@ -22,6 +22,7 @@ Friendship Need
 
 <<set $tv = thing_by_id('tv')>>
 <<AddRelationship $tv 0>>
+<<set $chair_home = 1>>
 <</nobr>>
 
 :: Start

@@ -15,6 +15,11 @@ window.init_things = function() {
             id: 'sex',
             relationship: 0,
             name: "'Jacky', the puddle of ejaculate"
+        },
+        {
+            id: 'chair',
+            relationship: 0,
+            name: "the 'Christopher Knight' bonded leather chair"
         }
     ]
 }
@@ -142,6 +147,7 @@ After listlessly sucking a Baby Ruth down to the nougat you look back on your pr
 Your [[leather chair|ChairHome]] is here.
 <<endif>>\
 ::ChairVisit
+<<set $chair = thing_by_id("chair")>>
 <<first>>
     Your eyes instinctively dart away, afraid of your habit of staring. The glance leaves an incomplete form in your imagination: a shiny brown shape, impossible welcoming curves, plush but firm cusions. \
     You approach carefully, pretending to examine a hideous green courduroy recliner. You audibly scoff and curse while fumbling with the recliner lever, then transfer to the chair. \
@@ -151,7 +157,7 @@ Your [[leather chair|ChairHome]] is here.
     <<run atrophy_needs()>>\
     <<AddNeed "things_need" 40>>
     
-    Your relationship with the chair has risen to 'Just Met!'.
+    <<AddRelationship $chair 1>>
 <<then>>
     You cordially approach the chair and sit down in it with your back straight. You bounce up and down a bit to test its give. You aren't sure what to do with your hands so you set them on the armrests. \
     You suddenly feel very self conscious. You are worried that you have made a mistake and this might not be the chair for you. \
@@ -159,9 +165,10 @@ Your [[leather chair|ChairHome]] is here.
 
     You feel despondent.
     <<AddNeed "things_need" -10>>
+    <<AddNeed "hope_need" -10>>
     <<run atrophy_needs()>>\
 
-    Your relationship with the chair has risen to 'Acquaintance'.
+    <<AddRelationship $chair 1>>
 <<then>>
     The chair is still here! The other customer did not buy it. You decide to not waste any more time and welcome the chair into your home.
 
@@ -172,14 +179,14 @@ Your [[leather chair|ChairHome]] is here.
     <<AddNeed "hope_need" 10>>
     <<set $chair_home = true>>\
 
-    Your relationship with the chair has risen to 'Owner'.
+    <<AddRelationship $chair 1>>
 <</first>>
 
 [[Continue|Main]]
 
 ::ChairHome
 <<first>>\
-    You are still a little nervous to be alone with the chair. You are worried that simply sitting in the chair will not be interesting. \
+    You are still a little nervous to be alone with the chair. You cut the tension by talking to <<print $friends.random().name>> while sitting in the chair.
 <</first>>\
 
 [[Continue|Main]]
