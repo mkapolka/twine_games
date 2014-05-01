@@ -75,15 +75,19 @@ You go to the mall. It's your first time in this new town. You're nervous and ex
 <<endif>>
 There are all kinds of diverse and interesting things here.
 
-<<if not $tv_buried>>\
-    There's a [[television|TVMain]] here.
-<<else>>\
-    The television's grave is here.
-<<endif>>\
-
-<<if not $done_lamp>>[[A charming lamp]] catches your eye.<<endif>>\
-<<if $done_lamp and not $done_fridge>>You find a [[strange white box]] at work.<<endif>>\
-<<if $done_fridge and not $chair_home>>There's a beautiful [[leather chair|ChairVisit]] in the corner of the furniture department.<<endif>>
+<<display_some_of>>\
+    [[A charming lamp]] catches your eye.
+<<and_or>>\
+    You find a [[strange white box]] at work.
+<<and_or>>\
+    There's a beautiful [[leather chair|ChairVisit]] in the corner of the furniture department.
+<<and_or>>\
+    <<if not $tv_buried>>\
+        There's a [[television|TVMain]] here.
+    <<else>>\
+        The television's grave is here.
+    <<endif>>\
+<</display_some_of>>\
 
 ::A charming lamp
 You bravely walk up and begin examining the lamp. It's a squat table lamp, about two feet tall with a paunchy olive base and a tasteful, if dorky, beige shade. 
@@ -98,7 +102,8 @@ long line of local table lamps. For almost a hundred years Clarkson's table \
 lamps have been lighting the homes of the good people of Gushing Meadows, and \
 they hope to continue to do so for as long as they can.
 
-You gain 30 thing need. <<run add_need("things_need", 30)>><<set $done_lamp = true>>
+<<AddNeed "things_need" 30>>
+<<set $done_lamp = true>>\
 
 [[Continue|Main]]
 
@@ -128,7 +133,7 @@ After listlessly sucking a Baby Ruth down to the nougat you look back on your pr
 <</first>>\
 
 <<run atrophy_needs()>>\
-You gain 10 thing need. <<run add_need("things_need", 10)>>
+<<AddNeed "things_need" 10>>
 
 [[Continue|Main]]
 
@@ -143,9 +148,8 @@ Your [[leather chair|ChairHome]] is here.
     You circle the chair exactly once, slowly. You don't want to seem timid or unsure. \
     You run your index finger along the ridge of the chair's back and your finger neither sticks nor chafes. You gently prod the armrest. Adrenaline shoots through your body when you start to sit in it. You decide there's no reason to rush.
 
-    You gain 40 thing need.
     <<run atrophy_needs()>>\
-    <<run add_need("things_need", 40)>>\
+    <<AddNeed "things_need" 40>>
     
     Your relationship with the chair has risen to 'Just Met!'.
 <<then>>
@@ -153,9 +157,9 @@ Your [[leather chair|ChairHome]] is here.
     You suddenly feel very self conscious. You are worried that you have made a mistake and this might not be the chair for you. \
     Another customer walks up, nods and smiles at the chair. You walk away. You are sure this other customer is going to buy the chair and live a happy life with it.
 
-    You feel despondent. You lose 10 thing need.
+    You feel despondent.
+    <<AddNeed "things_need" -10>>
     <<run atrophy_needs()>>\
-    <<run add_need("things_need", -10)>>\
 
     Your relationship with the chair has risen to 'Acquaintance'.
 <<then>>
@@ -163,8 +167,9 @@ Your [[leather chair|ChairHome]] is here.
 
     After some initial awkardness finding the right spot in your living room the chair fits right in. <<if $friends.length > 0>>You offer the chair to seat <<print $friends.random().name>> and they gleefully accept.<<endif>>
 
-    You feel that a new chapter in your life is opening up. You gain 10 thing need and 10 hope need.
-    <<run add_need("things_need", 10); add_need("hope_need", 10)>>\
+    You feel that a new chapter in your life is opening up.
+    <<AddNeed "things_need" 10>>
+    <<AddNeed "hope_need" 10>>
     <<set $chair_home = true>>\
 
     Your relationship with the chair has risen to 'Owner'.

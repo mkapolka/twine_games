@@ -143,8 +143,8 @@ You kick <<print $friend.name>> out. You get back <<print $recouped_cost>> of th
 ::BeatFriend
 <<set $friend = friend_by_id($beat_friend_id)>>\
 <<set $gained_anger = Math.ceil(Math.random() * 50) + 25>>\
-<<run add_need("anger_need", $gained_anger)>>\
-You savagely beat <<print $friend.name>>. That was very cathartic. You gain <<print $gained_anger>> anger need.
+<<AddNeed "anger_need" $gained_anger>>
+You savagely beat <<print $friend.name>>. That was very cathartic.
 <<run atrophy_needs()>>\
 [[continue|Main]]
 
@@ -176,11 +176,11 @@ Your funny friend is here. You bet she has some funny jokes for you. [[Joke arou
 ::JokeFriend
 <<if Math.random() < .7>>\
     <<set $gained_funny = Math.ceil(Math.random() * 30)>>
-    <<run add_need("funny_need", $gained_funny)>>\
-    Your friend tells you a great joke! You gain <<print $gained_funny>> humor need.
+    Your friend tells you a great joke!
 <<else>>\
 Your friend tries to tell you a joke, but it's a real stinker. You gain no humor need.
 <</if>>\
+<<AddNeed "funny_need" $gained_funny>>
 <<run atrophy_needs()>>\
 
 [[continue|Main]]
@@ -197,9 +197,8 @@ Your inpsiring friend looks optimistic. [[Hang out with them|HangInspiring]]
         Your friend points to a flower. "Does the flower ask whether others thinks its cool? No? Be like the flower." \
     <<or>>\
         Your friend shows you a picture on his smartphone. It's a picture of a sunny hillside with the text "Believe" overlain. You believe. \
-    <</random>>\
-    You gain <<print $gained_hope>> hope need.
-    <<run add_need("hope_need", $gained_hope)>>\
+    <</random>>
+    <<AddNeed "hope_need" $gained_hope>>
 <<else>>\
     Your friend doesn't really feel like hanging out. He's kind of a loner.
 <</if>>\
@@ -222,8 +221,8 @@ The clown is grinning like a fool. [[See what he's so happy about.|FunnierJoke]]
 
 ::FunnierJoke
 <<set $gained_humor = 10 + Math.floor(Math.random() * 20)>>\
-The clown throws a pie into the air and it lands on his face. What a riot! You gain <<print $gained_humor>> humor need.
-<<run add_need("funny_need", $gained_humor)>>\
+The clown throws a pie into the air and it lands on his face. What a riot!
+<<AddNeed "funny_need" $gained_humor>>
 <<run atrophy_needs()>>\
 
 [[Continue|Main]]
@@ -233,8 +232,8 @@ Your priest friend is pondering the mysteries of life. [[Ask her about her disco
 
 ::PriestTalk
 <<set $gained_hope = 10 + Math.floor(Math.random() * 20)>>\
-Your priest friend tells you that God loves all his/her creations equally. You gain <<print $gained_hope>> hope need.
-<<run add_need("hope_need", $gained_hope)>>\
+Your priest friend tells you that God loves all his/her creations equally.
+<<AddNeed "hope_need" $gained_hope>>
 <<run atrophy_needs()>>\
 
 [[Continue|Main]]
@@ -243,9 +242,9 @@ Your priest friend tells you that God loves all his/her creations equally. You g
 Your fascist friend hangs from a hook on the wall. He is wearing a Nazi uniform. [[Fuck him?|FuckFascist]]
 
 ::FuckFascist
-You grease up your friend's asshole and brutally fist him. You climax and he does not. You gain 100 sex and 100 violence need.
-<<run add_need("sex_need", 100)>>\
-<<run add_need("anger_need", 100)>>\
+You grease up your friend's asshole and brutally fist him. You climax and he does not.
+<<AddNeed "sex_need" 100>>
+<<AddNeed "anger_need" 100>>
 <<run atrophy_needs()>>\
 
 [[Continue|Main]]
@@ -254,8 +253,8 @@ You grease up your friend's asshole and brutally fist him. You climax and he doe
 Your inspiring friend is an example to us all. [[Learn from her?|LearnInpsiring]]
 
 ::LearnInspiring
-Your inpsiring friend tells you depressing stories about her life. You share heaving sobs of empathy. You gain 100 hope need.
-<<run add_need("hope_need", 100)>>\
+Your inpsiring friend tells you depressing stories about her life. You share heaving sobs of empathy.
+<<AddNeed "hope_need" 100>>
 <<run atrophy_needs()>>\
 
 [[Continue|Main]]

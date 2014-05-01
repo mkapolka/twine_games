@@ -173,6 +173,23 @@ macros.add('display_need', {
     }
 })
 
+macros.add('display_some_of', {
+    tags: ['and_or'],
+    handler: function() {
+        //Prevent no passages from displaying
+        var displayed = 0
+        for (var i = 0; i < this.payload.length; i++) {
+            if (Math.random() < .5) {
+                new Wikifier(this.output, this.payload[i].contents)
+                displayed += 1
+            }
+        }
+        if (displayed === 0) {
+            new Wikifier(this.output, this.payload.random().contents)
+        }
+    }
+})
+
 :: _thing_relationship_widgets [widget]
 <<widget AddRelationship>>
 <<run add_relationship($args[0], $args[1])>>\
