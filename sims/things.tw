@@ -92,6 +92,12 @@ There are all kinds of diverse and interesting things here.
     <<else>>\
         The television's grave is here.
     <<endif>>\
+<<and_or>>\
+<<if not $tupperware_partied>>\
+    A friend calls and asks if you'd like to host a tupperware party. [[Agree?|TupperwareParty]]
+<<else>>\
+    You're feeling peckish. You still have leftovers from the tupperware party. [[Eat some food|TupperwareEat]]?
+<<endif>>\
 <</display_some_of>>\
 
 ::A charming lamp
@@ -299,4 +305,21 @@ You successfully clean up the sex liquid.
 <<AddNeed "things_need" 5>>
 
 <<run atrophy_needs()>>\
+[[Continue|Main]]
+
+::TupperwareParty
+You prepare the house. You house fills with tupperware containers and their escorts. You fill your friends with the food you've cooked. Chicken goes in the teacher (the big one). \
+You split the salad between the lawyer and his secretary and squeeze the little left over into your mother along with the mashed potatoes. \
+You put your friends into the refrigerator and mail the tupperware back.
+
+<<run atrophy_needs()>>\
+<<set $tupperware_partied = true>>\
+<<AddNeed "things_need" 10>>
+
+[[Continue|Main]]
+
+::TupperwareEat
+You open the fridge where you put the guests of the tupperware party. You tickle your mother in the stomach and she regurgitates some potatoes for you. You swallow the with baby bird greed.
+
+<<AddNeed "things_need" 10>>
 [[Continue|Main]]
