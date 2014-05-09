@@ -44,3 +44,18 @@ div.status-bar {
     margin-bottom: 0px;
     display: inline;
 }
+
+div.main_image {
+    position: relative;
+    size: auto;
+    width: 1024px;
+    height: 576px;
+}
+
+div.main_image img {
+    position: absolute;
+    x: 0;
+    y: 0;
+    width: 100%;
+    height: 100%;
+}
