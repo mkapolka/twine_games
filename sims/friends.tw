@@ -159,6 +159,7 @@ You kill <<print $friend.name>>. All of your pent up range melts away.
 Your sexy friend is here, looking sexy. [[Fuck him?|FuckFriend]]
 
 ::FuckFriend
+<<ImagePlate art/sexy_plate.png>>
 <<if Math.random() < .8>>\
     <<set $gained_sex = Math.ceil(Math.random() * 30)>>\
     You fuck your sexy friend. That sure hit the spot!
@@ -174,6 +175,7 @@ Your sexy friend is here, looking sexy. [[Fuck him?|FuckFriend]]
 Your funny friend is here. You bet she has some funny jokes for you. [[Joke around?|JokeFriend]]
 
 ::JokeFriend
+<<ImagePlate art/funny_plate.png>>
 <<if Math.random() < .7>>\
     <<set $gained_funny = Math.ceil(Math.random() * 30)>>
     Your friend tells you a great joke!
@@ -189,6 +191,7 @@ Your friend tries to tell you a joke, but it's a real stinker. You gain no humor
 Your inpsiring friend looks optimistic. [[Hang out with them|HangInspiring]]
 
 ::HangInspiring
+<<ImagePlate art/inspiring_plate.png>>
 <<if Math.random() < .7>>\
     <<set $gained_hope = Math.ceil(Math.random() * 30)>>\
     <<random>>\
@@ -220,6 +223,7 @@ You do the nasty with your sexier friend. Real grade-A fuckin'. Nice job!
 The clown is grinning like a fool. [[See what he's so happy about.|FunnierJoke]]
 
 ::FunnierJoke
+<<ImagePlate art/clown_plate.png>>
 <<set $gained_humor = 10 + Math.floor(Math.random() * 20)>>\
 The clown throws a pie into the air and it lands on his face. What a riot!
 <<AddNeed "funny_need" $gained_humor>>
