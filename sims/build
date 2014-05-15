@@ -1,3 +1,6 @@
 #!/bin/bash
 
+coffee -c coffee.coffee
+echo "::coffeescript [script]" > coffee.tw
+cat coffee.js >> coffee.tw
 twee -t sugarcube *.tw > out.html && firefox out.html

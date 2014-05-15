@@ -1,0 +1,26 @@
+::adventure [script]
+var AdventureActor = function(name) {
+    this.name = name;
+    this.act = function(){}
+}
+
+window.shuffle = function (array) {
+    for (var i = 0; i < array.length; i++) {
+        var r = Math.floor(Math.random() * array.length)
+        var b = array[i]
+        array[i] = array[r]
+        array[r] = b
+    }
+    return array
+}
+
+window.pick_actors = function(actors) {
+    // How many actors do we want?
+    var shuffled = shuffle(actors.slice(0))
+    var n = 2 + Math.round(Math.random() * (actors.length - 2))
+    var output = []
+    for (var i = 0; i < n; i++){ 
+        output.push(shuffled.pop())
+    }
+    return output
+}
