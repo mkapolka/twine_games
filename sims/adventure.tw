@@ -14,7 +14,7 @@ window.shuffle = function (array) {
     return array
 }
 
-window.pick_actors = function(actors) {
+window.pick_actors = function(actors, min, max) {
     // How many actors do we want?
     var shuffled = shuffle(actors.slice(0))
     var n = 2 + Math.round(Math.random() * (actors.length - 2))

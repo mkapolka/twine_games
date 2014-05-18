@@ -3,19 +3,19 @@ window.init_friends = function() {
     window.friend_templates = [
         {
             id: 'sex',
-            name: 'your sexy friend',
+            name: 'a stripper',
             cost: 100,
             passage: 'SexDisplay'
         },
         {
             id: 'inspiring',
-            name: 'your inspiring friend',
+            name: 'a microblogger',
             cost: 75,
             passage: 'InspireDisplay'
         },
         {
             id: 'funny',
-            name: 'your funny friend',
+            name: 'a comedian',
             cost: 120,
             passage: 'FunnyDisplay'
         },
@@ -39,7 +39,7 @@ window.init_friends = function() {
         },
         {
             id: 'fascist',
-            name: 'the fascist',
+            name: 'a fascist',
             cost: 1200,
             passage: 'FascistDisplay'
         },
