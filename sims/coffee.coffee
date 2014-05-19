@@ -9,19 +9,12 @@ window.human_body_parts = [
 ]
 
 class Actor
-    constructor: (pronouns) ->
-        @pronouns = pronouns
-    pname: () ->
-        name = @name
-        @pronouns.register(this, this.gender)
-        return name
-    gender: 'it'
 
 window.actor_classes  = [
     class Lamp extends Actor
         off: false,
         burnt_out: false
-        name: 'The table lamp'
+        name: 'the table lamp'
         can_act: ->
             not @off and not @burnt_out
         act: (others) ->
@@ -37,10 +30,10 @@ window.actor_classes  = [
                 else
                     if Math.random() < .5
                         @burnt_out = true
-                        return "#{@name}'s bulb burns out"
+                        return "#{@name}'s bulb burns out. Darkness fills the room"
                     else
                         @off = true
-                        return "#{@name} becomes unplugged"
+                        return "#{@name} becomes unplugged. Darkness fills the room"
             else if @off
                 humans = (o for o in others when o.human)
                 if humans.length > 0
@@ -55,7 +48,7 @@ window.actor_classes  = [
                     return "#{human.name} replaces the bulb of #{@name}"
 
     class Chair extends Actor
-        name: "The leather chair"
+        name: "the leather chair"
         act: (others) ->
             if not @seated?
                 other = others.random()
@@ -87,7 +80,7 @@ window.actor_classes  = [
                 return "#{@name} cackles mercilessly"
 
     class SexyFriend extends Actor
-        name: "a stripper"
+        name: "the stripper"
         human: true
         gender: 'he'
         act: (others) ->
@@ -174,7 +167,8 @@ window.actor_classes  = [
             ].random()
 
     class Inspiring extends Actor
-        name: "a microblogger"
+        name: "the microblogger"
+        human: true
         act: (others) ->
             other = others.random()
             return [
@@ -186,7 +180,8 @@ window.actor_classes  = [
             ].random()
 
     class Funny extends Actor
-        name: "a comedian"
+        name: "the comedian"
+        human: true
         act: (others) ->
             thing = (t for t in others when not t.human).random()
             other = others.random()
@@ -198,19 +193,6 @@ window.actor_classes  = [
             ].random()
 ]
 
-class Pronouns
-    pronouns: {}
-    register: (other, pronoun) ->
-        if @pronouns[pronoun]? and @pronouns[pronoun]['thing'] != other
-            @pronouns[pronoun]['thing'].name = @pronouns[pronoun]['old_name']
-
-        @pronouns[pronoun] = {
-            thing: other
-            old_name: other.name
-        }
-
-        other.name = pronoun
-
 window.pick_actors = (actors, min, max) ->
     humans = shuffle(a for a in actors when a.human)
     things = shuffle(t for t in actors when not t.human)
@@ -220,21 +202,35 @@ window.pick_actors = (actors, min, max) ->
     n = min + Math.round(Math.random() * (max - min))
     return shuffled.slice(0, n)
 
+capitalize = (string) ->
+    return string.charAt(0).toUpperCase() + string.slice(1)
+
 window.spin_yarn = ->
-    pronouns = new Pronouns
-    available_actors = (new x(pronouns) for x in window.actor_classes)
-    actors = window.pick_actors(available_actors, 2, 4)
+    available_actors = (new x for x in window.actor_classes)
+    all_actors = window.pick_actors(available_actors, 2, 4)
+    console.log(a.name for a in all_actors)
+    acted = []
     output = []
-    for i in [0..2 + Math.random() * 5]
-        actors = (a for a in actors when not a.dead)
-        actor = actors.random()
-        others = (a for a in actors when a != actor)
+    for i in [0..3 + Math.random() * 5]
+        actors = (a for a in all_actors when not a.dead)
+        havent_acted = (a for a in actors when a not in acted)
+        if havent_acted.length == 0
+            actor = actors.random()
+        else
+            actor = havent_acted.random()
+            acted.push(actor)
+        others = (a for a in all_actors when a != actor)
         output.push actor.act others
     string = ""
     for i in [0...output.length] by 2
         if output[i+1]?
+            sentence_enders = [
+                '. '
+                '! ',
+                '... '
+            ]
+
             joiners = [
-                '. ',
                 ' because '
                 ' and so ',
                 ', therefore ',
@@ -243,10 +239,26 @@ window.spin_yarn = ->
                 ' when '
                 ' once '
                 ' just because '
+                ', and yet '
+                ' but '
+                ' but even still '
+                " and well, let's just say "
+                '. Spitefully, '
+                '. Strangely, '
+                '. Appropriately, '
+                '. Angrily, '
+                '. Passively, '
+                '. Jealously, '
+                '. Happily, '
+                '. Fortunately, '
             ]
-            string = output[i] + joiners.random() + output[i+1]
-            string += ". "
+
+            if Math.random() < (sentence_enders.length / (sentence_enders.length + joiners.length))
+                string += capitalize(output[i]) + sentence_enders.random() + capitalize(output[i+1])
+            else
+                string += capitalize(output[i]) + joiners.random() + output[i+1]
+            string += ".\n"
         else
-            string += output[i]
+            string += capitalize(output[i]) + "."
         
     return string
