@@ -222,12 +222,17 @@ window.spin_yarn = ->
         others = (a for a in all_actors when a != actor)
         output.push actor.act others
     string = ""
+
+    # Names of actors
+    string += capitalize((a.name for a in actors[0...-1]).join(", ")) + " and " + actors[actors.length - 1].name
+    string += " are here. \n"
+    
     for i in [0...output.length] by 2
         if output[i+1]?
             sentence_enders = [
-                '. '
-                '! ',
-                '... '
+                '.\n'
+                '!\n',
+                '...\n'
             ]
 
             joiners = [
@@ -251,9 +256,12 @@ window.spin_yarn = ->
                 '. Jealously, '
                 '. Happily, '
                 '. Fortunately, '
+                ' whenever '
+                ' unless '
             ]
 
-            if Math.random() < (sentence_enders.length / (sentence_enders.length + joiners.length))
+            # Increase chance of sentence enders
+            if Math.random() < (sentence_enders.length * 2/ (sentence_enders.length + joiners.length))
                 string += capitalize(output[i]) + sentence_enders.random() + capitalize(output[i+1])
             else
                 string += capitalize(output[i]) + joiners.random() + output[i+1]
@@ -261,4 +269,4 @@ window.spin_yarn = ->
         else
             string += capitalize(output[i]) + "."
         
-    return string
+    return string.trim()
