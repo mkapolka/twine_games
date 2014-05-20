@@ -225,7 +225,13 @@ window.spin_yarn = ->
 
     # Names of actors
     string += capitalize((a.name for a in actors[0...-1]).join(", ")) + " and " + actors[actors.length - 1].name
-    string += " are here. \n"
+    string += [
+        " are spending time together."
+        " are hanging out."
+        " are kickin' it."
+        " are playing around."
+        " are having a discussion."
+    ].random() + "\n"
     
     for i in [0...output.length] by 2
         if output[i+1]?
@@ -270,3 +276,6 @@ window.spin_yarn = ->
             string += capitalize(output[i]) + "."
         
     return string.trim()
+
+window.to_sentence = (ary) ->
+    return ary[0...-1].join(", ") + " and " + ary[ary.length-1]

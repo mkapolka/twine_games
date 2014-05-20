@@ -156,7 +156,7 @@ You kill <<print $friend.name>>. All of your pent up range melts away.
 [[continue|Main]]
 
 ::SexDisplay
-Your sexy friend is here, looking sexy. [[Fuck him?|FuckFriend]]
+<li>[[Fuck the stripper?|FuckFriend]]</li>
 
 ::FuckFriend
 <<ImagePlate art/sexy_plate.png>>
@@ -172,7 +172,7 @@ Your sexy friend is here, looking sexy. [[Fuck him?|FuckFriend]]
 [[continue|Main]]
 
 ::FunnyDisplay
-Your funny friend is here. You bet she has some funny jokes for you. [[Joke around?|JokeFriend]]
+<li>[[Joke around with the comedian?|JokeFriend]]</li>
 
 ::JokeFriend
 <<ImagePlate art/funny_plate.png>>
@@ -188,7 +188,7 @@ Your friend tries to tell you a joke, but it's a real stinker. You gain no humor
 [[continue|Main]]
 
 ::InspireDisplay
-Your inpsiring friend looks optimistic. [[Hang out with them|HangInspiring]]
+<li>[[Hang out with the microblogger?|HangInspiring]]</li>
 
 ::HangInspiring
 <<ImagePlate art/inspiring_plate.png>>
@@ -209,7 +209,7 @@ Your inpsiring friend looks optimistic. [[Hang out with them|HangInspiring]]
 [[continue|Main]]
 
 ::SexierDisplay
-Your sexy friend is here and she is down to fuck. [[Fuck her?|FuckSexier]]
+<li>[[Fuck the sexy dancer?|FuckSexier]]</li>
 
 ::FuckSexier
 <<set $gained_sex = 10 + Math.floor(Math.random() * 20)>>
@@ -220,7 +220,7 @@ You do the nasty with your sexier friend. Real grade-A fuckin'. Nice job!
 [[Continue|Main]]
 
 ::FunnierDisplay
-The clown is grinning like a fool. [[See what he's so happy about.|FunnierJoke]]
+<li>[[Hang out with the clown?|FunnierJoke]]</li>
 
 ::FunnierJoke
 <<ImagePlate art/clown_plate.png>>
@@ -232,7 +232,7 @@ The clown throws a pie into the air and it lands on his face. What a riot!
 [[Continue|Main]]
 
 ::PriestDisplay
-Your priest friend is pondering the mysteries of life. [[Ask her about her discoveries.|PriestTalk]]
+<li>[[Get life advice from the priest?|PriestTalk]]</li>
 
 ::PriestTalk
 <<set $gained_hope = 10 + Math.floor(Math.random() * 20)>>\
@@ -243,7 +243,7 @@ Your priest friend tells you that God loves all his/her creations equally.
 [[Continue|Main]]
 
 ::FascistDisplay
-Your fascist friend hangs from a hook on the wall. He is wearing a Nazi uniform. [[Fuck him?|FuckFascist]]
+<li>[[Abuse the fascist?|FuckFascist]]</li>
 
 ::FuckFascist
 You grease up your friend's asshole and brutally fist him. You climax and he does not.
@@ -254,7 +254,7 @@ You grease up your friend's asshole and brutally fist him. You climax and he doe
 [[Continue|Main]]
 
 ::EnduringDisplay
-Your inspiring friend is an example to us all. [[Learn from her?|LearnInspiring]]
+<li>[[Learn from your enduring friend?|LearnInspiring]]</li>
 
 ::LearnInspiring
 Your inpsiring friend tells you depressing stories about her life. You share heaving sobs of empathy.
