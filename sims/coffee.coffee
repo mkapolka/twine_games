@@ -10,8 +10,14 @@ window.human_body_parts = [
 
 class Actor
 
+class Human extends Actor
+    human: true
+
+class Thing extends Actor
+    human: false
+
 window.actor_classes  = [
-    class Lamp extends Actor
+    class Lamp extends Thing
         off: false,
         burnt_out: false
         name: 'the table lamp'
@@ -47,7 +53,7 @@ window.actor_classes  = [
                     @burnt_out = false
                     return "#{human.name} replaces the bulb of #{@name}"
 
-    class Chair extends Actor
+    class Chair extends Thing
         name: "the leather chair"
         act: (others) ->
             if not @seated?
@@ -64,7 +70,7 @@ window.actor_classes  = [
                     'ejects'
                 ].random() + " #{other.name} onto the floor"
 
-    class Death extends Actor
+    class Death extends Thing
         name: "death"
         gender: 'he'
         act: (others) ->
@@ -79,10 +85,8 @@ window.actor_classes  = [
             else
                 return "#{@name} cackles mercilessly"
 
-    class SexyFriend extends Actor
+    class SexyFriend extends Human
         name: "the stripper"
-        human: true
-        gender: 'he'
         act: (others) ->
             humans = (x for x in others when x.human)
             if humans.length > 0
@@ -100,7 +104,7 @@ window.actor_classes  = [
                 'turns you on'
             ].concat(extra_actions).random()
 
-    class Blender extends Actor
+    class Blender extends Thing
         name: "the blender"
         act: (others) ->
             human = (x for x in others when x.human).random()
@@ -117,7 +121,7 @@ window.actor_classes  = [
                 "a blade breaks off of #{@name} and lodges itself inside of #{human.name}'s #{window.human_body_parts.random()}"
             ].random()
 
-    class Toilet extends Actor
+    class Toilet extends Thing
         name: "the toilet"
         act: (others) ->
             human = (x for x in others when x.human).random()
@@ -133,7 +137,7 @@ window.actor_classes  = [
                 "#{@name} releases a noxious gas"
             ].random()
 
-    class Car extends Actor
+    class Car extends Thing
         name: "your car"
         act: (others) ->
             human = (x for x in others when x.human).random()
@@ -150,7 +154,7 @@ window.actor_classes  = [
                 "#{@name} drives you to #{place}"
             ].random()
 
-    class Wallpaper extends Actor
+    class Wallpaper extends Thing
         name: "the wallpaper"
         act: (others) ->
             human = (x for x in others when x.human).random()
@@ -166,9 +170,8 @@ window.actor_classes  = [
                 "#{@name} traces a headache inducing arabesque"
             ].random()
 
-    class Inspiring extends Actor
+    class Inspiring extends Human
         name: "the microblogger"
-        human: true
         act: (others) ->
             other = others.random()
             return [
@@ -179,9 +182,8 @@ window.actor_classes  = [
                 "#{@name} writes a twitter post"
             ].random()
 
-    class Funny extends Actor
+    class Funny extends Human
         name: "the comedian"
-        human: true
         act: (others) ->
             thing = (t for t in others when not t.human).random()
             other = others.random()
@@ -204,6 +206,11 @@ window.pick_actors = (actors, min, max) ->
 
 capitalize = (string) ->
     return string.charAt(0).toUpperCase() + string.slice(1)
+
+window.available_actors = () ->
+    vars = state.active.variables
+    friends = vars.friends
+    things = vars.things
 
 window.spin_yarn = ->
     available_actors = (new x for x in window.actor_classes)
