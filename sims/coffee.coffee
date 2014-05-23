@@ -9,6 +9,8 @@ window.human_body_parts = [
 ]
 
 class Actor
+    genitive: () ->
+        return @name + "'s"
 
 class Human extends Actor
     human: true
@@ -16,184 +18,196 @@ class Human extends Actor
 class Thing extends Actor
     human: false
 
-window.actor_classes  = [
-    class Lamp extends Thing
-        off: false,
-        burnt_out: false
-        name: 'the table lamp'
-        can_act: ->
-            not @off and not @burnt_out
-        act: (others) ->
+actor_classes = {}
+window.actor_classes = actor_classes
+
+class actor_classes.Lamp extends Thing
+    off: false,
+    burnt_out: false
+    name: 'the table lamp'
+    can_act: ->
+        not @off and not @burnt_out
+    act: (others) ->
+        other = others.random()
+        if not @off and not @burnt_out
+            if Math.random() < .8
+                @name + " " + [
+                    "shines light on #{other.name}",
+                    "refuses to shine light on #{other.name}",
+                    "blinds #{other.name}",
+                    "bathes #{other.name} in bright light",
+                    "shines light on a pamphlet for [[toilets|MeetToilet]]"
+                ].random()
+            else
+                if Math.random() < .5
+                    @burnt_out = true
+                    return "#{@name}'s bulb burns out. Darkness fills the room"
+                else
+                    @off = true
+                    return "#{@name} becomes unplugged. Darkness fills the room"
+        else if @off
+            humans = (o for o in others when o.human)
+            if humans.length > 0
+                human = humans.random()
+                @off = false
+                return "#{human.name} turns #{@name} back on"
+        else if @burnt_out
+            humans = (o for o in others when o.human)
+            if humans.length > 0
+                human = humans.random()
+                @burnt_out = false
+                return "#{human.name} replaces the bulb of #{@name}"
+
+class actor_classes.Chair extends Thing
+    name: "the leather chair"
+    act: (others) ->
+        if not @seated?
             other = others.random()
-            if not @off and not @burnt_out
-                if Math.random() < .8
-                    @name + " " + [
-                        "shines light on #{other.name}",
-                        "refuses to shine light on #{other.name}",
-                        "blinds #{other.name}",
-                        "bathes #{other.name} in bright light",
-                    ].random()
-                else
-                    if Math.random() < .5
-                        @burnt_out = true
-                        return "#{@name}'s bulb burns out. Darkness fills the room"
-                    else
-                        @off = true
-                        return "#{@name} becomes unplugged. Darkness fills the room"
-            else if @off
-                humans = (o for o in others when o.human)
-                if humans.length > 0
-                    human = humans.random()
-                    @off = false
-                    return "#{human.name} turns #{@name} back on"
-            else if @burnt_out
-                humans = (o for o in others when o.human)
-                if humans.length > 0
-                    human = humans.random()
-                    @burnt_out = false
-                    return "#{human.name} replaces the bulb of #{@name}"
-
-    class Chair extends Thing
-        name: "the leather chair"
-        act: (others) ->
-            if not @seated?
-                other = others.random()
-                @seated = other
-                return "#{@name} " + [
-                    'seats',
-                    "won't seat"
-                ].random() + " " + other.name
-            else
-                other = @seated
-                @seated = null
-                return "#{@name} " + [
-                    'ejects'
-                ].random() + " #{other.name} onto the floor"
-
-    class Death extends Thing
-        name: "death"
-        gender: 'he'
-        act: (others) ->
-            humans = (x for x in others when x.human)
-            if humans.length > 0
-                other = humans.random()
-                if Math.random() < .2
-                    other.dead = true
-                    return "#{@name} comes for #{other.name}"
-                else
-                    return "#{@name} strikes fear into the heart of #{other.name}"
-            else
-                return "#{@name} cackles mercilessly"
-
-    class SexyFriend extends Human
-        name: "the stripper"
-        act: (others) ->
-            humans = (x for x in others when x.human)
-            if humans.length > 0
-                other = humans.random()
-                extra_actions = [
-                    "turns #{other.name} on",
-                    "gives #{other.name} a lap dance",
-                    "fucks #{other.name}"
-                ]
-            else
-                extra_actions = []
+            @seated = other
             return "#{@name} " + [
-                'looks sexy',
-                'struts his stuff',
-                'turns you on'
-            ].concat(extra_actions).random()
+                'seats',
+                "won't seat"
+            ].random() + " " + other.name
+        else
+            other = @seated
+            @seated = null
+            return "#{@name} " + [
+                'ejects'
+            ].random() + " #{other.name} onto the floor"
 
-    class Blender extends Thing
-        name: "the blender"
-        act: (others) ->
-            human = (x for x in others when x.human).random()
-            other = others.random()
-            return [
-                "#{@name} purrs",
-                "#{@name} blends the hand of #{human.name}",
-                "#{@name} purrs",
-                "#{@name} blends up some veggies for #{other.name}",
-                "#{@name} vibrates in circles",
-                "#{@name} whirs at #{other.name}",
-                "#{@name} spins for #{other.name}",
-                "#{@name} pours blended fruit juice onto #{other.name}"
-                "a blade breaks off of #{@name} and lodges itself inside of #{human.name}'s #{window.human_body_parts.random()}"
-            ].random()
+class actor_classes.Death extends Thing
+    name: "death"
+    gender: 'he'
+    act: (others) ->
+        humans = (x for x in others when x.human)
+        if humans.length > 0
+            other = humans.random()
+            if Math.random() < .2
+                other.dead = true
+                return "#{@name} comes for #{other.name}"
+            else
+                return "#{@name} strikes fear into the heart of #{other.name}"
+        else
+            return "#{@name} cackles mercilessly"
 
-    class Toilet extends Thing
-        name: "the toilet"
-        act: (others) ->
-            human = (x for x in others when x.human).random()
-            other = others.random()
-            return [
-                "#{@name} slurps up #{human.name}'s shit",
-                "#{@name} flushes",
-                "#{@name} clogs up",
-                "#{@name} makes a gurgling sound",
-                "#{@name} splashes water on #{other.name}"
-                "#{@name} refuses to flush"
-                "#{@name} emits a disgusting smell"
-                "#{@name} releases a noxious gas"
-            ].random()
+class actor_classes.Stripper extends Human
+    name: "the stripper"
+    act: (others) ->
+        humans = (x for x in others when x.human)
+        if humans.length > 0
+            other = humans.random()
+            extra_actions = [
+                "turns #{other.name} on",
+                "gives #{other.name} a lap dance",
+                "fucks #{other.name}"
+            ]
+        else
+            extra_actions = []
+        return "#{@name} " + [
+            'looks sexy',
+            'struts his stuff',
+        ].concat(extra_actions).random()
 
-    class Car extends Thing
-        name: "your car"
-        act: (others) ->
-            human = (x for x in others when x.human).random()
-            other = others.random()
-            place = [
-                "the mall", "the supermarket", "your work", "the hospital",
-                "the school", "the cafe", "the gym", "the park", "the zoo"
-            ].random()
-            return [
-                "#{@name} honks its horn at #{other.name}"
-                "#{@name} runs over #{other.name}"
-                "#{@name} breaks down",
-                "#{@name} shines its high beams at #{other.name}",
-                "#{@name} drives you to #{place}"
-            ].random()
+class actor_classes.Blender extends Thing
+    name: "the blender"
+    act: (others) ->
+        human = (x for x in others when x.human).random()
+        other = others.random()
+        return [
+            "#{@name} purrs",
+            "#{@name} blends the hand of #{human.name}",
+            "#{@name} purrs",
+            "#{@name} blends up some veggies for #{other.name}",
+            "#{@name} vibrates in circles",
+            "#{@name} whirs at #{other.name}",
+            "#{@name} spins for #{other.name}",
+            "#{@name} pours blended fruit juice onto #{other.name}"
+            "a blade breaks off of #{@name} and lodges itself inside of #{human.genitive} #{window.human_body_parts.random()}"
+        ].random()
 
-    class Wallpaper extends Thing
-        name: "the wallpaper"
-        act: (others) ->
-            human = (x for x in others when x.human).random()
-            other = others.random()
-            return [
-                "#{@name} looks like vomiting cats"
-                "#{@name} peels off in flakes and lands on #{other.name}"
-                "#{@name} looks like #{other.name}'s name written over and over"
-                "#{@name} undulates"
-                "#{@name} looks like wiry men staring at #{human.name}"
-                "#{@name} surrounds #{other.name}"
-                "#{@name} warps"
-                "#{@name} traces a headache inducing arabesque"
-            ].random()
+class actor_classes.Toilet extends Thing
+    name: "the toilet"
+    act: (others) ->
+        human = (x for x in others when x.human).random()
+        other = others.random()
+        return [
+            "#{@name} slurps up #{human.genitive} shit",
+            "#{@name} flushes",
+            "#{@name} clogs up",
+            "#{@name} makes a gurgling sound",
+            "#{@name} splashes water on #{other.name}"
+            "#{@name} refuses to flush"
+            "#{@name} emits a disgusting smell"
+            "#{@name} releases a noxious gas"
+        ].random()
 
-    class Inspiring extends Human
-        name: "the microblogger"
-        act: (others) ->
-            other = others.random()
-            return [
-                "#{@name} sighs",
-                "#{@name} looks optimistic",
-                "#{@name} gives #{other.name} a thumbs up"
-                "#{@name} shows #{other.name} a picture of a cat"
-                "#{@name} writes a twitter post"
-            ].random()
+class actor_classes.Car extends Thing
+    name: "your car"
+    act: (others) ->
+        human = (x for x in others when x.human).random()
+        other = others.random()
+        place = [
+            "the mall", "the supermarket", "your work", "the hospital",
+            "the school", "the cafe", "the gym", "the park", "the zoo"
+        ].random()
+        return [
+            "#{@name} honks its horn at #{other.name}"
+            "#{@name} runs over #{other.name}"
+            "#{@name} breaks down",
+            "#{@name} shines its high beams at #{other.name}",
+            "#{@name} drives you to #{place}"
+        ].random()
 
-    class Funny extends Human
-        name: "the comedian"
-        act: (others) ->
-            thing = (t for t in others when not t.human).random()
-            other = others.random()
-            return [
-                "#{@name} laughs"
-                "#{@name} tells #{other.name} a joke"
-                "#{@name} tells a mean joke about #{other.name}"
-                "#{thing.name} inspires one of #{@name}'s jokes",
-            ].random()
-]
+class actor_classes.Wallpaper extends Thing
+    name: "the wallpaper"
+    act: (others) ->
+        human = (x for x in others when x.human).random()
+        other = others.random()
+        return [
+            "#{@name} looks like vomiting cats"
+            "#{@name} peels off in flakes and lands on #{other.name}"
+            "#{@name} looks like #{other.genitive} name written over and over"
+            "#{@name} undulates"
+            "#{@name} looks like wiry men staring at #{human.name}"
+            "#{@name} surrounds #{other.name}"
+            "#{@name} warps"
+            "#{@name} traces a headache inducing arabesque"
+        ].random()
+
+class actor_classes.Inspiring extends Human
+    name: "the microblogger"
+    act: (others) ->
+        other = others.random()
+        return [
+            "#{@name} sighs",
+            "#{@name} looks optimistic",
+            "#{@name} gives #{other.name} a thumbs up"
+            "#{@name} shows #{other.name} a picture of a cat"
+            "#{@name} writes a twitter post"
+        ].random()
+
+class actor_classes.Player extends Human
+    name: "you"
+    genitive: "your"
+    act: (others) ->
+        return [
+            "#{@name} satisfy your needs"
+            "#{@name} play the game"
+            "#{@name} hang around"
+            "#{@name} meet some people"
+        ].random()
+
+class actor_classes.Comedian extends Human
+    name: "the comedian"
+    act: (others) ->
+        thing = (t for t in others when not t.human).random()
+        other = others.random()
+        return [
+            "#{@name} laughs"
+            "#{@name} tells #{other.name} a joke"
+            "#{@name} tells a mean joke about #{other.name}"
+            "#{thing.name} inspires one of #{@genitive()} jokes",
+        ].random()
 
 window.pick_actors = (actors, min, max) ->
     humans = shuffle(a for a in actors when a.human)
@@ -207,15 +221,13 @@ window.pick_actors = (actors, min, max) ->
 capitalize = (string) ->
     return string.charAt(0).toUpperCase() + string.slice(1)
 
-window.available_actors = () ->
+window.home_actors = () ->
     vars = state.active.variables
-    friends = vars.friends
-    things = vars.things
+    friends = (new actor_classes[f.actor_class] for f in vars.friends)
+    things = (new actor_classes[t.actor_class]() for t in vars.things when t.relationship > 0)
+    return pick_actors(things.concat(friends).concat(new actor_classes.Player), 2, 4)
 
-window.spin_yarn = ->
-    available_actors = (new x for x in window.actor_classes)
-    all_actors = window.pick_actors(available_actors, 2, 4)
-    console.log(a.name for a in all_actors)
+window.spin_yarn = (all_actors) ->
     acted = []
     output = []
     for i in [0..3 + Math.random() * 5]
@@ -270,7 +282,11 @@ window.spin_yarn = ->
                 '. Happily, '
                 '. Fortunately, '
                 ' whenever '
-                ' unless '
+                ' unless ',
+                ' and hell, '
+                ' and just for fun '
+                ' and in any case '
+                ' and anyway '
             ]
 
             # Increase chance of sentence enders

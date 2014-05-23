@@ -3,23 +3,33 @@ window.init_things = function() {
     state.active.variables.things = [
         {
             id: "lamp",
-            relationship: 0,
-            name: "the 'Timothy' Table Lamp"
+            relationship: 1,
+            name: "the 'Timothy' Table Lamp",
+            actor_class: "Lamp"
         },
         {
             id: 'tv',
             relationship: 0,
-            name: "the 'Akira' Television"
+            name: "the 'Akira' Television",
+            actor_class: "TV",
         },
         {
             id: 'sex',
             relationship: 0,
-            name: "'Jacky', the puddle of ejaculate"
+            name: "'Jacky', the puddle of ejaculate",
+            actor_class: "Jissom"
         },
         {
             id: 'chair',
+            relationship: 1,
+            name: "the 'Christopher Knight' bonded leather chair",
+            actor_class: "Chair"
+        },
+        {
+            id: 'toilet',
             relationship: 0,
-            name: "the 'Christopher Knight' bonded leather chair"
+            name: "the 'Tucker' toilet",
+            actor_class: "Toilet"
         }
     ]
 }
@@ -322,4 +332,12 @@ You put your friends into the refrigerator and mail the tupperware back.
 You open the fridge where you put the guests of the tupperware party. You tickle your mother in the stomach and she regurgitates some potatoes for you. You swallow the with baby bird greed.
 
 <<AddNeed "things_need" 10>>
+[[Continue|Main]]
+
+::MeetToilet
+You go to the hardware store and find rows of hearty looking toilets waiting outside. You befriend one and take it home to do your dirty work.
+
+<<set $toilet = thing_by_id("toilet")>>\
+<<AddRelationship $toilet 1>>
+
 [[Continue|Main]]

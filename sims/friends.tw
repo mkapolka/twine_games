@@ -5,49 +5,57 @@ window.init_friends = function() {
             id: 'sex',
             name: 'a stripper',
             cost: 100,
-            passage: 'SexDisplay'
+            passage: 'SexDisplay',
+            actor_class: 'Stripper'
         },
         {
             id: 'inspiring',
             name: 'a microblogger',
             cost: 75,
-            passage: 'InspireDisplay'
+            passage: 'InspireDisplay',
+            actor_class: 'Inspiring'
         },
         {
             id: 'funny',
             name: 'a comedian',
             cost: 120,
-            passage: 'FunnyDisplay'
+            passage: 'FunnyDisplay',
+            actor_class: 'Comedian'
         },
         {
             id: 'sexier',
             name: 'a sexy dancer',
             cost: 500,
-            passage: 'SexierDisplay'
+            passage: 'SexierDisplay',
+            actor_class: 'DancerFriend'
         },
         {
             id: 'funnier',
             name: 'a clown',
             cost: 750,
-            passage: 'FunnierDisplay'
+            passage: 'FunnierDisplay',
+            actor_class: 'Clown'
         },
         {
             id: 'priest',
             name: 'a unitarian priest',
             cost: 800,
-            passage: 'PriestDisplay'
+            passage: 'PriestDisplay',
+            actor_class: 'Priest'
         },
         {
             id: 'fascist',
             name: 'a fascist',
             cost: 1200,
-            passage: 'FascistDisplay'
+            passage: 'FascistDisplay',
+            actor_class: 'Fascist'
         },
         {
             id: 'enduring',
             name: 'your enduring friend',
             cost: 1800,
-            passage: 'EnduringDisplay'
+            passage: 'EnduringDisplay',
+            actor_class: 'EnduringFriend'
         }
     ]
 }
@@ -62,15 +70,16 @@ window.friend_template_by_id = function(id) {
 
 window.init_friend_by_id = function(id) {
     var template = friend_template_by_id(id)
-    return create_friend(template.name, template.passage, template.cost)
+    return create_friend(template.name, template.passage, template.cost, template.actor_class)
 }
 
-window.create_friend = function(name, display_passage, friend_cost) {
+window.create_friend = function(name, display_passage, friend_cost, actor_class) {
     var friend = {
         name: name,
         display_passage: display_passage,
         id: Math.floor(Math.random() * 100000),
-        cost: friend_cost
+        cost: friend_cost,
+        actor_class: actor_class
     }
     return friend
 }
