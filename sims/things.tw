@@ -84,7 +84,11 @@ window.get_relationship_name = function(value) {
     }
 }
 
-::Buy things
+window.knows_thing = function(thing_id) {
+    return thing_by_id(thing_id).relationship > 0
+}
+
+::MeetThings
 <<if !$visited_store>>
 You go to the mall. It's your first time in this new town. You're nervous and excited at the possibilities.<<set $visited_store=true>>
 <<endif>>
@@ -336,7 +340,6 @@ You open the fridge where you put the guests of the tupperware party. You tickle
 
 ::MeetToilet
 You go to the hardware store and find rows of hearty looking toilets waiting outside. You befriend one and take it home to do your dirty work.
-
 <<set $toilet = thing_by_id("toilet")>>\
 <<AddRelationship $toilet 1>>
 

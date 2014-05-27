@@ -64,7 +64,7 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
         <</each>>\
 
     <</if>>\
-    <<print spin_yarn(home_actors())>>
+    <<display SpinHomeYarn>>
 
     <<if $friends.length == 0>>\
     You don't have any friends yet.
@@ -98,10 +98,9 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
 
     <<endif>>\
     <ul>
-    <li>[[Hang out at home|HangAtHome]]</li>
     <li>[[Go party]]</li>
-    <li>[[Invite friends over]]</li>
-    <li>[[Buy things]]</li>
+    <li>[[Buy friends|BuyFriends]]</li>
+    <li>[[Meet things|MeetThings]]</li>
     </ul>\
 <<else>>\
     <<display Dead>>\
@@ -111,7 +110,21 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
 <<set $rapport_gained = Math.floor(Math.random() * 100)>>\
 <<set $rapport += $rapport_gained>>\
 <<set $party_atrophy = 0>>\
-You party for 8 hours. You gain <<print $rapport_gained>> rapport.
+You party for 8 hours. \
+<<random>>\
+    You meet a lot of people!
+    <<or>>\
+    You tell everyone a great story and they all like it.
+    <<or>>\
+    You tell everyone about your amazing friends!
+    <<or>>\
+    You hear a really neat story about a cat.
+    <<or>>\
+    You attend someone's wedding. Good for them!
+    <<or>>\
+    You eat way too much cake! Ha ha
+<</random>>\
+You gain <<print $rapport_gained>> rapport.
 <<run atrophy_needs()>>\
 
 [[Return home|Main]]
@@ -144,6 +157,9 @@ You throw <<print $corpse_owner.name>>'s corpse into the trash.
 
 ::SpinHomeYarn
 <<set $actors to home_actors()>>\
+<div class="yarn">\
 <<print spin_yarn($actors)>>
 
-[[Continue|Main]]
+<<set $_gained_thing_need = Math.floor(Math.random() * 30)>>\
+<<AddNeed "things_need" $_gained_thing_need>>
+</div>\

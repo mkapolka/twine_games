@@ -27,17 +27,23 @@ class actor_classes.Lamp extends Thing
     name: 'the table lamp'
     can_act: ->
         not @off and not @burnt_out
+    healthy_act: (others) ->
+        if not knows_thing('toilet') and Math.random() < .3
+            return "#{@name} shines light on a pamphlet for [[toilets|MeetToilet]]"
+        else
+            other = others.random()
+            return @name + " " + [
+                "shines light on #{other.name}",
+                "refuses to shine light on #{other.name}",
+                "blinds #{other.name}",
+                "bathes #{other.name} in bright light",
+            ].random()
+
     act: (others) ->
         other = others.random()
         if not @off and not @burnt_out
             if Math.random() < .8
-                @name + " " + [
-                    "shines light on #{other.name}",
-                    "refuses to shine light on #{other.name}",
-                    "blinds #{other.name}",
-                    "bathes #{other.name} in bright light",
-                    "shines light on a pamphlet for [[toilets|MeetToilet]]"
-                ].random()
+                return this.healthy_act(others)
             else
                 if Math.random() < .5
                     @burnt_out = true

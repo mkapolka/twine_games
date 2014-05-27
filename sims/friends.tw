@@ -103,7 +103,7 @@ window.remove_friend = function(friend) {
         }
     }
 }
-::Invite friends over
+::BuyFriends
 If you spend your RAPPORT you can invite your friends to your house.
 Who do you want to invite?
 
@@ -189,7 +189,7 @@ You kill <<print $friend.name>>. All of your pent up range melts away.
     <<set $gained_funny = Math.ceil(Math.random() * 30)>>
     Your friend tells you a great joke!
 <<else>>\
-Your friend tries to tell you a joke, but it's a real stinker. You gain no humor need.
+Your friend tries to tell you a joke, but it's a real stinker.
 <</if>>\
 <<AddNeed "funny_need" $gained_funny>>
 <<run atrophy_needs()>>\
