@@ -160,7 +160,7 @@ macros.add('display_need', {
     handler: function() {
         var value = state.active.variables[this.args[0]]
         var pips = value / 20
-        var output = "<span class='green_pips'>"
+        var output = "<span title='" + need_value_name(this.args[0], value) + "' class='green_pips'>"
         for (var i = 0; i < pips; i++) {
             output += "|"
         }
@@ -172,6 +172,48 @@ macros.add('display_need', {
         new Wikifier(this.output, output)
     }
 })
+
+window.need_value_names = {
+    'hope_need': [
+        'Hopeless',
+        'Despondent',
+        'Sad',
+        'Fulfilled',
+        'Self Actualized'
+    ],
+    'sex_need': [
+        'Slavering',
+        'Horny',
+        'Randy',
+        'Piqued',
+        'Slaked'
+    ],
+    'funny_need': [
+        'Earnest',
+        'Serious',
+        'Funny',
+        'Silly',
+        'Goofy'
+    ],
+    'anger_need': [
+        'Blind',
+        'Angry',
+        'Annoyed',
+        'Calm',
+        'Serene'
+    ],
+    'things_need': [
+        'Thonged',
+        'Hibbic',
+        'Finched',
+        'Nodded',
+        'Gimbal'
+    ]
+}
+
+window.need_value_name = function(need_id, value) {
+    return window.need_value_names[need_id][Math.floor((value - 1) / 20)];
+}
 
 macros.add('display_some_of', {
     tags: ['and_or'],
@@ -192,6 +234,7 @@ macros.add('display_some_of', {
 
 :: _thing_relationship_widgets [widget]
 <<widget AddRelationship>>
+<<set $args[0] to (typeof $args[0] === 'string' ? thing_by_id($args[0]) : $args[0])>>\
 <<run add_relationship($args[0], $args[1])>>\
 Your relationship level with <<print $args[0].name>> is now <<print get_relationship_name($args[0].relationship)>>.\
 <</widget>>
@@ -200,3 +243,6 @@ Your relationship level with <<print $args[0].name>> is now <<print get_relation
 <<run add_need($args[0], $args[1])>>\
 You gain <<print $args[1]>> <<print need_name($args[0])>>.\
 <</widget>>\
+
+::need_words [script]
+window.need_name

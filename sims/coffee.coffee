@@ -28,16 +28,21 @@ class actor_classes.Lamp extends Thing
     can_act: ->
         not @off and not @burnt_out
     healthy_act: (others) ->
+        other = others.random()
+        actions = [
+            "#{@name} shines light on #{other.name}",
+            "#{@name} refuses to shine light on #{other.name}",
+            "#{@name} blinds #{other.name}",
+            "#{@name} bathes #{other.name} in bright light",
+        ]
         if not knows_thing('toilet') and Math.random() < .3
-            return "#{@name} shines light on a pamphlet for [[toilets|MeetToilet]]"
-        else
-            other = others.random()
-            return @name + " " + [
-                "shines light on #{other.name}",
-                "refuses to shine light on #{other.name}",
-                "blinds #{other.name}",
-                "bathes #{other.name} in bright light",
-            ].random()
+            actions.push("#{@name} shines light on a pamphlet for [[toilets|MeetToilet]]")
+        relationship_hooks = [
+            "[[#{@name} begins to flicker and sputter|LampHook1]]"
+            "[[#{@name} shines light in your eyes|LampHook2]]"
+        ]
+        actions = actions.concat(relationship_hooks[...thing_by_id('lamp').relationship])
+        return actions.random()
 
     act: (others) ->
         other = others.random()

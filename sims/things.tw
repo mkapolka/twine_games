@@ -339,8 +339,21 @@ You open the fridge where you put the guests of the tupperware party. You tickle
 [[Continue|Main]]
 
 ::MeetToilet
-You go to the hardware store and find rows of hearty looking toilets waiting outside. You befriend one and take it home to do your dirty work.
+The pamphlet is an advertisement for the "Tucker"- a sturdy and reliable brand of toilets. Just the thing you need
+to add some stability to your life. You go the hardware store and introduce yourself to one. You are now living with a new toilet.
 <<set $toilet = thing_by_id("toilet")>>\
 <<AddRelationship $toilet 1>>
+
+[[Continue|Main]]
+
+::LampHook1
+The light in the lamp winks a bit. You flick the bulb and it seems to go back to normal.
+<<AddRelationship lamp 1>>
+
+[[Continue|Main]]
+
+::LampHook2
+You snap at the light for shining light in your face. The lamp head swings down towards the ground. You feel bad and apologize.
+<<AddRelationship lamp 1>>
 
 [[Continue|Main]]
