@@ -4,6 +4,7 @@ window.init_things = function() {
         {
             id: "lamp",
             relationship: 1,
+            max_relationship: 6,
             name: "the 'Timothy' Table Lamp",
             actor_class: "Lamp"
         },
@@ -30,6 +31,12 @@ window.init_things = function() {
             relationship: 0,
             name: "the 'Tucker' toilet",
             actor_class: "Toilet"
+        },
+        {
+            id: 'wallpaper',
+            relationship: 1,
+            name: "the wallpaper",
+            actor_class: "Wallpaper"
         }
     ]
 }
@@ -70,6 +77,10 @@ window.MAX_RELATIONSHIP = window.relationship_names.length
 window.add_relationship = function(thing, amount) {
     var relationship = thing.relationship || 0
     relationship += amount
+    if (relationship >= (thing.max_relationship || window.MAX_RELATIONSHIP)) {
+        relationship = thing.max_relationship
+    }
+
     if (relationship >= window.MAX_RELATIONSHIP) {
         relationship = window.MAX_RELATIONSHIP
     }
@@ -343,17 +354,5 @@ The pamphlet is an advertisement for the "Tucker"- a sturdy and reliable brand o
 to add some stability to your life. You go the hardware store and introduce yourself to one. You are now living with a new toilet.
 <<set $toilet = thing_by_id("toilet")>>\
 <<AddRelationship $toilet 1>>
-
-[[Continue|Main]]
-
-::LampHook1
-The light in the lamp winks a bit. You flick the bulb and it seems to go back to normal.
-<<AddRelationship lamp 1>>
-
-[[Continue|Main]]
-
-::LampHook2
-You snap at the light for shining light in your face. The lamp head swings down towards the ground. You feel bad and apologize.
-<<AddRelationship lamp 1>>
 
 [[Continue|Main]]

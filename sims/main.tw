@@ -156,9 +156,8 @@ You throw <<print $corpse_owner.name>>'s corpse into the trash.
 <</widget>>
 
 ::SpinHomeYarn
-<<set $actors to home_actors()>>\
 <div class="yarn">\
-<<print spin_yarn($actors)>>
+<<print main_story()>>
 
 <<set $_gained_thing_need = Math.floor(Math.random() * 30)>>\
 <<AddNeed "things_need" $_gained_thing_need>>

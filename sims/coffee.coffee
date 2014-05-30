@@ -34,14 +34,12 @@ class actor_classes.Lamp extends Thing
             "#{@name} refuses to shine light on #{other.name}",
             "#{@name} blinds #{other.name}",
             "#{@name} bathes #{other.name} in bright light",
+            "#{@name} burns #{other.name}"
+            "#{@name} dimly illuminates #{other.name}"
+            "#{@name} provides sexy mood lighting"
         ]
         if not knows_thing('toilet') and Math.random() < .3
             actions.push("#{@name} shines light on a pamphlet for [[toilets|MeetToilet]]")
-        relationship_hooks = [
-            "[[#{@name} begins to flicker and sputter|LampHook1]]"
-            "[[#{@name} shines light in your eyes|LampHook2]]"
-        ]
-        actions = actions.concat(relationship_hooks[...thing_by_id('lamp').relationship])
         return actions.random()
 
     act: (others) ->
@@ -133,7 +131,7 @@ class actor_classes.Blender extends Thing
             "#{@name} whirs at #{other.name}",
             "#{@name} spins for #{other.name}",
             "#{@name} pours blended fruit juice onto #{other.name}"
-            "a blade breaks off of #{@name} and lodges itself inside of #{human.genitive} #{window.human_body_parts.random()}"
+            "a blade breaks off of #{@name} and lodges itself inside of #{human.genitive()} #{window.human_body_parts.random()}"
         ].random()
 
 class actor_classes.Toilet extends Thing
@@ -142,7 +140,7 @@ class actor_classes.Toilet extends Thing
         human = (x for x in others when x.human).random()
         other = others.random()
         return [
-            "#{@name} slurps up #{human.genitive} shit",
+            "#{@name} slurps up #{human.genitive()} shit",
             "#{@name} flushes",
             "#{@name} clogs up",
             "#{@name} makes a gurgling sound",
@@ -172,18 +170,23 @@ class actor_classes.Car extends Thing
 class actor_classes.Wallpaper extends Thing
     name: "the wallpaper"
     act: (others) ->
-        human = (x for x in others when x.human).random()
         other = others.random()
-        return [
+        human = (o for o in others when o.human).random()
+        actions = [
             "#{@name} looks like vomiting cats"
             "#{@name} peels off in flakes and lands on #{other.name}"
-            "#{@name} looks like #{other.genitive} name written over and over"
             "#{@name} undulates"
-            "#{@name} looks like wiry men staring at #{human.name}"
             "#{@name} surrounds #{other.name}"
             "#{@name} warps"
-            "#{@name} traces a headache inducing arabesque"
-        ].random()
+            "#{@name} speaks volumes about your character"
+            "#{@name} reveals your innermost desires"
+            "the red color of the wallpaper makes you feel angry"
+            "the yellow color of the wallpaper makes you feel happy"
+            "the blue color of the wallpaper makes you feel sad"
+            "the orange color of the wallpaper makes you feel optimistic"
+        ]
+
+        return actions.random()
 
 class actor_classes.Inspiring extends Human
     name: "the microblogger"
@@ -199,7 +202,7 @@ class actor_classes.Inspiring extends Human
 
 class actor_classes.Player extends Human
     name: "you"
-    genitive: "your"
+    genitive: () -> "your"
     act: (others) ->
         return [
             "#{@name} satisfy your needs"
@@ -229,8 +232,29 @@ window.pick_actors = (actors, min, max) ->
     n = min + Math.round(Math.random() * (max - min))
     return shuffled.slice(0, n)
 
+window.pick_some = (array, min, max) ->
+    a = shuffle(array)
+    n = Math.ceil(Math.random() * (min + (max - min)))
+    return a.slice(0, n)
+
 capitalize = (string) ->
     return string.charAt(0).toUpperCase() + string.slice(1)
+
+window.main_story = () ->
+    friendly_things = (t for t in state.active.variables.things when t.relationship > 0)
+    things = pick_some(friendly_things, 1, 2)
+    friends = pick_some(state.active.variables.friends, 1, 2)
+    all = things.concat(friends)
+    actors = (new actor_classes[a.actor_class] for a in all)
+    yarn = spin_yarn(actors)
+    bonuses = []
+    for thing in things
+        if Math.random() < .2
+            add_relationship(thing_by_id(thing['id']), 1)
+            bonuses.push("Your relationship with #{thing.name} is now #{get_relationship_name(thing['relationship'])}")
+    if bonuses.length > 0
+        return yarn + "\n\n" + bonuses.join("\n")
+    return yarn
 
 window.home_actors = () ->
     vars = state.active.variables
