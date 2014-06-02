@@ -99,87 +99,18 @@ window.knows_thing = function(thing_id) {
     return thing_by_id(thing_id).relationship > 0
 }
 
-::MeetThings
-<<if !$visited_store>>
-You go to the mall. It's your first time in this new town. You're nervous and excited at the possibilities.<<set $visited_store=true>>
-<<endif>>
-There are all kinds of diverse and interesting things here.
-
-<<display_some_of>>\
-    [[A charming lamp]] catches your eye.
-<<and_or>>\
-    You find a [[strange white box]] at work.
-<<and_or>>\
-    There's a beautiful [[leather chair|ChairVisit]] in the corner of the furniture department.
-<<and_or>>\
-    <<if not $tv_buried>>\
-        There's a [[television|TVMain]] here.
-    <<else>>\
-        The television's grave is here.
-    <<endif>>\
-<<and_or>>\
-<<if not $tupperware_partied>>\
-    A friend calls and asks if you'd like to host a tupperware party. [[Agree?|TupperwareParty]]
-<<else>>\
-    You're feeling peckish. You still have leftovers from the tupperware party. [[Eat some food|TupperwareEat]]?
-<<endif>>\
-<</display_some_of>>\
-
-::A charming lamp
-You bravely walk up and begin examining the lamp. It's a squat table lamp, about two feet tall with a paunchy olive base and a tasteful, if dorky, beige shade. 
-An [[informative label]] hangs from its neck.
-
-::informative label
-The label says this is a "Timothy Table Lamp." Apparently it's a Gushing \
-Meadows native- designed and manufactured on the Clarkson's Home Furnishing \
-campus.  Reading the note you learn more about the Clarkson company and its \
-role in the history of Gushing Meadows. The "Timothy Table Lamp" is part of a \
-long line of local table lamps. For almost a hundred years Clarkson's table \
-lamps have been lighting the homes of the good people of Gushing Meadows, and \
-they hope to continue to do so for as long as they can.
-
-<<AddNeed "things_need" 30>>
-<<set $done_lamp = true>>\
-
-[[Continue|Main]]
-
-::strange white box
-The box, rounded at the corners and slightly bigger than a person, seems to have a door on the front.
-
-[[open the door]]
-
-::open the door
-You swing the door open and!! The box is cold and filled with food. There are so many kinds of food in here.
-There are hoagies wrapped in plastic bags, styrofoam containers filled with chicken parmesan, take out containers of chinese food.
-A world of sinful opportunities unfurls before your eyes. You had never really considered the vast possibilities of culinary delight available to you.
-
-[[Try some food|EatFood]]
-
-::EatFood
-<<set $met_fridge = true>>\
-<<first "which_eat">>\
-You pierce a bulging grape with your canine tooth and let the juice slide down your throat. The feeling of cold liquid sliding down you makes you shiver.
-<<then>>\
-With careful precision you bind a nugget of orange chicken with a rope of chow mein. You dangle it above your mouth and let the syrup drip into your mouth before gobbling it up whole.
-<<then>>\
-Over the course of several encounters you savor a piece of devils food cake. Each time you split it in half, foolishly thinking that you can keep your affair going indefinitely by infinitely subdividing your affections.
-When you eat the second to last unsatisfying sliver you spitefully devour the last morsel. This proves to you that the only sustianable culinary model is constant motion.
-<<then>>\
-After listlessly sucking a Baby Ruth down to the nougat you look back on your previous meals and feel that the time has come to give up your wandering ways. <<set $done_fridge = true>>
-<</first>>\
-
-<<run atrophy_needs()>>\
-<<AddNeed "things_need" 10>>
-
-[[Continue|Main]]
-
 ::ThingsMain
 <<if $chair_home>>\
 Your [[leather chair|ChairHome]] is here.
 <<endif>>\
 ::ChairVisit
-<<set $chair = thing_by_id("chair")>>
-<<first>>
+<<set $chair = thing_by_id("chair")>>\
+<<first>>\
+    It's your first time in a new mall. You have butterflies. The air is buzzing with the activity of televisions, illuminated signs, and loudspeakers. All around you shiny products are luring in potential customers. You spend some time becoming acquainted with the different shops. Today you are just getting an overview- there's too much spendor to take in.
+
+    You don't quite get a chance to visit the furnature store before it closes. You look through the window and get a glimpse of a beautiful leather chair in the far corner of the store. You bob and wiggle to try to get a better view of it but the shopkeepr slams \
+    a metal barrier in your face. You'll have to come back tomorrow.
+<<then>>
     Your eyes instinctively dart away, afraid of your habit of staring. The glance leaves an incomplete form in your imagination: a shiny brown shape, impossible welcoming curves, plush but firm cusions. \
     You approach carefully, pretending to examine a hideous green courduroy recliner. You audibly scoff and curse while fumbling with the recliner lever, then transfer to the chair. \
     You circle the chair exactly once, slowly. You don't want to seem timid or unsure. \
@@ -316,7 +247,7 @@ Playing with Jacky makes you remember all the good sex you've had.
 <<when 0>>
 You try to pick Jackie up with your hands but it just isn't working!
 <<when -1>>\
-You try to clean up Jackie but you end up just spreading her around.
+You try to clean up Jackie with sheet of paper but you end up just spreading her around.
 <<when -2>>\
 You go in with the sponge but Jackie slips you and you fall on your tuckus.
 <<when -3>>\

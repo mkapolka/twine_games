@@ -65,7 +65,6 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
 
     <</if>>\
     <<display SpinHomeYarn>>
-
     <<if $friends.length == 0>>\
     You don't have any friends yet.
 
@@ -100,7 +99,7 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
     <ul>
     <li>[[Go party]]</li>
     <li>[[Buy friends|BuyFriends]]</li>
-    <li>[[Meet things|MeetThings]]</li>
+    <li>[[Go to the mall|ChairVisit]]</li>
     </ul>\
 <<else>>\
     <<display Dead>>\

@@ -223,6 +223,20 @@ class actor_classes.Comedian extends Human
             "#{thing.name} inspires one of #{@genitive()} jokes",
         ].random()
 
+class actor_classes.Jissom extends Thing
+    name: "the puddle of ejaculate"
+    act: (others) ->
+        other = others.random()
+        return [
+            "#{@name} dries up a little."
+            "#{@name} slips #{other.name}"
+            "#{@name} gets on #{other.name}"
+            "#{@name} smells funky"
+            "#{@name} gets on the curtains"
+            "#{@name} gets on the walls"
+            "#{@name} gives #{other.name} a little taste"
+        ]
+
 window.pick_actors = (actors, min, max) ->
     humans = shuffle(a for a in actors when a.human)
     things = shuffle(t for t in actors when not t.human)
@@ -245,13 +259,13 @@ window.main_story = () ->
     things = pick_some(friendly_things, 1, 2)
     friends = pick_some(state.active.variables.friends, 1, 2)
     all = things.concat(friends)
-    actors = (new actor_classes[a.actor_class] for a in all)
+    actors = (new actor_classes[a.actor_class] for a in all).concat(new actor_classes.Player())
     yarn = spin_yarn(actors)
     bonuses = []
     for thing in things
         if Math.random() < .2
             add_relationship(thing_by_id(thing['id']), 1)
-            bonuses.push("Your relationship with #{thing.name} is now #{get_relationship_name(thing['relationship'])}")
+            bonuses.push("Your relationship level with #{thing.name} has increased to \"#{get_relationship_name(thing['relationship'])}\"")
     if bonuses.length > 0
         return yarn + "\n\n" + bonuses.join("\n")
     return yarn
@@ -316,6 +330,7 @@ window.spin_yarn = (all_actors) ->
                 '. Jealously, '
                 '. Happily, '
                 '. Fortunately, '
+                '. Awkwardly, '
                 ' whenever '
                 ' unless ',
                 ' and hell, '
