@@ -15,6 +15,7 @@ Human Need
 <<set $friendship_xp = 0>>
 <<run init_things()>>
 <<run init_friends()>>
+<<set $splooged = true>>
 
 <<run $friends.push(init_friend_by_id("sex"))>>
 <<run $friends.push(init_friend_by_id("inspiring"))>>
@@ -87,19 +88,24 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
             <<endif>>\
         <<endif>>\
     <</each>>\
-
     <</if>>\
-    <<display ThingsMain>>\
-    <<if $splooged>>\
-        There's a pool of ejaculate named "Jacky" on the floor here.
-        [[Play with Jacky. (Paragon)|PlayWithLiquid]]
-        [[Attempt to clean her up. (Renegade)|CleanUpSexLiquid]]
-
-    <<endif>>\
-    <ul>
+\
+    <ul>\
     <li>[[Go party]]</li>
     <li>[[Buy friends|BuyFriends]]</li>
-    <li>[[Go to the mall|ChairVisit]]</li>
+    <<if not $chair_home>>\
+        <li>[[Go to the mall|ChairVisit]]</li>
+    <<else>>\
+        <li>The [[leather chair|ChairHome]] is here.</li>\
+    <<endif>>\
+    <<if $splooged>>\
+        <li>There's a pool of ejaculate named "Jacky" on the floor here.\
+            <ul>\
+                <li>[[Play with Jacky. (Paragon)|PlayWithLiquid]]</li>\
+                <li>[[Attempt to clean her up. (Renegade)|CleanUpSexLiquid]]</li>\
+            </ul>\
+        </li>\
+    <<endif>>
     </ul>\
 <<else>>\
     <<display Dead>>\

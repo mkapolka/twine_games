@@ -99,10 +99,6 @@ window.knows_thing = function(thing_id) {
     return thing_by_id(thing_id).relationship > 0
 }
 
-::ThingsMain
-<<if $chair_home>>\
-Your [[leather chair|ChairHome]] is here.
-<<endif>>\
 ::ChairVisit
 <<set $chair = thing_by_id("chair")>>\
 <<first>>\
@@ -111,6 +107,8 @@ Your [[leather chair|ChairHome]] is here.
     You don't quite get a chance to visit the furnature store before it closes. You look through the window and get a glimpse of a beautiful leather chair in the far corner of the store. You bob and wiggle to try to get a better view of it but the shopkeepr slams \
     a metal barrier in your face. You'll have to come back tomorrow.
 <<then>>
+    You return to check on the chair.
+
     Your eyes instinctively dart away, afraid of your habit of staring. The glance leaves an incomplete form in your imagination: a shiny brown shape, impossible welcoming curves, plush but firm cusions. \
     You approach carefully, pretending to examine a hideous green courduroy recliner. You audibly scoff and curse while fumbling with the recliner lever, then transfer to the chair. \
     You circle the chair exactly once, slowly. You don't want to seem timid or unsure. \
