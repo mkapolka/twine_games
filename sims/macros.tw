@@ -112,11 +112,11 @@ macros.add('first', {
     tags: ['then'],
     handler: function() {
         var vars = state.active.variables
-        var iterator = vars[this.args[0]] || 0
+        var iterator = vars[state.active.title + "_first_iterator"] || 0
         if (iterator > this.payload.length) {
             iterator = this.payload.length - 1
         }
-        vars[this.args[0]] = iterator + 1
+        vars[state.active.title + "_first_iterator"] = iterator + 1
         new Wikifier(this.output, this.payload[iterator].contents)
     }
 })
