@@ -55,6 +55,10 @@ window.atrophy_needs = function() {
             friend.rotting = true
         }
     })
+
+    if (vars.pregnant === true) {
+        vars.pregnant_counter += 1
+    }
 }
 
 window.player_dead = function() {

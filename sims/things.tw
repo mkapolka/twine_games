@@ -163,8 +163,13 @@ window.knows_thing = function(thing_id) {
     <<AddRelationship chair 1>>
     <<AddNeed "things_need" 10>>
 <<then>>\
-    You sit in the chair with no pretense. You are here simply to relax and enjoy Christopher Knight's company. Christopher Knight sighs contentedly as you sit down. You kick off your shoes and stretch out your toes. \
+    You sit in the chair with no pretense. You are here to lounge. Christopher sighs contentedly as you sit down. You kick off your shoes and stretch out your toes. \
+    You bend. You sigh. You wiggle and wriggle. You sit sideways across the armrests. You doze off for a little bit and then get back at it. \
+    You sit upside down and wrap your legs around the back of the chair like a spider. You do some crazy stuff with the seat cusion.
 
+    The network of tendons inside of your body becomes ecstaticly tense and then suddenly slack. You drift off into a deep sleep, fetally curled and wrapped by Chritopher's manly pape.
+
+    <<set $pregnant = true>>\
     <<AddRelationship chair 1>>
 <</first>>\
 

@@ -15,11 +15,15 @@ Human Need
 <<set $friendship_xp = 0>>
 <<run init_things()>>
 <<run init_friends()>>
-<<set $splooged = true>>
+<<set $pregnant_counter = 0>>
 
 <<run $friends.push(init_friend_by_id("sex"))>>
 <<run $friends.push(init_friend_by_id("inspiring"))>>
 <<run $friends.push(init_friend_by_id("funny"))>>
+
+<<set $splooged = true>>
+<<set $pregnant = true>>
+<<set $chair_home = true>>
 
 <<set $rapport = 1000>>
 
@@ -39,73 +43,79 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
 
 ::Main
 <<if not player_dead()>>\
-    <<if $sex_need <= 0>>\
-        <<notify>>You cannot contain your horniness any longer! You jack off and leave a pool of sex liquids on the floor. You could have prevented this by keeping your sex need in check. You name the pool "Jacky."<</notify>>
-        <<set $sex_need = 30>>\
-        <<set $splooged = true>>\
-        <<run thing_by_id("sex").relationship = 0>>\
+    <<if $pregnant_counter < 4>>
+        <<if $sex_need <= 0>>\
+            <<notify>>You cannot contain your horniness any longer! You jack off and leave a pool of sex liquids on the floor. You could have prevented this by keeping your sex need in check. You name the pool "Jacky."<</notify>>
+            <<set $sex_need = 30>>\
+            <<set $splooged = true>>\
+            <<run thing_by_id("sex").relationship = 0>>\
 
-    <<endif>>\
-    <<if $anger_need < 30>>\
-        <<notify>>Your anger need is getting dangerously low! You'd better take your aggressions out on one of your friends.<</notify>>
-    <<endif>>\
-    <div class="status-bar">\
-    <h3>Needs: </h3>Violence (<<display_need "anger_need">>) Sex (<<display_need "sex_need">>) Humor (<<display_need "funny_need">>) Hope (<<display_need "hope_need">>) Things (<<display_need "things_need">>)
-    <h3>Rapport: </h3><<print $rapport>>
-    </div>
-    <<if $anger_need < 50>>\
-        You are very angry.
-        <<each $friends>>\
-            <<if $anger_need > 25>>\
-                <<print "[[Beat " + $o.name + "|BeatFriend][$beat_friend_id="+$o.id+"]]">>
-            <<else>>\
-                <<print "[[Kill " + $o.name + "|KillFriend][$kill_friend_id="+$o.id+"]]">>
-            <</if>>\
-        <</each>>\
-
-    <</if>>\
-    <<display SpinHomeYarn>>
-    <<if $friends.length == 0>>\
-    You don't have any friends yet.
-
-    <<else>>\
-    You have <<print to_sentence($friends.map(function(a){return a.name}))>>.
-    <ul>\
-    <<each $friends>>\
-        <<if not $o.dead>>\
-            <<dyn_display $o.display_passage>>\
-        <</if>>\
-    <</each>>
-    </ul>\
-    <<each $friends>>\
-        <<if $o.dead>>\
-            <<print $o.name>> is dead. <<print "[[Clean up their corpse|CleanCorpse][$corpse_id="+$o.id+"]]">>
-            <<if $o.rotting>>\
-                <<set $rneed = random_need(); $r = Math.floor(Math.random() * -10)>>\
-                <<print $o.name>>'s corpse really stinks! <<AddNeed $rneed $r>>
-
-            <<endif>>\
         <<endif>>\
-    <</each>>\
-    <</if>>\
-\
-    <ul>\
-    <li>[[Go party]]</li>
-    <li>[[Buy friends|BuyFriends]]</li>
-    <<if not $chair_home>>\
-        <li>[[Go to the mall|ChairVisit]]</li>
-    <<else>>\
-        <li>The [[leather chair|ChairHome]] is here.</li>\
-    <<endif>>\
-    <<if $splooged>>\
-        <li>There's a pool of ejaculate named "Jacky" on the floor here.\
-            <ul>\
-                <li>[[Play with Jacky. (Paragon)|PlayWithLiquid]]</li>\
-                <li>[[Attempt to clean her up. (Renegade)|CleanUpSexLiquid]]</li>\
-            </ul>\
-        </li>\
+        <<if $anger_need < 30>>\
+            <<notify>>Your anger need is getting dangerously low! You'd better take your aggressions out on one of your friends.<</notify>>
+        <<endif>>\
+        <div class="status-bar">\
+        <h3>Needs: </h3>Violence (<<display_need "anger_need">>) Sex (<<display_need "sex_need">>) Humor (<<display_need "funny_need">>) Hope (<<display_need "hope_need">>) Things (<<display_need "things_need">>)
+        <h3>Rapport: </h3><<print $rapport>>
+        </div>
+        <<if $anger_need < 50>>\
+            You are very angry.
+            <<each $friends>>\
+                <<if $anger_need > 25>>\
+                    <<print "[[Beat " + $o.name + "|BeatFriend][$beat_friend_id="+$o.id+"]]">>
+                <<else>>\
+                    <<print "[[Kill " + $o.name + "|KillFriend][$kill_friend_id="+$o.id+"]]">>
+                <</if>>\
+            <</each>>\
+
+        <</if>>\
+        <<display SpinHomeYarn>>
+        <<if $friends.length == 0>>\
+        You don't have any friends yet.
+
+        <<else>>\
+        You have <<print to_sentence($friends.map(function(a){return a.name}))>>.
+        <ul>\
+        <<each $friends>>\
+            <<if not $o.dead>>\
+                <<dyn_display $o.display_passage>>\
+            <</if>>\
+        <</each>>
+        </ul>\
+        <<each $friends>>\
+            <<if $o.dead>>\
+                <<print $o.name>> is dead. <<print "[[Clean up their corpse|CleanCorpse][$corpse_id="+$o.id+"]]">>
+                <<if $o.rotting>>\
+                    <<set $rneed = random_need(); $r = Math.floor(Math.random() * -10)>>\
+                    <<print $o.name>>'s corpse really stinks! <<AddNeed $rneed $r>>
+
+                <<endif>>\
+            <<endif>>\
+        <</each>>\
+        <</if>>\
+    \
+        <ul>\
+        <li>[[Go party]]</li>
+        <li>[[Buy friends|BuyFriends]]</li>
+        <<if not $chair_home>>\
+            <li>[[Go to the mall|ChairVisit]]</li>
+        <<elseif not $pregnant>>\
+            <li>The [[leather chair|ChairHome]] is here.</li>\
+        <<else>>\
+            <li>You are pregnant.</li>\
+        <<endif>>\
+        <<if $splooged>>\
+            <li>There's a pool of ejaculate named "Jacky" on the floor here.\
+                <ul>\
+                    <li>[[Play with Jacky. (Paragon)|PlayWithLiquid]]</li>\
+                    <li>[[Attempt to clean her up. (Renegade)|CleanUpSexLiquid]]</li>\
+                </ul>\
+            </li>\
+        <<endif>>
+        </ul>\
+    <<else>>
+        <<display Birth>>
     <<endif>>
-    </ul>\
 <<else>>\
     <<display Dead>>\
 <<endif>>\
@@ -166,3 +176,6 @@ You throw <<print $corpse_owner.name>>'s corpse into the trash.
 <<set $_gained_thing_need = Math.floor(Math.random() * 30)>>\
 <<AddNeed "things_need" $_gained_thing_need>>
 </div>\
+
+::Birth
+You give birth to a beautiful ottoman. You and Christopher decide to name it Otto. You live happily ever after.
