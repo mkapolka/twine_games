@@ -169,6 +169,12 @@ You throw <<print $corpse_owner.name>>'s corpse into the trash.
 </div>\
 <</widget>>
 
+<<widget Portrait>>\
+<div class="portrait">\
+<<print "[img["+$args[0]+"]]">>\
+</div>\
+<</widget>>
+
 ::SpinHomeYarn
 <div class="yarn">\
 <<print main_story()>>

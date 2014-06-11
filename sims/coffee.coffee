@@ -266,6 +266,14 @@ window.main_story = () ->
         if Math.random() < .2
             add_relationship(thing_by_id(thing['id']), 1)
             bonuses.push("Your relationship level with #{thing.name} has increased to \"#{get_relationship_name(thing['relationship'])}\"")
+
+    # Portraits
+    portraits = ""
+    for friend in friends
+        portraits += "<<Portrait #{friend.portrait}>>"
+
+    yarn = portraits + "\n\n" + yarn
+
     if bonuses.length > 0
         return yarn + "\n\n" + bonuses.join("\n")
     return yarn

@@ -45,30 +45,19 @@ div.status-bar {
     display: inline;
 }
 
-div.main_image {
-    position: relative;
-    size: auto;
-    width: 1024px;
-    height: 576px;
-
-    background: #C8E7EA;
-    border: 10px solid #C8E7EA;
-    margin: 0;
-    border-radius: 10px;
-}
-
-div.main_image img {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-}
-
 div.image_plate > img {
     margin: 0 auto;
     background: blue;
     border-radius: 10px;
     border: 10px #C8E7EA solid;
+}
+
+div.portrait {
+    display: inline-block;
+}
+
+div.portrait > img {
+    float: left;
 }
 
 div.yarn {

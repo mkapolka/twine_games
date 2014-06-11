@@ -6,56 +6,64 @@ window.init_friends = function() {
             name: 'a stripper',
             cost: 100,
             passage: 'SexDisplay',
-            actor_class: 'Stripper'
+            actor_class: 'Stripper',
+            portrait: 'art/sexy_portrait.png'
         },
         {
             id: 'inspiring',
             name: 'a microblogger',
             cost: 75,
             passage: 'InspireDisplay',
-            actor_class: 'Inspiring'
+            actor_class: 'Inspiring',
+            portrait: 'art/inspiring_portrait.png'
         },
         {
             id: 'funny',
             name: 'a comedian',
             cost: 120,
             passage: 'FunnyDisplay',
-            actor_class: 'Comedian'
+            actor_class: 'Comedian',
+            portrait: 'art/funny_portrait.png'
         },
         {
             id: 'sexier',
             name: 'a sexy dancer',
             cost: 500,
             passage: 'SexierDisplay',
-            actor_class: 'DancerFriend'
+            actor_class: 'DancerFriend',
+            portrait: 'art/dancer_portrait.png'
         },
         {
             id: 'funnier',
             name: 'a clown',
             cost: 750,
             passage: 'FunnierDisplay',
-            actor_class: 'Clown'
+            actor_class: 'Clown',
+            portrait: 'art/clown_portrait.png'
         },
         {
             id: 'priest',
             name: 'a unitarian priest',
             cost: 800,
             passage: 'PriestDisplay',
-            actor_class: 'Priest'
+            actor_class: 'Priest',
+            portrait: 'art/priest_portrait.png'
         },
         {
             id: 'fascist',
             name: 'a fascist',
             cost: 1200,
             passage: 'FascistDisplay',
-            actor_class: 'Fascist'
+            actor_class: 'Fascist',
+            portrait: 'art/fascist_portrait'
         },
         {
             id: 'enduring',
             name: 'your enduring friend',
             cost: 1800,
             passage: 'EnduringDisplay',
-            actor_class: 'EnduringFriend'
+            actor_class: 'EnduringFriend',
+            portrait: 'art/enduring_portrait'
         }
     ]
 }
@@ -70,16 +78,17 @@ window.friend_template_by_id = function(id) {
 
 window.init_friend_by_id = function(id) {
     var template = friend_template_by_id(id)
-    return create_friend(template.name, template.passage, template.cost, template.actor_class)
+    return create_friend(template.name, template.passage, template.cost, template.actor_class, template.portrait)
 }
 
-window.create_friend = function(name, display_passage, friend_cost, actor_class) {
+window.create_friend = function(name, display_passage, friend_cost, actor_class, portrait) {
     var friend = {
         name: name,
         display_passage: display_passage,
         id: Math.floor(Math.random() * 100000),
         cost: friend_cost,
-        actor_class: actor_class
+        actor_class: actor_class,
+        portrait: portrait
     }
     return friend
 }
@@ -221,8 +230,9 @@ Your friend tries to tell you a joke, but it's a real stinker.
 <li>[[Fuck the sexy dancer?|FuckSexier]]</li>
 
 ::FuckSexier
+<<ImagePlate art/dancer_plate.png>>
 <<set $gained_sex = 10 + Math.floor(Math.random() * 20)>>
-You do the nasty with your sexier friend. Real grade-A fuckin'. Nice job!
+You do the nasty with the dancer. Real grade-A fuckin'. Nice job!
 <<AddNeed "sex_need" $gained_sex>>
 
 <<run atrophy_needs()>>\
