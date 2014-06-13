@@ -223,6 +223,45 @@ class actor_classes.Comedian extends Human
             "#{thing.name} inspires one of #{@genitive()} jokes",
         ].random()
 
+class actor_classes.Dancer extends Human
+    name: "the dancer"
+    act: (others) ->
+        return [
+            "#{@name} twirls on her foot"
+        ].random()
+
+class actor_classes.Priest extends Human
+    name: "the priest"
+    act: (others) ->
+        return [
+            "#{@name} prays"
+        ].random()
+
+class actor_classes.Clown extends Human
+    name: "the clown"
+    act: (others) ->
+        other = others.random()
+        return [
+            "#{@name} throws a pie at #{other.name}"
+        ].random()
+
+class actor_classes.Fascist extends Human
+    name: "the fascist"
+    act: (others) ->
+        other = others.random()
+        return [
+            "#{@name} oppresses #{other.name}"
+        ].random()
+
+class actor_classes.Enduring extends Human
+    name: "the endurer"
+    act: (others) ->
+        other = others.random()
+        return [
+            "#{@name} endures"
+        ].random()
+
+
 class actor_classes.Jissom extends Thing
     name: "the puddle of ejaculate"
     act: (others) ->
@@ -235,7 +274,7 @@ class actor_classes.Jissom extends Thing
             "#{@name} gets on the curtains"
             "#{@name} gets on the walls"
             "#{@name} gives #{other.name} a little taste"
-        ]
+        ].random()
 
 window.pick_actors = (actors, min, max) ->
     humans = shuffle(a for a in actors when a.human)
@@ -247,7 +286,7 @@ window.pick_actors = (actors, min, max) ->
     return shuffled.slice(0, n)
 
 window.pick_some = (array, min, max) ->
-    a = shuffle(array)
+    a = shuffle(array.slice(0))
     n = Math.ceil(Math.random() * (min + (max - min)))
     return a.slice(0, n)
 
@@ -296,7 +335,9 @@ window.spin_yarn = (all_actors) ->
             actor = havent_acted.random()
             acted.push(actor)
         others = (a for a in all_actors when a != actor)
-        output.push actor.act others
+        s = actor.act others
+        output.push s
+        console.log(actors, actor, s)
     string = ""
 
     # Names of actors

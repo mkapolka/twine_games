@@ -31,7 +31,6 @@ Human Need
 <<AddRelationship $tv 0>>
 <</nobr>>
 
-::commented
 <<run $friends.push(init_friend_by_id("sexier"))>>
 <<run $friends.push(init_friend_by_id("funnier"))>>
 <<run $friends.push(init_friend_by_id("priest"))>>

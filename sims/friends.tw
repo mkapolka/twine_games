@@ -30,7 +30,7 @@ window.init_friends = function() {
             name: 'a sexy dancer',
             cost: 500,
             passage: 'SexierDisplay',
-            actor_class: 'DancerFriend',
+            actor_class: 'Dancer',
             portrait: 'art/dancer_portrait.png'
         },
         {
@@ -62,7 +62,7 @@ window.init_friends = function() {
             name: 'your enduring friend',
             cost: 1800,
             passage: 'EnduringDisplay',
-            actor_class: 'EnduringFriend',
+            actor_class: 'Enduring',
             portrait: 'art/enduring_portrait.png'
         }
     ]
@@ -300,6 +300,7 @@ The clown throws a pie into the air and it lands on his face. What a riot!
 <li>[[Get life advice from the priest?|PriestTalk]]</li>
 
 ::PriestTalk
+<<ImagePlate art/priest_plate.png>>
 <<set $gained_hope = 10 + Math.floor(Math.random() * 20)>>\
 Your priest friend tells you that God loves all his/her creations equally.
 <<AddNeed "hope_need" $gained_hope>>
@@ -311,6 +312,7 @@ Your priest friend tells you that God loves all his/her creations equally.
 <li>[[Abuse the fascist?|FuckFascist]]</li>
 
 ::FuckFascist
+<<ImagePlate art/fascist_plate.png>>
 You grease up your friend's asshole and brutally fist him. You climax and he does not.
 <<AddNeed "sex_need" 100>>
 <<AddNeed "anger_need" 100>>
@@ -319,9 +321,10 @@ You grease up your friend's asshole and brutally fist him. You climax and he doe
 [[Continue|Main]]
 
 ::EnduringDisplay
-<li>[[Learn from your enduring friend?|LearnInspiring]]</li>
+<li>[[Learn from your enduring friend?|LearnEnduring]]</li>
 
-::LearnInspiring
+::LearnEnduring
+<<ImagePlate art/enduring_plate.png>>
 Your inpsiring friend tells you depressing stories about her life. You share heaving sobs of empathy.
 <<AddNeed "hope_need" 100>>
 <<run atrophy_needs()>>\
