@@ -65,3 +65,7 @@ div.yarn {
     padding: 10px;
     border-radius: 10px
 }
+
+table.friend_purchase {
+    text-align: center;
+}

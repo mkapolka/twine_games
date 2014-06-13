@@ -55,7 +55,7 @@ window.init_friends = function() {
             cost: 1200,
             passage: 'FascistDisplay',
             actor_class: 'Fascist',
-            portrait: 'art/fascist_portrait'
+            portrait: 'art/fascist_portrait.png'
         },
         {
             id: 'enduring',
@@ -63,7 +63,7 @@ window.init_friends = function() {
             cost: 1800,
             passage: 'EnduringDisplay',
             actor_class: 'EnduringFriend',
-            portrait: 'art/enduring_portrait'
+            portrait: 'art/enduring_portrait.png'
         }
     ]
 }
@@ -116,16 +116,62 @@ window.remove_friend = function(friend) {
 If you spend your RAPPORT you can invite your friends to your house.
 Who do you want to invite?
 
-[[A sexy friend you who can fuck.|BuyFriend][$friend_template_id="sex"]] Cost: 50 Rapport
-[[A friend who loves inpsiring quotes and posters|BuyFriend][$friend_template_id="inspiring"]]. Cost: 75 Rapport
-[[A funny friend who will make you laugh.|BuyFriend][$friend_template_id="funny"]] Cost: 120 Rapport
+<table class="friend_purchase">
+<tr>
+    <td><<Portrait art/sexy_portrait.png>></td>\
+    <td><<Portrait art/inspiring_portrait.png>></td>\
+    <td><<Portrait art/funny_portrait.png>></td>\
+</tr>
+<tr>
+    <td>\
+    [[A sexy friend you who can fuck.|BuyFriend][$friend_template_id="sex"]]
+    Cost: 50 Rapport
+    </td>\
+    <td>\
+    [[A friend who loves inpsiring quotes and posters|BuyFriend][$friend_template_id="inspiring"]]
+    Cost: 75 Rapport
+    </td>\
+    <td>\
+    [[A funny friend who will make you laugh.|BuyFriend][$friend_template_id="funny"]]
+    Cost: 120 Rapport
+    </td>\
+</tr>
 
-[[A sexy dancer|BuyFriend][$friend_template_id="sexier"]] who is even sexier than your sexy friend and much healthier. Cost: 500 Rapport.
-[[A very funny clown|BuyFriend][$friend_template_id="funnier"]]. Cost: 750 Rapport.
-[[A unitarian priest|BuyFriend][$friend_template_id="priest"]] who can provide you with spiritual guidance. Cost: 800 Rapport.
+<tr>
+    <td><<Portrait art/dancer_portrait.png>></td>
+    <td><<Portrait art/clown_portrait.png>></td>
+    <td><<Portrait art/priest_portrait.png>></td>
+</tr>
+<tr>
+    <td>\
+    [[A sexy dancer|BuyFriend][$friend_template_id="sexier"]] who is even sexier than your sexy friend and much healthier
+    Cost: 500 Rapport.
+    </td>
+    <td>\
+    [[A very funny clown|BuyFriend][$friend_template_id="funnier"]]
+    Cost: 750 Rapport.
+    </td>
+    <td>\
+    [[A unitarian priest|BuyFriend][$friend_template_id="priest"]] who can provide you with spiritual guidance.
+    Cost: 800 Rapport.
+    </td>
+</tr>
+    <td><<Portrait art/fascist_portrait.png>></td>
+    <td><<Portrait art/enduring_portrait.png>></td>
+<tr>
+</tr>
+<tr>
+    <td>
+    [[A fascist|BuyFriend][$friend_template_id="fascist"]]. Sex with him will slake your SEX and VIOLENCE needs.
+    Cost: 1200 Rapport.
+    </td>
+    <td>
+    [[A blind and deaf quadruple amputee|BuyFriend][$friend_template_id="enduring"]] with an intellectual developmental disorder and an M.D. degree. Her triumph in the face of adversity gives you great HOPE need.
+    Cost: 1800 Rapport.
+    </td>
+</tr>
+</table>
 
-[[A fascist|BuyFriend][$friend_template_id="fascist"]]. Sex with him will slake your SEX and VIOLENCE needs. Cost: 1200 Rapport.
-[[A blind and deaf quadruple amputee|BuyFriend][$friend_template_id="enduring"]] with an intellectual developmental disorder and an M.D. degree. Her triumph in the face of adversity gives you great HOPE need. Cost: 1800 Rapport.
 
 [[Return home|Main]]
 
