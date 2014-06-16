@@ -21,6 +21,10 @@ class Thing extends Actor
 actor_classes = {}
 window.actor_classes = actor_classes
 
+#********************************************************************************
+# THING CLASSES
+#********************************************************************************
+
 class actor_classes.Lamp extends Thing
     off: false,
     burnt_out: false
@@ -84,39 +88,6 @@ class actor_classes.Chair extends Thing
                 'ejects'
             ].random() + " #{other.name} onto the floor"
 
-class actor_classes.Death extends Thing
-    name: "death"
-    gender: 'he'
-    act: (others) ->
-        humans = (x for x in others when x.human)
-        if humans.length > 0
-            other = humans.random()
-            if Math.random() < .2
-                other.dead = true
-                return "#{@name} comes for #{other.name}"
-            else
-                return "#{@name} strikes fear into the heart of #{other.name}"
-        else
-            return "#{@name} cackles mercilessly"
-
-class actor_classes.Stripper extends Human
-    name: "the stripper"
-    act: (others) ->
-        humans = (x for x in others when x.human)
-        if humans.length > 0
-            other = humans.random()
-            extra_actions = [
-                "turns #{other.name} on",
-                "gives #{other.name} a lap dance",
-                "fucks #{other.name}"
-            ]
-        else
-            extra_actions = []
-        return "#{@name} " + [
-            'looks sexy',
-            'struts his stuff',
-        ].concat(extra_actions).random()
-
 class actor_classes.Blender extends Thing
     name: "the blender"
     act: (others) ->
@@ -150,23 +121,6 @@ class actor_classes.Toilet extends Thing
             "#{@name} releases a noxious gas"
         ].random()
 
-class actor_classes.Car extends Thing
-    name: "your car"
-    act: (others) ->
-        human = (x for x in others when x.human).random()
-        other = others.random()
-        place = [
-            "the mall", "the supermarket", "your work", "the hospital",
-            "the school", "the cafe", "the gym", "the park", "the zoo"
-        ].random()
-        return [
-            "#{@name} honks its horn at #{other.name}"
-            "#{@name} runs over #{other.name}"
-            "#{@name} breaks down",
-            "#{@name} shines its high beams at #{other.name}",
-            "#{@name} drives you to #{place}"
-        ].random()
-
 class actor_classes.Wallpaper extends Thing
     name: "the wallpaper"
     act: (others) ->
@@ -187,6 +141,58 @@ class actor_classes.Wallpaper extends Thing
         ]
 
         return actions.random()
+
+class actor_classes.Fridge extends Thing
+    name: "the refrigerator"
+    act: (others) ->
+        other = others.random()
+        human = (o for o in others when o.human).random()
+        actions = [
+            "#{@name} cools #{other.name}"
+        ]
+        return actions.random()
+
+class actor_classes.Television extends Thing
+    name: "the T.V."
+    act: (others) ->
+        other = others.random()
+        human = (o for o in others when o.human).random()
+        actions = [
+            "#{@name} puts on a show"
+        ]
+        return actions.random()
+
+class actor_classes.Shower extends Thing
+    name: "the shower"
+    act: (others) ->
+        other = others.random()
+        human = (o for o in others when o.human).random()
+        actions = [
+            "#{@name} cleans #{other.name}"
+        ]
+        return actions.random()
+
+#********************************************************************************
+# FRIEND CLASSES
+#********************************************************************************
+
+class actor_classes.Stripper extends Human
+    name: "the stripper"
+    act: (others) ->
+        humans = (x for x in others when x.human)
+        if humans.length > 0
+            other = humans.random()
+            extra_actions = [
+                "turns #{other.name} on",
+                "gives #{other.name} a lap dance",
+                "fucks #{other.name}"
+            ]
+        else
+            extra_actions = []
+        return "#{@name} " + [
+            'looks sexy',
+            'struts his stuff',
+        ].concat(extra_actions).random()
 
 class actor_classes.Inspiring extends Human
     name: "the microblogger"
