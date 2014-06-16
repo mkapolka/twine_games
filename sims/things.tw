@@ -43,6 +43,18 @@ window.init_things = function() {
             relationship: 1,
             name: 'the "Jennifer Lee" blender',
             actor_class: "Blender"
+        },
+        {
+            id: 'refrigerator',
+            relationship: 0,
+            name: 'the "Bianca" refrigerator',
+            actor_class: "Blender"
+        },
+        {
+            id: 'shower',
+            relationship: 0,
+            name: 'the "Serena" standing shower',
+            actor_class: "Shower"
         }
     ]
 }
