@@ -31,6 +31,7 @@ class actor_classes.Lamp extends Thing
     name: 'the table lamp'
     can_act: ->
         not @off and not @burnt_out
+    tv_prompted: false
     healthy_act: (others) ->
         other = others.random()
         actions = [
@@ -42,8 +43,10 @@ class actor_classes.Lamp extends Thing
             "#{@name} dimly illuminates #{other.name}"
             "#{@name} provides sexy mood lighting"
         ]
-        if not knows_thing('toilet') and Math.random() < .3
-            actions.push("#{@name} shines light on a pamphlet for [[toilets|MeetToilet]]")
+        #if not knows_thing('tv') and Math.random() < .7 and not @tv_prompted
+        if not knows_thing('tv') and not @tv_prompted
+            @tv_prompted = true
+            return "[[a light shines from someone who isn't the lamp...|MeetTV]]"
         return actions.random()
 
     act: (others) ->

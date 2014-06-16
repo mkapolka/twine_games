@@ -22,20 +22,19 @@ Human Need
 <<run $friends.push(init_friend_by_id("funny"))>>
 
 <<set $splooged = true>>
-<<set $pregnant = true>>
-<<set $chair_home = true>>
 
 <<set $rapport = 1000>>
-
-<<set $tv = thing_by_id('tv')>>
-<<AddRelationship $tv 0>>
 <</nobr>>
 
+::comment
+<<set $pregnant = true>>
+<<set $chair_home = true>>
 <<run $friends.push(init_friend_by_id("sexier"))>>
 <<run $friends.push(init_friend_by_id("funnier"))>>
 <<run $friends.push(init_friend_by_id("priest"))>>
 <<run $friends.push(init_friend_by_id("fascist"))>>
 <<run $friends.push(init_friend_by_id("enduring"))>>
+
 
 :: Start
 You just moved into a cute house in Gushing Meadows. All of your friends are living with you! Time to start [[chasing that american dream|Main]]!!!
