@@ -37,6 +37,12 @@ window.init_things = function() {
             relationship: 1,
             name: "the wallpaper",
             actor_class: "Wallpaper"
+        },
+        {
+            id: 'blender',
+            relationship: 1,
+            name: 'the "Jennifer Lee" blender',
+            actor_class: "Blender"
         }
     ]
 }
