@@ -96,6 +96,10 @@ class actor_classes.Blender extends Thing
     act: (others) ->
         human = (x for x in others when x.human).random()
         other = others.random()
+        if not knows_thing('refrigerator') and not @fridge_prompted and Math.random() < .5
+            @fridge_prompted = true
+            return "[[You make a smoothie but you have nowhere to put it...|FridgeMeet]]"
+
         return [
             "#{@name} purrs",
             "#{@name} blends the hand of #{human.name}",

@@ -48,7 +48,7 @@ window.init_things = function() {
             id: 'refrigerator',
             relationship: 0,
             name: 'the "Bianca" refrigerator',
-            actor_class: "Blender"
+            actor_class: "Fridge"
         },
         {
             id: 'shower',
@@ -307,6 +307,12 @@ You successfully clean up the sex liquid.
 <<AddNeed "things_need" 5>>
 
 <<run atrophy_needs()>>\
+[[Continue|Main]]
+
+::FridgeMeet
+You dash off to the store to see if anyone can help you store this smoothie. A tall and expansive savior comes to your rescue. You buy the "Bianca" refrigerator and invite her to come live with you.
+<<AddRelationship refrigerator 1>>
+
 [[Continue|Main]]
 
 ::TupperwareParty
