@@ -311,7 +311,10 @@ window.main_story = () ->
     things = pick_some(friendly_things, 1, 2)
     friends = pick_some(state.active.variables.friends, 1, 2)
     all = things.concat(friends)
-    actors = (new actor_classes[a.actor_class] for a in all).concat(new actor_classes.Player())
+    actors = (new actor_classes[a.actor_class] for a in all)
+    player = new actor_classes.Player()
+    if friends.length == 1 and Math.random() < .5
+        actors = actors.concat(player)
     yarn = spin_yarn(actors)
     bonuses = []
     for thing in things
@@ -323,6 +326,10 @@ window.main_story = () ->
     portraits = ""
     for friend in friends
         portraits += "<<Portrait #{friend.portrait}>>"
+    for thing in things
+        portraits += "<<Portrait #{thing.portrait}>>"
+    if player in actors
+        portraits += "<<Portrait art/player_portrait.png>>"
 
     yarn = portraits + "\n\n" + yarn
 

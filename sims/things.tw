@@ -6,55 +6,64 @@ window.init_things = function() {
             relationship: 1,
             max_relationship: 6,
             name: "the 'Timothy' Table Lamp",
-            actor_class: "Lamp"
+            actor_class: "Lamp",
+            portrait: "art/lamp_portrait.png"
         },
         {
             id: 'tv',
             relationship: 0,
             name: "the 'Akira' Television",
             actor_class: "Television",
+            portrait: "art/tv_portrait.png"
         },
         {
             id: 'sex',
             relationship: 0,
             name: "'Jacky', the puddle of ejaculate",
-            actor_class: "Jissom"
+            actor_class: "Jissom",
+            portrait: "art/jissom_portrait.png"
         },
         {
             id: 'chair',
             relationship: 0,
             name: "the 'Christopher Knight' bonded leather chair",
-            actor_class: "Chair"
+            actor_class: "Chair",
+            portrait: "art/chair_portrait.png"
         },
         {
             id: 'toilet',
-            relationship: 0,
+            relationship: 1,
             name: "the 'Tucker' toilet",
-            actor_class: "Toilet"
+            actor_class: "Toilet",
+            portrait: "art/toilet_portrait.png"
         },
         {
             id: 'wallpaper',
-            relationship: 1,
+            relationship: 0,
             name: "the wallpaper",
-            actor_class: "Wallpaper"
+            actor_class: "Wallpaper",
+            portrait: "art/wallpaper_portrait.png"
         },
         {
             id: 'blender',
             relationship: 1,
             name: 'the "Jennifer Lee" blender',
-            actor_class: "Blender"
+            actor_class: "Blender",
+            portrait: "art/blender_portrait.png"
         },
         {
             id: 'refrigerator',
             relationship: 0,
             name: 'the "Bianca" refrigerator',
-            actor_class: "Fridge"
+            actor_class: "Fridge",
+            portrait: "art/refrigerator_portrait.png"
         },
         {
             id: 'shower',
             relationship: 0,
             name: 'the "Serena" standing shower',
-            actor_class: "Shower"
+            actor_class: "Shower",
+            portrait: "art/shower_portrait.png"
         }
     ]
 }
