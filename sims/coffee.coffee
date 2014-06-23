@@ -1,3 +1,4 @@
+################################################################################
 window.human_body_parts = [
     'nose', 'eyes', 'forehead', 'scalp', 'left ear', 'right ear', 'cheek',
     'lips', 'tongue', 'chin', 'neck', "adam's apple", 'throat', 'shoulder blade',
@@ -6,6 +7,11 @@ window.human_body_parts = [
     'palm', 'heart', 'chest', 'ribs', 'stomach', 'kidney', 'lungs', 'belly button', 'hips',
     'genitals', 'taint', 'butt', 'thigh', 'knee', 'ankle', 'shin', 'heel', 'foot', 'big toe',
     'pinky toe'
+]
+
+window.foods = [
+    'milk', 'lettuce', 'cabbage', 'pork', 'beef', 'chicken', 'quinoa', 'beets',
+    'potatoes', 'carrots', 'peaches', 'oranges', 'apples'
 ]
 
 class Actor
@@ -155,7 +161,12 @@ class actor_classes.Fridge extends Thing
         other = others.random()
         human = (o for o in others when o.human).random()
         actions = [
-            "#{@name} cools #{other.name}"
+            "#{@name} cools #{other.name}",
+            "#{@name} feeds #{other.name}",
+            "#{@name} blows cold air at #{other.name}",
+            "#{@name} traps #{other.name} within itself",
+            "#{@name} spoils some #{window.foods.random()}"
+            "#{human.name} eats some #{window.foods.random()} from #{@name}"
         ]
         return actions.random()
 
@@ -289,18 +300,10 @@ class actor_classes.Jissom extends Thing
             "#{@name} gives #{other.name} a little taste"
         ].random()
 
-window.pick_actors = (actors, min, max) ->
-    humans = shuffle(a for a in actors when a.human)
-    things = shuffle(t for t in actors when not t.human)
-    first = [things.pop(), humans.pop()]
-    rest = shuffle(humans.concat(things))
-    shuffled = first.concat(rest)
-    n = min + Math.round(Math.random() * (max - min))
-    return shuffled.slice(0, n)
-
 window.pick_some = (array, min, max) ->
     a = shuffle(array.slice(0))
     n = Math.ceil(Math.random() * (min + (max - min)))
+    n = min if n == 0
     return a.slice(0, n)
 
 capitalize = (string) ->
@@ -336,12 +339,6 @@ window.main_story = () ->
     if bonuses.length > 0
         return yarn + "\n\n" + bonuses.join("\n")
     return yarn
-
-window.home_actors = () ->
-    vars = state.active.variables
-    friends = (new actor_classes[f.actor_class] for f in vars.friends)
-    things = (new actor_classes[t.actor_class]() for t in vars.things when t.relationship > 0)
-    return pick_actors(things.concat(friends).concat(new actor_classes.Player), 2, 4)
 
 window.spin_yarn = (all_actors) ->
     acted = []
