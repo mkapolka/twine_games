@@ -46,7 +46,7 @@ class actor_classes.Lamp extends Thing
         #if not knows_thing('tv') and Math.random() < .7 and not @tv_prompted
         if not knows_thing('tv') and not @tv_prompted
             @tv_prompted = true
-            return "[[a light shines from someone who isn't the lamp...|MeetTV]]"
+            return "[[a light shines from someone who isn't the lamp|MeetTV]]"
         return actions.random()
 
     act: (others) ->
@@ -307,7 +307,7 @@ capitalize = (string) ->
     return string.charAt(0).toUpperCase() + string.slice(1)
 
 window.main_story = () ->
-    friendly_things = (t for t in state.active.variables.things when t.relationship > 0)
+    friendly_things = (t for t in state.active.variables.things when t.can_adventure_with)
     things = pick_some(friendly_things, 1, 2)
     friends = pick_some(state.active.variables.friends, 1, 2)
     all = things.concat(friends)
