@@ -26,6 +26,9 @@ Human Need
 <<set $rapport = 1000>>
 <</nobr>>
 
+<<set $chair = thing_by_id("chair")>>
+<<set $chair.can_adventure_with = true>>
+<<AddRelationship chair 1>>
 ::comment
 <<set $pregnant = true>>
 <<set $chair_home = true>>

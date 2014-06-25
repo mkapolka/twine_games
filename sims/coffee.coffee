@@ -83,6 +83,20 @@ class actor_classes.Lamp extends Thing
 class actor_classes.Chair extends Thing
     name: "the leather chair"
     act: (others) ->
+        if Math.random() < .25
+            return @seat_act(others)
+        else
+            other = others.random()
+            human = (o for o in others when o.human).random()
+            return [
+                "#{@name} cushions #{other.name}",
+                "#{@name} supports #{other.name}",
+                "#{@name} comforts #{other.name}",
+                "#{@name} relaxes #{other.name}",
+                "#{@name} eases #{human.genitive()} weary #{human_body_parts.random()}",
+                "#{@genitive()} leather glistens in the sun",
+            ].random()
+    seat_act: (others) ->
         if not @seated?
             other = others.random()
             @seated = other
@@ -150,25 +164,44 @@ class actor_classes.Wallpaper extends Thing
             "the red color of the wallpaper makes you feel angry"
             "the yellow color of the wallpaper makes you feel happy"
             "the blue color of the wallpaper makes you feel sad"
-            "the orange color of the wallpaper makes you feel optimistic"
+            "the orange color of the wallpaper makes you feel optimistic",
+            "#{@name} undulates",
+            "#{@name} wiggles",
+            "#{@name} bursts",
+            "#{@name} distends",
         ]
 
         return actions.random()
 
 class actor_classes.Fridge extends Thing
     name: "the refrigerator"
+    prompted_party: false
     act: (others) ->
         other = others.random()
         human = (o for o in others when o.human).random()
         actions = [
             "#{@name} cools #{other.name}",
-            "#{@name} feeds #{other.name}",
+            "#{@name} feeds #{other.name} #{window.foods.random()}",
             "#{@name} blows cold air at #{other.name}",
             "#{@name} traps #{other.name} within itself",
-            "#{@name} spoils some #{window.foods.random()}"
-            "#{human.name} eats some #{window.foods.random()} from #{@name}"
+            "#{@name} spoils the #{window.foods.random()}"
+            "#{human.name} eats some #{window.foods.random()} from #{@name}",
+            "#{@genitive()} food goes into #{human.genitive()} mouth",
         ]
+        if not state.active.variables.tupperware_partied and Math.random() < .5 and not @prompted_party
+            return "[[#{@name} is almost out of food!|TupperwareParty]]"
+            @prompted_party = true
         return actions.random()
+
+tv_shows = [
+    "a doctor show", "a cop show", "a comedy", "a reality show", "a drama",
+    "a mystery show"
+]
+
+products = [
+    "deodorant", "cologne", "shampoo", "watches", "cars", "music", "diapers",
+    "car insurance", "booze"
+]
 
 class actor_classes.Television extends Thing
     name: "the T.V."
@@ -176,7 +209,8 @@ class actor_classes.Television extends Thing
         other = others.random()
         human = (o for o in others when o.human).random()
         actions = [
-            "#{@name} puts on a show"
+            "#{@name} puts on #{tv_shows.random()}",
+            "#{@name} tells #{other.name} to buy #{products.random()}"
         ]
         return actions.random()
 
@@ -297,7 +331,9 @@ class actor_classes.Jissom extends Thing
             "#{@name} smells funky"
             "#{@name} gets on the curtains"
             "#{@name} gets on the walls"
-            "#{@name} gives #{other.name} a little taste"
+            "#{@name} gives #{other.name} a little taste",
+            "#{@name} wafts smells at #{other.name}",
+            "#{@name} coagulates"
         ].random()
 
 window.pick_some = (array, min, max) ->
@@ -396,7 +432,8 @@ window.spin_yarn = (all_actors) ->
                 '. Jealously, '
                 '. Happily, '
                 '. Fortunately, '
-                '. Awkwardly, '
+                '. Awkwardly, ',
+                '. Coyly, ',
                 ' whenever '
                 ' unless ',
                 ' and hell, '
