@@ -17,19 +17,22 @@ Human Need
 <<run init_friends()>>
 <<set $pregnant_counter = 0>>
 
+If set, this adventurer class will def. appear in the next adventure.
+<<set $guaranteed_friend = "">>
+<<set $guaranteed_thing = "">>
+
+<<set $rapport = 100>>
+
 <<run $friends.push(init_friend_by_id("sex"))>>
 <<run $friends.push(init_friend_by_id("inspiring"))>>
 <<run $friends.push(init_friend_by_id("funny"))>>
-
-<<set $splooged = true>>
-
-<<set $rapport = 1000>>
 <</nobr>>
 
+::comment
+<<set $splooged = true>>
 <<set $chair = thing_by_id("chair")>>
 <<set $chair.can_adventure_with = true>>
 <<AddRelationship chair 1>>
-::comment
 <<set $pregnant = true>>
 <<set $chair_home = true>>
 <<run $friends.push(init_friend_by_id("sexier"))>>

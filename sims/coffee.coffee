@@ -349,11 +349,25 @@ window.main_story = () ->
     friendly_things = (t for t in state.active.variables.things when t.can_adventure_with)
     things = pick_some(friendly_things, 1, 2)
     friends = pick_some(state.active.variables.friends, 1, 2)
-    all = things.concat(friends)
-    actors = (new actor_classes[a.actor_class] for a in all)
+
+    # Check for guaranteed actor classes
+    guaranteed_thing = state.active.variables.guaranteed_thing
+    console.log(guaranteed_thing)
+    if guaranteed_thing
+        things[0] = guaranteed_thing
+        state.active.variables.guaranteed_thing = null
+    guaranteed_friend = state.active.variables.guaranteed_friend
+    if guaranteed_friend
+        friends[0] = guaranteed_friend
+        state.active.variables.guaranteed_friend = null
+
+    actors = (new actor_classes[a.actor_class] for a in things.concat(friends))
     player = new actor_classes.Player()
-    if friends.length == 1 and Math.random() < .5
+    # Add the player if there aren't enough people
+    if friends.length == 1 and Math.random() < .5 or friends.length == 0
         actors = actors.concat(player)
+
+
     yarn = spin_yarn(actors)
     bonuses = []
     for thing in things

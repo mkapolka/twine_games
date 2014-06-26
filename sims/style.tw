@@ -1,5 +1,5 @@
 ::Style [stylesheet]
-//Current color palette: http://www.colourlovers.com/palette/1722286/400_unique_artists_♥ 
+/*Current color palette: http://www.colourlovers.com/palette/1722286/400_unique_artists_♥ */
 div.attention {
    border: 1px solid yellow; 
    color: yellow;
@@ -23,6 +23,7 @@ body {
     background-color: #FFD3B5;
     padding: 10px;
     color: black;
+    width: 100%;
 
     font-size: medium;
 }
