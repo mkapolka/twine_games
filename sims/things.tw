@@ -140,6 +140,7 @@ window.knows_thing = function(thing_id) {
 }
 
 ::ChairVisit
+<<ImagePlate art/chair_mall_plate.png>>
 <<set $chair = thing_by_id("chair")>>\
 <<first>>\
     It's your first time in a new mall. You have butterflies. The air is buzzing with the activity of televisions, illuminated signs, and loudspeakers. All around you shiny products are luring in potential customers. You spend some time becoming acquainted with the different shops. Today you are just getting an overview- there's too much spendor to take in.
@@ -184,6 +185,7 @@ window.knows_thing = function(thing_id) {
 [[Continue|Main]]
 
 ::ChairHome
+<<ImagePlate art/chair_home_plate.png>>
 <<first 'chair_home_first_iterator'>>\
     You watch a romantic movie while sitting in the chair. Midway through you gently set your hand on the armrest and an excited chill runs
     up your spine. You cry a little bit at the big finale and try not to get any tears on the chair.
