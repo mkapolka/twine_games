@@ -118,7 +118,7 @@ class actor_classes.Blender extends Thing
         other = others.random()
         if not knows_thing('refrigerator') and not @fridge_prompted and Math.random() < .5
             @fridge_prompted = true
-            return "[[You make a smoothie but you have nowhere to put it...|FridgeMeet]]"
+            return "[[You make a smoothie but you have nowhere to put it|FridgeMeet]]"
 
         return [
             "#{@name} purrs",
@@ -359,7 +359,6 @@ window.main_story = () ->
 
     # Check for guaranteed actor classes
     guaranteed_thing = state.active.variables.guaranteed_thing
-    console.log(guaranteed_thing)
     if guaranteed_thing
         things[0] = guaranteed_thing
         state.active.variables.guaranteed_thing = null
@@ -411,7 +410,6 @@ window.spin_yarn = (all_actors) ->
         others = (a for a in all_actors when a != actor)
         s = actor.act others
         output.push s
-        console.log(actors, actor, s)
     string = ""
 
     # Names of actors
