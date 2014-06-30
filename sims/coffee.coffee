@@ -220,7 +220,14 @@ class actor_classes.Shower extends Thing
         other = others.random()
         human = (o for o in others when o.human).random()
         actions = [
-            "#{@name} cleans #{other.name}"
+            "#{@name} cleans #{other.name}",
+            "#{@name} soaks #{other.name}",
+            "#{@name} douses #{other.name} with cold water",
+            "#{@name} douses #{other.name} with hot water",
+            "#{other.name} gets in the shower",
+            "#{human.name} pees in the shower",
+            "#{human.name} cleans their #{human_body_parts.random()}",
+            "#{human.name} cleans behind their ears",
         ]
         return actions.random()
 
