@@ -188,4 +188,5 @@ You throw <<print $corpse_owner.name>>'s corpse into the trash.
 </div>\
 
 ::Birth
-You give birth to a beautiful ottoman. You and Christopher decide to name it Otto. You live happily ever after.
+<<ImagePlate art/birth_plate.png>>
+Today's the day! You give birth to a beautiful ottoman. You and Christopher name it Otto. You live happily ever after.

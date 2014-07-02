@@ -185,25 +185,28 @@ window.knows_thing = function(thing_id) {
 [[Continue|Main]]
 
 ::ChairHome
-<<ImagePlate art/chair_home_plate.png>>
 <<first 'chair_home_first_iterator'>>\
+    <<ImagePlate art/chair_home_plate.png>>
     You watch a romantic movie while sitting in the chair. Midway through you gently set your hand on the armrest and an excited chill runs
     up your spine. You cry a little bit at the big finale and try not to get any tears on the chair.
 
     <<AddRelationship chair 1>>
     <<AddNeed "things_need" 10>>
 <<then>>\
+    <<ImagePlate art/chair_home_plate.png>>
     You sit down to eat a nice homecooked meal with the Christopher Knight leather chair. You drop a vinegary leaf of caprese basil into the chair's cushion crack. The Christopher Knight chair seems to appreciate it. 
 
     <<AddRelationship chair 1>>
     <<AddNeed "things_need" 10>>
 <<then>>\
+    <<ImagePlate art/chair_home_plate.png>>
     Needing an alibi, you bring a book to read in the chair. You get very little reading done. You stroke the sides of the chair gently and frequently readjust yourself so you can feel the leather on your back.
     You wake up a bit later embarrased that you dozed off. You awkwardly continue your day.
 
     <<AddRelationship chair 1>>
     <<AddNeed "things_need" 10>>
 <<then>>\
+    <<ImagePlate art/chair_lounge_plate.png>>
     You sit in the chair with no pretense. You are here to lounge. Christopher sighs contentedly as you sit down. You kick off your shoes and stretch out your toes. \
     You bend. You sigh. You wiggle and wriggle. You sit sideways across the armrests. You doze off for a little bit and then get back at it. \
     You sit upside down and wrap your legs around the back of the chair like a spider. You do some crazy stuff with the seat cusion.
