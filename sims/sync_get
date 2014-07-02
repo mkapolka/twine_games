@@ -1,2 +1,2 @@
 #!/bin/bash
-rsync -r marekkapolka.com:store/sims art/ 
+rsync -avzru marekkapolka.com:store/sims art/ 
