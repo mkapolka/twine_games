@@ -97,7 +97,7 @@ You just moved into a cute house in Gushing Meadows. All of your friends are liv
             <<endif>>\
         <</each>>\
         <</if>>\
-    \
+        \
         <ul>\
         <li>[[Go party]]</li>
         <li>[[Buy friends|BuyFriends]]</li>

@@ -118,7 +118,7 @@ class actor_classes.Blender extends Thing
         other = others.random()
         if not knows_thing('refrigerator') and not @fridge_prompted and Math.random() < .5
             @fridge_prompted = true
-            return "[[You make a smoothie but you have nowhere to put it|FridgeMeet]]"
+            return "[[you make a smoothie but you have nowhere to put it|FridgeMeet]]"
 
         return [
             "#{@name} purrs",
@@ -188,6 +188,10 @@ class actor_classes.Fridge extends Thing
             "#{human.name} eats some #{window.foods.random()} from #{@name}",
             "#{@genitive()} food goes into #{human.genitive()} mouth",
         ]
+        if state.active.variables.tupperware_partied
+            actions = actions.concat([
+                "#{human.name} eats some leftover mashed potatoes from your mother"
+            ])
         if not state.active.variables.tupperware_partied and Math.random() < .5 and not @prompted_party
             return "[[#{@name} is almost out of food!|TupperwareParty]]"
             @prompted_party = true

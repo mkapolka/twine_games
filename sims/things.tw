@@ -342,7 +342,9 @@ You dash off to the store to see if anyone can help you store this smoothie. A t
 [[Continue|Main]]
 
 ::TupperwareParty
-You prepare the house. You house fills with tupperware containers and their escorts. You fill your friends with the food you've cooked. Chicken goes in the teacher (the big one). \
+You decide to throw a tupperware party to fill your refrigerator. Everyone can make it! Hooray! You hustle and bustle to prepare the house and make the food.
+
+You house fills with tupperware containers and their escorts. You fill your friends with the food you've cooked. Chicken goes in the teacher (the big one). \
 You split the salad between the lawyer and his secretary and squeeze the little left over into your mother along with the mashed potatoes. \
 You put your friends into the refrigerator and mail the tupperware back.
 
@@ -350,12 +352,6 @@ You put your friends into the refrigerator and mail the tupperware back.
 <<set $tupperware_partied = true>>\
 <<AddNeed "things_need" 10>>
 
-[[Continue|Main]]
-
-::TupperwareEat
-You open the fridge where you put the guests of the tupperware party. You tickle your mother in the stomach and she regurgitates some potatoes for you. You swallow the with baby bird greed.
-
-<<AddNeed "things_need" 10>>
 [[Continue|Main]]
 
 ::MeetToilet
