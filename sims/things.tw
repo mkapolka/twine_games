@@ -16,7 +16,9 @@ window.init_things = function() {
             name: "the 'Akira' Television",
             actor_class: "Television",
             portrait: "art/tv_portrait.png",
-            can_adventure_with: false
+            can_adventure_with: false,
+            dead: false,
+            hp: 5,
         },
         {
             id: 'sex',
@@ -136,7 +138,7 @@ window.get_relationship_name = function(value) {
 }
 
 window.knows_thing = function(thing_id) {
-    return thing_by_id(thing_id).relationship > 0
+    return thing_by_id(thing_id).relationship > 0 && !thing_by_id(thing_id).dead
 }
 
 ::ChairVisit
@@ -221,73 +223,20 @@ window.knows_thing = function(thing_id) {
 
 ::MeetTV
 In the corner of the room there's a glowing box with a man trapped inside. Now it's a woman. Now it's a pair of jeans? A label on the box says 'Akira'. He confuses you but he seems lively.
+<<set $guaranteed_thing = thing_by_id('tv')>>\
 <<AddRelationship tv 1>>
 
 [[Continue|Main]]
 
-::TVMain
-<<if thing_by_id("tv").relationship >= 5>>
-    What do you want to do with the TV?
-    [[turn it on|TurnOnTV]]
-    [[watch some cartoons|WatchCartoons]]
-    [[fiddle with the volume nob]]
-<<else>>
-    You turn the TV on but its picture starts weak and slowly fades away. Further pressing the power button does nothing. Your stomach feels heavy.
-
-    [[Bury the TV|BuryTV]]
-<<endif>>
-
-::TurnOnTV
-You turn on the television and admire the sudden flash of light as it starts up. You applaud.
-<<set $tv = thing_by_id("tv")>>\
-<<AddRelationship $tv 1>>
-
-<<run atrophy_needs()>>\
-[[Continue|Main]]
-
-::WatchCartoons
-<<if thing_by_id("tv").relationship < 2>>\
-    <<set $watched = [["porn", "sex_need"], ["cop shows", "anger_need"], ["news", "hope_need"]].random()>>
-    You accidentally tune the TV to the wrong channel. You squirm and sigh in boredom as you watch <<print $watched[0]>>.
-    You are not familiar enough with the TV to do this.
-
-    <<AddNeed $watched[1] -10>>
-    <<AddNeed "things_need" -10>>
-<<else>>
-    You watch cartoons and laugh and laugh.
-
-    <<AddNeed "things_need" 10>>
-    <<set $tv = thing_by_id("tv")>>\
-    <<AddRelationship $tv 1>>
-<<endif>>
-
-<<run atrophy_needs()>>\
-[[Continue|Main]]
-
-::fiddle with the volume nob
-<<if thing_by_id("tv").relationship < 4>>\
-    You try to fiddle with the volume knob but accidentally hit the power instead. The TV turns off and then tips over and falls on top of you. \
-    You sulk away, embarassed.
-    
-    You are not familiar enough with the TV to do this.
-    <<AddNeed "things_need" -10>>
-    <<AddNeed "anger_need" -10>>
-<<else>>
-    You turn the volume up and down and up and down and then waaaay up and all the way silent. What a treat!
-    <<AddNeed "things_need" 10>>
-    <<AddRelationship $tv 1>>
-<<endif>>
-
-<<run atrophy_needs()>>\
-[[Continue|Main]]
-
-::note to self [comment]
-Life is the free trial to amazon prime, and dying is the 2-day delivery to the afterlife
 ::BuryTV
-You fit the TV into a cardboard box, snug with custom shaped styrofoam and all its accessories in little plastic bags. You are preparing it for the Great Free 2-Day Delivery With a Free Trial of Amazon Prime to the afterlife. \
+<<ImagePlate art/tv_burial_plate.png>>
+You hit the buttons on the tv and twist his knobs. It doesn't respond. You hit it and shake it and yell at it to wake up but it doesn't. This can't be happening. It's so sudden. Everything seems very unreal.
+
+You fit the TV into a cardboard box, snug with custom shaped styrofoam and all its accessories in little plastic bags. You prepare it for the Great Free 2-Day Delivery With a Free Trial of Amazon Prime to the afterlife. \
 You gently lower it into the ground. You and all the TV's viewers say a few words about what the TV meant to you. It was an old TV but you hoped to have many more years of entertainment out of it. In the end you're not \
 God and neither are the TV repair men who kept the TV alive all these years. You all did your best and you gave the TV a good life. It's time to let go. You cry. Everyone cries.
 
+<<set thing_by_id("tv").dead = true>>\
 <<set $tv_buried = true>>\
 <<run atrophy_needs()>>\
 <<AddNeed "hope_need" 30>>

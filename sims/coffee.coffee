@@ -209,7 +209,17 @@ products = [
 
 class actor_classes.Television extends Thing
     name: "the T.V."
+    reduced_hp: false
     act: (others) ->
+        if thing_by_id("tv").hp > 0
+            return @act_alive(others)
+        else
+            return @act_dead(others)
+    act_alive: (others) ->
+        if not @reduced_health
+            thing_by_id("tv").hp -= 1
+            @reduced_health = true
+
         other = others.random()
         human = (o for o in others when o.human).random()
         actions = [
@@ -217,6 +227,8 @@ class actor_classes.Television extends Thing
             "#{@name} tells #{other.name} to buy #{products.random()}"
         ]
         return actions.random()
+    act_dead: (others) ->
+        return "[[#{@name} does nothing|BuryTV]]"
 
 class actor_classes.Shower extends Thing
     name: "the shower"
@@ -363,11 +375,11 @@ window.main_story = () ->
 
     # Check for guaranteed actor classes
     guaranteed_thing = state.active.variables.guaranteed_thing
-    if guaranteed_thing
+    if guaranteed_thing and guaranteed_thing.id not in (t.id for t in things)
         things[0] = guaranteed_thing
         state.active.variables.guaranteed_thing = null
     guaranteed_friend = state.active.variables.guaranteed_friend
-    if guaranteed_friend
+    if guaranteed_friend and guaranteed_friend.id not in (f.id for f in friends)
         friends[0] = guaranteed_friend
         state.active.variables.guaranteed_friend = null
 
