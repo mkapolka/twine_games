@@ -182,7 +182,7 @@ Who do you want to invite?
         You invite <<print $friend.name>> over to your house. You lose <<print $friend.cost>> rapport.
         <<run $friends.push(init_friend_by_id($friend_template_id))>>\
         <<set $rapport -= $friend.cost>>\
-        [[continue|Main]]
+        [[Continue|Main]]
     <<else>>\
         You don't have enough rapport to invite <<print $friend.name>> to your house.
         [[return|Invite friends over]]
@@ -209,15 +209,14 @@ You kick <<print $friend.name>> out. You get back <<print $recouped_cost>> of th
 <<set $gained_anger = Math.ceil(Math.random() * 50) + 25>>\
 <<AddNeed "anger_need" $gained_anger>>
 You savagely beat <<print $friend.name>>. That was very cathartic.
-<<run atrophy_needs()>>\
-[[continue|Main]]
+[[Continue|Main]]
 
 ::KillFriend
 <<set $friend = friend_by_id($kill_friend_id)>>\
 <<set $friend.dead = true>>\
 You kill <<print $friend.name>>. All of your pent up range melts away.
 <<set $anger_need = 100>>\
-[[continue|Main]]
+[[Continue|Main]]
 
 ::SexDisplay
 <li>[[Fuck the stripper?|FuckFriend]]</li>
@@ -231,9 +230,8 @@ You kill <<print $friend.name>>. All of your pent up range melts away.
 <<else>>\
     You tried to fuck Mack but he couldn't get it up.
 <</if>>\
-<<run atrophy_needs()>>\
 
-[[continue|Main]]
+[[Continue|Main]]
 
 ::FunnyDisplay
 <li>[[Joke around with the comedian?|JokeFriend]]</li>
@@ -247,9 +245,8 @@ You kill <<print $friend.name>>. All of your pent up range melts away.
 Your friend tries to tell you a joke, but it's a real stinker.
 <</if>>\
 <<AddNeed "funny_need" $gained_funny>>
-<<run atrophy_needs()>>\
 
-[[continue|Main]]
+[[Continue|Main]]
 
 ::InspireDisplay
 <li>[[Hang out with the microblogger?|HangInspiring]]</li>
@@ -269,8 +266,7 @@ Your friend tries to tell you a joke, but it's a real stinker.
 <<else>>\
     Your friend doesn't really feel like hanging out. He's kind of a loner.
 <</if>>\
-<<run atrophy_needs()>>\
-[[continue|Main]]
+[[Continue|Main]]
 
 ::SexierDisplay
 <li>[[Fuck the sexy dancer?|FuckSexier]]</li>
@@ -281,7 +277,6 @@ Your friend tries to tell you a joke, but it's a real stinker.
 You do the nasty with the dancer. Real grade-A fuckin'. Nice job!
 <<AddNeed "sex_need" $gained_sex>>
 
-<<run atrophy_needs()>>\
 [[Continue|Main]]
 
 ::FunnierDisplay
@@ -292,7 +287,6 @@ You do the nasty with the dancer. Real grade-A fuckin'. Nice job!
 <<set $gained_humor = 10 + Math.floor(Math.random() * 20)>>\
 The clown throws a pie into the air and it lands on his face. What a riot!
 <<AddNeed "funny_need" $gained_humor>>
-<<run atrophy_needs()>>\
 
 [[Continue|Main]]
 
@@ -304,7 +298,6 @@ The clown throws a pie into the air and it lands on his face. What a riot!
 <<set $gained_hope = 10 + Math.floor(Math.random() * 20)>>\
 Your priest friend tells you that God loves all his/her creations equally.
 <<AddNeed "hope_need" $gained_hope>>
-<<run atrophy_needs()>>\
 
 [[Continue|Main]]
 
@@ -316,7 +309,6 @@ Your priest friend tells you that God loves all his/her creations equally.
 You grease up your friend's asshole and brutally fist him. You climax and he does not.
 <<AddNeed "sex_need" 100>>
 <<AddNeed "anger_need" 100>>
-<<run atrophy_needs()>>\
 
 [[Continue|Main]]
 
@@ -327,6 +319,5 @@ You grease up your friend's asshole and brutally fist him. You climax and he doe
 <<ImagePlate art/enduring_plate.png>>
 Your inpsiring friend tells you depressing stories about her life. You share heaving sobs of empathy.
 <<AddNeed "hope_need" 100>>
-<<run atrophy_needs()>>\
 
 [[Continue|Main]]

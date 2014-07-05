@@ -157,7 +157,6 @@ window.knows_thing = function(thing_id) {
     You circle the chair exactly once, slowly. You don't want to seem timid or unsure. \
     You run your index finger along the ridge of the chair's back and your finger neither sticks nor chafes. You gently prod the armrest. Adrenaline shoots through your body when you start to sit in it. You decide there's no reason to rush.
 
-    <<run atrophy_needs()>>\
     <<AddNeed "things_need" 40>>
     <<AddRelationship $chair 1>>
 <<then>>\
@@ -168,7 +167,6 @@ window.knows_thing = function(thing_id) {
     You feel despondent.
     <<AddNeed "things_need" -10>>
     <<AddNeed "hope_need" -10>>
-    <<run atrophy_needs()>>\
 
     <<AddRelationship $chair 1>>
 <<then>>\
@@ -238,7 +236,6 @@ God and neither are the TV repair men who kept the TV alive all these years. You
 
 <<set thing_by_id("tv").dead = true>>\
 <<set $tv_buried = true>>\
-<<run atrophy_needs()>>\
 <<AddNeed "hope_need" 30>>
 [[Continue|Main]]
 
@@ -260,7 +257,6 @@ Playing with Jacky makes you remember all the good sex you've had.
 <<set $_sex = thing_by_id("sex")>>\
 <<AddRelationship $_sex 1>>
 
-<<run atrophy_needs()>>\
 [[Continue|Main]]
 
 ::CleanUpSexLiquid
@@ -281,7 +277,6 @@ You successfully clean up the sex liquid.
 <<AddNeed "sex_need" -10>>
 <<AddNeed "things_need" 5>>
 
-<<run atrophy_needs()>>\
 [[Continue|Main]]
 
 ::FridgeMeet
@@ -297,7 +292,6 @@ You house fills with tupperware containers and their escorts. You fill your frie
 You split the salad between the lawyer and his secretary and squeeze the little left over into your mother along with the mashed potatoes. \
 You put your friends into the refrigerator and mail the tupperware back.
 
-<<run atrophy_needs()>>\
 <<set $tupperware_partied = true>>\
 <<AddNeed "things_need" 10>>
 
