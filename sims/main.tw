@@ -90,7 +90,7 @@ Time to start [[chasing that american dream|Main]]!!!
             <!--You have <<print to_sentence($friends.map(function(a){return a.name}))>>.-->\
             <<each $friends>>\
                 <<if not $o.dead>>\
-                    <<dyn_display $o.display_passage>>\
+                    <li><<dyn_display $o.display_passage>></li>\
                 <</if>>\
             <</each>>\
             <<each $friends>>\
