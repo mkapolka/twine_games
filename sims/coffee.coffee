@@ -406,7 +406,7 @@ window.main_story = () ->
     if player in actors
         portraits += "<<Portrait art/player_portrait.png>>"
 
-    yarn = portraits + "\n\n" + yarn
+    yarn = portraits + "\n" + yarn
 
     if bonuses.length > 0
         return yarn + "\n\n" + bonuses.join("\n")
@@ -473,7 +473,6 @@ window.spin_yarn = (all_actors) ->
                 ' unless ',
                 ' and hell, '
                 ' and just for fun '
-                ' and in any case '
                 ' and anyway '
             ]
 

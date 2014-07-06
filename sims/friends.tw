@@ -219,7 +219,7 @@ You kill <<print $friend.name>>. All of your pent up range melts away.
 [[Continue|Main]]
 
 ::SexDisplay
-<li>[[Fuck the stripper?|FuckFriend]]</li>
+<li>[[Fuck the stripper? (+ Sex Need)|FuckFriend]]</li>
 
 ::FuckFriend
 <<ImagePlate art/sexy_plate.png>>
@@ -234,7 +234,7 @@ You kill <<print $friend.name>>. All of your pent up range melts away.
 [[Continue|Main]]
 
 ::FunnyDisplay
-<li>[[Joke around with the comedian?|JokeFriend]]</li>
+<li>[[Joke around with the comedian? (+ Humor Need)|JokeFriend]]</li>
 
 ::JokeFriend
 <<ImagePlate art/funny_plate.png>>
@@ -249,7 +249,7 @@ Your friend tries to tell you a joke, but it's a real stinker.
 [[Continue|Main]]
 
 ::InspireDisplay
-<li>[[Hang out with the microblogger?|HangInspiring]]</li>
+<li>[[Hang out with the microblogger? (+ Hope Need)|HangInspiring]]</li>
 
 ::HangInspiring
 <<ImagePlate art/inspiring_plate.png>>
@@ -269,7 +269,7 @@ Your friend tries to tell you a joke, but it's a real stinker.
 [[Continue|Main]]
 
 ::SexierDisplay
-<li>[[Fuck the sexy dancer?|FuckSexier]]</li>
+<li>[[Fuck the sexy dancer? (+ Sex Need)|FuckSexier]]</li>
 
 ::FuckSexier
 <<ImagePlate art/dancer_plate.png>>
@@ -280,7 +280,7 @@ You do the nasty with the dancer. Real grade-A fuckin'. Nice job!
 [[Continue|Main]]
 
 ::FunnierDisplay
-<li>[[Hang out with the clown?|FunnierJoke]]</li>
+<li>[[Hang out with the clown? (+ Humor Need)|FunnierJoke]]</li>
 
 ::FunnierJoke
 <<ImagePlate art/clown_plate.png>>
@@ -291,7 +291,7 @@ The clown throws a pie into the air and it lands on his face. What a riot!
 [[Continue|Main]]
 
 ::PriestDisplay
-<li>[[Get life advice from the priest?|PriestTalk]]</li>
+<li>[[Get life advice from the priest? (+ Hope Need)|PriestTalk]]</li>
 
 ::PriestTalk
 <<ImagePlate art/priest_plate.png>>
@@ -302,7 +302,7 @@ Your priest friend tells you that God loves all his/her creations equally.
 [[Continue|Main]]
 
 ::FascistDisplay
-<li>[[Abuse the fascist?|FuckFascist]]</li>
+<li>[[Abuse the fascist? (+ Anger Need, + Sex Need)|FuckFascist]]</li>
 
 ::FuckFascist
 <<ImagePlate art/fascist_plate.png>>
@@ -313,7 +313,7 @@ You grease up your friend's asshole and brutally fist him. You climax and he doe
 [[Continue|Main]]
 
 ::EnduringDisplay
-<li>[[Learn from your enduring friend?|LearnEnduring]]</li>
+<li>[[Learn from your enduring friend? (+ Hope Need)|LearnEnduring]]</li>
 
 ::LearnEnduring
 <<ImagePlate art/enduring_plate.png>>

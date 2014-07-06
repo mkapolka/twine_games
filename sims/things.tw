@@ -149,7 +149,7 @@ window.knows_thing = function(thing_id) {
 
     You don't quite get a chance to visit the furnature store before it closes. You look through the window and get a glimpse of a beautiful leather chair in the far corner of the store. You bob and wiggle to try to get a better view of it but the shopkeepr slams \
     a metal barrier in your face. You'll have to come back tomorrow.
-<<then>>
+<<then>>\
     You return to check on the chair.
 
     Your eyes instinctively dart away, afraid of your habit of staring. The glance leaves an incomplete form in your imagination: a shiny brown shape, impossible welcoming curves, plush but firm cusions. \
@@ -167,7 +167,6 @@ window.knows_thing = function(thing_id) {
     You feel despondent.
     <<AddNeed "things_need" -10>>
     <<AddNeed "hope_need" -10>>
-
     <<AddRelationship $chair 1>>
 <<then>>\
     The chair is still here! The other customer did not buy it. You decide to not waste any more time and welcome the chair into your home.
@@ -179,6 +178,7 @@ window.knows_thing = function(thing_id) {
     <<AddNeed "hope_need" 10>>
     <<set $chair_home = true>>\
     <<set $chair.can_adventure_with = true>>\
+    <<set $guaranteed_thing = thing_by_id("chair")>>
     <<AddRelationship $chair 1>>
 <</first>>\
 

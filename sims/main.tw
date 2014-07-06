@@ -49,6 +49,12 @@ As a ''human'', you have several ''needs'': Violence Need, Sex Need, Humor Need,
 
 Time to start [[chasing that american dream|Main]]!!!
 
+::StatusBar
+<div class="status-bar">\
+<h3>Needs: </h3>Violence (<<display_need "anger_need">>) Sex (<<display_need "sex_need">>) Humor (<<display_need "funny_need">>) Hope (<<display_need "hope_need">>) Things (<<display_need "things_need">>)
+<h3>Rapport: </h3><<print $rapport>>
+</div>
+
 ::Main
 <<if not player_dead()>>\
     <<if $pregnant_counter < 4>>
@@ -62,10 +68,6 @@ Time to start [[chasing that american dream|Main]]!!!
         <<if $anger_need < 30>>\
             <<notify>>Your anger need is getting dangerously low! You'd better take your aggressions out on one of your friends.<</notify>>
         <<endif>>\
-        <div class="status-bar">\
-        <h3>Needs: </h3>Violence (<<display_need "anger_need">>) Sex (<<display_need "sex_need">>) Humor (<<display_need "funny_need">>) Hope (<<display_need "hope_need">>) Things (<<display_need "things_need">>)
-        <h3>Rapport: </h3><<print $rapport>>
-        </div>
         <<if $anger_need < 50>>\
             You are very angry.
             <<each $friends>>\
@@ -78,32 +80,30 @@ Time to start [[chasing that american dream|Main]]!!!
 
         <</if>>\
         <<display SpinHomeYarn>>
+        <<display StatusBar>>\
+        <ul>\
         <<if $friends.length == 0>>\
-        You don't have any friends yet.
+            You don't have any friends yet.
 
         <<else>>\
-        You have <<print to_sentence($friends.map(function(a){return a.name}))>>.
-        <ul>\
-        <<each $friends>>\
-            <<if not $o.dead>>\
-                <<dyn_display $o.display_passage>>\
-            <</if>>\
-        <</each>>
-        </ul>\
-        <<each $friends>>\
-            <<if $o.dead>>\
-                <<print $o.name>> is dead. <<print "[[Clean up their corpse|CleanCorpse][$corpse_id="+$o.id+"]]">>
-                <<if $o.rotting>>\
-                    <<set $rneed = random_need(); $r = Math.floor(Math.random() * -10)>>\
-                    <<print $o.name>>'s corpse really stinks! <<AddNeed $rneed $r>>
-
+            What would you like to do?
+            <!--You have <<print to_sentence($friends.map(function(a){return a.name}))>>.-->\
+            <<each $friends>>\
+                <<if not $o.dead>>\
+                    <<dyn_display $o.display_passage>>\
+                <</if>>\
+            <</each>>\
+            <<each $friends>>\
+                <<if $o.dead>>\
+                    <<print $o.name>> is dead. <<print "[[Clean up their corpse|CleanCorpse][$corpse_id="+$o.id+"]]">>
+                    <<if $o.rotting>>\
+                        <<set $rneed = random_need(); $r = Math.floor(Math.random() * -10)>>\
+                        <<print $o.name>>'s corpse really stinks! <<AddNeed $rneed $r>>
+                    <<endif>>\
                 <<endif>>\
-            <<endif>>\
-        <</each>>\
+            <</each>>\
         <</if>>\
-    \
-        <ul>\
-        <li>[[Go party]]</li>
+        <li>[[Go party (+ Rapport)|Go party]]</li>
         <li>[[Buy friends|BuyFriends]]</li>
         <<if not $chair_home>>\
             <li>[[Go to the mall|ChairVisit]]</li>
@@ -119,7 +119,7 @@ Time to start [[chasing that american dream|Main]]!!!
                     <li>[[Attempt to clean her up. (Renegade)|CleanUpSexLiquid]]</li>\
                 </ul>\
             </li>\
-        <<endif>>
+        <<endif>>\
         </ul>\
     <<else>>
         <<display Birth>>
