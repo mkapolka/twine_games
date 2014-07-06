@@ -73,7 +73,7 @@ Do you have what it takes to keep yourself alive and find ''TRUE LOVE''?? Let's 
         <<endif>>\
         <<display SpinHomeYarn>>
         <<display StatusBar>>\
-        <<if $anger_need < 50>>\
+        <<if $anger_need < 60>>\
             You are very angry...
             <<if $friends.length > 0>>\
                 <ul>\

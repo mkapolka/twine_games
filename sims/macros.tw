@@ -44,11 +44,16 @@ macros.add('dyn_display', {
 ::_scripts [script]
 window.atrophy_needs = function() {
     var vars = state.active.variables
-    vars.funny_need -= Math.floor(Math.random() * 10)
-    vars.sex_need -= Math.floor(Math.random() * 10)
-    vars.hope_need -= Math.floor(Math.random() * 10)
-    vars.anger_need -= Math.floor(Math.random() * 10)
-    vars.things_need -= Math.floor(Math.random() * 10)
+    // Reduce two needs by 10 each turn
+    var needs = ["funny_need", "sex_need", "hope_need", "anger_need"]
+    var first_need = needs.random()
+    needs.pop(needs.indexOf(first_need))
+    var second_need = needs.random()
+
+    vars[first_need] -= 10
+    vars[second_need] -= 10
+
+    vars.things_need -= 10
 
     vars.friends.forEach(function(friend) {
         if (friend.dead) {
@@ -173,13 +178,14 @@ window.random_need = function() {
 macros.add('display_need', {
     handler: function() {
         var value = state.active.variables[this.args[0]]
-        var pips = value / 20
+        var total_pips = 10
+        var pips = value / (100 / total_pips)
         var output = "<span title='" + need_value_name(this.args[0], value) + "' class='green_pips'>"
         for (var i = 0; i < pips; i++) {
             output += "|"
         }
         output += "</span><span class='red_pips'>"
-        for (var i = pips; i < 5; i++) {
+        for (var i = pips; i < total_pips; i++) {
             output += "|"
         }
         output += "</span>"

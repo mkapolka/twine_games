@@ -254,9 +254,8 @@ class actor_classes.Shower extends Thing
 class actor_classes.Stripper extends Human
     name: "the gigolo"
     act: (others) ->
-        humans = (x for x in others when x.human)
         other = others.random()
-        human = humans.random()
+        human = (x for x in others when x.human).random()
         return [
             "#{@name} turns #{human.name} on",
             "#{@name} gives #{human.name} a lap dance",
