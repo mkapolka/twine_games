@@ -393,7 +393,7 @@ window.main_story = () ->
     yarn = spin_yarn(actors)
     bonuses = []
     for thing in things
-        if Math.random() < .2
+        if Math.random() < .2 and thing.id != 'chair'
             add_relationship(thing_by_id(thing['id']), 1)
             bonuses.push("Your relationship level with #{thing.name} has increased to \"#{get_relationship_name(thing['relationship'])}\"")
 
