@@ -3,7 +3,7 @@ window.init_friends = function() {
     window.friend_templates = [
         {
             id: 'sex',
-            name: 'a stripper',
+            name: 'a gigolo',
             cost: 100,
             passage: 'SexDisplay',
             actor_class: 'Stripper',
@@ -113,8 +113,10 @@ window.remove_friend = function(friend) {
     }
 }
 ::BuyFriends
-If you spend your RAPPORT you can invite your friends to your house.
+If you spend your ''CLOUT'' you can invite friends to your house.
 Who do you want to invite?
+
+[[< Return home|Main]]
 
 <table class="friend_purchase">
 <tr>
@@ -124,15 +126,15 @@ Who do you want to invite?
 </tr>
 <tr>
     <td>\
-    [[A sexy friend you who can fuck.|BuyFriend][$friend_template_id="sex"]]
+    [[A gigolo|BuyFriend][$friend_template_id="sex"]]
     Cost: 50 Rapport
     </td>\
     <td>\
-    [[A friend who loves inpsiring quotes and posters|BuyFriend][$friend_template_id="inspiring"]]
+    [[An inspiring microblogger|BuyFriend][$friend_template_id="inspiring"]]
     Cost: 75 Rapport
     </td>\
     <td>\
-    [[A funny friend who will make you laugh.|BuyFriend][$friend_template_id="funny"]]
+    [[A comedian|BuyFriend][$friend_template_id="funny"]]
     Cost: 120 Rapport
     </td>\
 </tr>
@@ -144,7 +146,7 @@ Who do you want to invite?
 </tr>
 <tr>
     <td>\
-    [[A sexy dancer|BuyFriend][$friend_template_id="sexier"]] who is even sexier than your sexy friend and much healthier
+    [[A sexy dancer|BuyFriend][$friend_template_id="sexier"]]
     Cost: 500 Rapport.
     </td>
     <td>\
@@ -152,7 +154,7 @@ Who do you want to invite?
     Cost: 750 Rapport.
     </td>
     <td>\
-    [[A unitarian priest|BuyFriend][$friend_template_id="priest"]] who can provide you with spiritual guidance.
+    [[A unitarian priest|BuyFriend][$friend_template_id="priest"]]
     Cost: 800 Rapport.
     </td>
 </tr>
@@ -162,18 +164,17 @@ Who do you want to invite?
 </tr>
 <tr>
     <td>
-    [[A fascist|BuyFriend][$friend_template_id="fascist"]]. Sex with him will slake your SEX and VIOLENCE needs.
+    [[A fascist|BuyFriend][$friend_template_id="fascist"]]
     Cost: 1200 Rapport.
     </td>
     <td>
-    [[A blind and deaf quadruple amputee|BuyFriend][$friend_template_id="enduring"]] with an intellectual developmental disorder and an M.D. degree. Her triumph in the face of adversity gives you great HOPE need.
+    [[A survivor of many atrocities|BuyFriend][$friend_template_id="enduring"]]
     Cost: 1800 Rapport.
     </td>
-</tr>
-</table>
+</tr>\
+</table>\
 
-
-[[Return home|Main]]
+[[< Return home|Main]]
 
 ::BuyFriend
 <<set $friend = friend_template_by_id($friend_template_id)>>\
@@ -219,22 +220,22 @@ You kill <<print $friend.name>>. All of your pent up range melts away.
 [[Continue|Main]]
 
 ::SexDisplay
-[[Fuck the stripper? (+ Sex Need)|FuckFriend]]
+[[Fuck the gigolo?|FuckFriend]]
 
 ::FuckFriend
 <<ImagePlate art/sexy_plate.png>>
 <<if Math.random() < .8>>\
     <<set $gained_sex = Math.ceil(Math.random() * 30)>>\
-    You fuck your sexy friend. That sure hit the spot!
+    You fuck the gigolo. That sure hit the spot!
     <<AddNeed "sex_need" $gained_sex>>
 <<else>>\
-    You tried to fuck Mack but he couldn't get it up.
+    You tried to fuck the gigolo but he couldn't get it up.
 <</if>>\
 
 [[Continue|Main]]
 
 ::FunnyDisplay
-[[Joke around with the comedian? (+ Humor Need)|JokeFriend]]
+[[Joke around with the comedian?|JokeFriend]]
 
 ::JokeFriend
 <<ImagePlate art/funny_plate.png>>
@@ -249,7 +250,7 @@ Your friend tries to tell you a joke, but it's a real stinker.
 [[Continue|Main]]
 
 ::InspireDisplay
-[[Hang out with the microblogger? (+ Hope Need)|HangInspiring]]
+[[Hang out with the microblogger?|HangInspiring]]
 
 ::HangInspiring
 <<ImagePlate art/inspiring_plate.png>>
@@ -269,7 +270,7 @@ Your friend tries to tell you a joke, but it's a real stinker.
 [[Continue|Main]]
 
 ::SexierDisplay
-[[Fuck the sexy dancer? (+ Sex Need)|FuckSexier]]
+[[Fuck the sexy dancer?|FuckSexier]]
 
 ::FuckSexier
 <<ImagePlate art/dancer_plate.png>>
@@ -280,7 +281,7 @@ You do the nasty with the dancer. Real grade-A fuckin'. Nice job!
 [[Continue|Main]]
 
 ::FunnierDisplay
-[[Hang out with the clown? (+ Humor Need)|FunnierJoke]]
+[[Hang out with the clown?|FunnierJoke]]
 
 ::FunnierJoke
 <<ImagePlate art/clown_plate.png>>
@@ -291,7 +292,7 @@ The clown throws a pie into the air and it lands on his face. What a riot!
 [[Continue|Main]]
 
 ::PriestDisplay
-[[Get life advice from the priest? (+ Hope Need)|PriestTalk]]
+[[Get life advice from the priest?|PriestTalk]]
 
 ::PriestTalk
 <<ImagePlate art/priest_plate.png>>
@@ -302,7 +303,7 @@ Your priest friend tells you that God loves all his/her creations equally.
 [[Continue|Main]]
 
 ::FascistDisplay
-[[Abuse the fascist? (+ Anger Need, + Sex Need)|FuckFascist]]
+[[Abuse the fascist?|FuckFascist]]
 
 ::FuckFascist
 <<ImagePlate art/fascist_plate.png>>
@@ -313,7 +314,7 @@ You grease up your friend's asshole and brutally fist him. You climax and he doe
 [[Continue|Main]]
 
 ::EnduringDisplay
-[[Learn from your enduring friend? (+ Hope Need)|LearnEnduring]]
+[[Learn from your enduring friend?|LearnEnduring]]
 
 ::LearnEnduring
 <<ImagePlate art/enduring_plate.png>>

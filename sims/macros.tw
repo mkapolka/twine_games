@@ -112,6 +112,16 @@ macros.add('notify', {
     }
 })
 
+macros.add('ProTip', {
+    tags: null,
+    handler: function() {
+        var payload = "<div class='protip'><table><tr><td><img src='art/lightbulb_icon.png'></td><td style='vertical-align: center'>"
+        payload += this.payload[0].contents
+        payload += "</td></tr></table></div>"
+        new Wikifier(this.output, payload)
+    }
+})
+
 macros.add('first', {
     tags: ['then'],
     handler: function() {

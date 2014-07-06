@@ -28,6 +28,8 @@ If set, this adventurer class will def. appear in the next adventure.
 <<run $friends.push(init_friend_by_id("funny"))>>
 <</nobr>>
 
+<<set $pro_tip_rapport = false>>
+
 ::comment
 <<set $splooged = true>>
 <<set $chair = thing_by_id("chair")>>
@@ -47,17 +49,18 @@ You just moved into a cute house in Gushing Meadows. Your house is filled with s
 
 As a ''human'', you have several ''needs'': Violence Need, Sex Need, Humor Need, Hope Need, and Thing Need. Keep them ''satisfied'' or face ''tragic consequences''.
 
-Time to start [[chasing that american dream|Main]]!!!
+Do you have what it takes to keep yourself alive and find ''TRUE LOVE''?? Let's find out! It's time to [[chase that American dream!|Main]]!
 
 ::StatusBar
 <div class="status-bar">\
+<h3>__STATUS__</h3>
 <h3>Needs: </h3>Violence (<<display_need "anger_need">>) Sex (<<display_need "sex_need">>) Humor (<<display_need "funny_need">>) Hope (<<display_need "hope_need">>) Things (<<display_need "things_need">>)
-<h3>Rapport: </h3><<print $rapport>>
+<h3>Clout: </h3><<print $rapport>>
 </div>
 
 ::Main
 <<if not player_dead()>>\
-    <<if $pregnant_counter < 4>>
+    <<if $pregnant_counter < 4>>\
         <<if $sex_need <= 0>>\
             <<notify>>You cannot contain your horniness any longer! You jack off and leave a pool of sex liquids on the floor. You could have prevented this by keeping your sex need in check. You name the pool "Jacky."<</notify>>
             <<set $sex_need = 30>>\
@@ -68,25 +71,30 @@ Time to start [[chasing that american dream|Main]]!!!
         <<if $anger_need < 30>>\
             <<notify>>Your anger need is getting dangerously low! You'd better take your aggressions out on one of your friends.<</notify>>
         <<endif>>\
-        <<if $anger_need < 50>>\
-            You are very angry.
-            <<each $friends>>\
-                <<if $anger_need > 25>>\
-                    <<print "[[Beat " + $o.name + "|BeatFriend][$beat_friend_id="+$o.id+"]]">>
-                <<else>>\
-                    <<print "[[Kill " + $o.name + "|KillFriend][$kill_friend_id="+$o.id+"]]">>
-                <</if>>\
-            <</each>>\
-
-        <</if>>\
         <<display SpinHomeYarn>>
         <<display StatusBar>>\
+        <<if $anger_need < 50>>\
+            You are very angry...
+            <<if $friends.length > 0>>\
+                <ul>\
+                <<each $friends>>\
+                    <<if $anger_need > 25>>\
+                        <li><<print "[[Beat " + $o.name + "|BeatFriend][$beat_friend_id="+$o.id+"]]">></li>\
+                    <<else>>\
+                        <li><<print "[[Kill " + $o.name + "|KillFriend][$kill_friend_id="+$o.id+"]]">></li>\
+                    <</if>>\
+                <</each>>\
+                </ul>\
+            <<else>>\
+                .. but you don't have anyone to take this aggresion out on!
+            <<endif>>\
+        <</if>>\
         <ul>\
         <<if $friends.length == 0>>\
             You don't have any friends yet.
 
         <<else>>\
-            What would you like to do?
+            <h2>What would you like to do?</h2>\
             <!--You have <<print to_sentence($friends.map(function(a){return a.name}))>>.-->\
             <<each $friends>>\
                 <<if not $o.dead>>\
@@ -103,7 +111,7 @@ Time to start [[chasing that american dream|Main]]!!!
                 <<endif>>\
             <</each>>\
         <</if>>\
-        <li>[[Go party (+ Rapport)|Go party]]</li>
+        <li>[[Go party|Go party]]</li>
         <li>[[Buy friends|BuyFriends]]</li>
         <<if not $chair_home>>\
             <li>[[Go to the mall|ChairVisit]]</li>
@@ -121,15 +129,20 @@ Time to start [[chasing that american dream|Main]]!!!
             </li>\
         <<endif>>\
         </ul>\
-    <<else>>
+    <<else>>\
         <<display Birth>>
-    <<endif>>
-    <<run atrophy_needs()>>
+    <<endif>>\
+    <<run atrophy_needs()>>\
 <<else>>\
     <<display Dead>>\
 <<endif>>\
-
 ::Go party
+<<if not $pro_tip_rapport>>\
+    <<ProTip>>\
+        <<set $pro_tip_rapport = true>>\
+        Pro tip: Partying will earn you ''Clout''. Spend ''Clout'' on ''friends'' at the [[friend store|BuyFriends]]!
+    <</ProTip>>\
+<<endif>>\
 <<set $rapport_gained = Math.floor(Math.random() * 100)>>\
 <<set $rapport += $rapport_gained>>\
 <<set $party_atrophy = 0>>\

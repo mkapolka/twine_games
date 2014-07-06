@@ -252,22 +252,21 @@ class actor_classes.Shower extends Thing
 #********************************************************************************
 
 class actor_classes.Stripper extends Human
-    name: "the stripper"
+    name: "the gigolo"
     act: (others) ->
         humans = (x for x in others when x.human)
-        if humans.length > 0
-            other = humans.random()
-            extra_actions = [
-                "turns #{other.name} on",
-                "gives #{other.name} a lap dance",
-                "fucks #{other.name}"
-            ]
-        else
-            extra_actions = []
-        return "#{@name} " + [
-            'looks sexy',
-            'struts his stuff',
-        ].concat(extra_actions).random()
+        other = others.random()
+        human = humans.random()
+        return [
+            "#{@name} turns #{human.name} on",
+            "#{@name} gives #{human.name} a lap dance",
+            "#{@name} fucks #{other.name}",
+            "#{@name} blows kisses at #{other.name}"
+            "#{@name} winks at #{other.name}"
+            "#{@name} offers #{other.name} his services"
+            "#{@name} looks sexy",
+            "#{@name} struts his stuff",
+        ].random()
 
 class actor_classes.Inspiring extends Human
     name: "the microblogger"
@@ -277,8 +276,13 @@ class actor_classes.Inspiring extends Human
             "#{@name} sighs",
             "#{@name} looks optimistic",
             "#{@name} gives #{other.name} a thumbs up"
-            "#{@name} shows #{other.name} a picture of a cat"
+            "#{@name} shows #{other.name} a funny picture"
             "#{@name} writes a twitter post"
+            "#{@name} writes a thinkpiece about #{other.name}"
+            "#{@name} liveblogs"
+            "#{@name} tweets about #{other.name}"
+            "#{@name} makes a passive aggresive post about #{other.name}"
+            "#{@name} starts a petition"
         ].random()
 
 class actor_classes.Player extends Human
@@ -406,7 +410,9 @@ window.main_story = () ->
     if player in actors
         portraits += "<<Portrait art/player_portrait.png>>"
 
-    yarn = portraits + "\n" + yarn
+    intro = "You are home. "
+
+    yarn = portraits + "\n" + intro + yarn
 
     if bonuses.length > 0
         return yarn + "\n\n" + bonuses.join("\n")
