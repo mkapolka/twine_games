@@ -256,6 +256,8 @@ class actor_classes.Stripper extends Human
     act: (others) ->
         other = others.random()
         human = (x for x in others when x.human).random()
+        if not human
+            human = new actor_classes.Player()
         return [
             "#{@name} turns #{human.name} on",
             "#{@name} gives #{human.name} a lap dance",
@@ -391,8 +393,7 @@ window.main_story = () ->
     # Add the player if there aren't enough people
     if friends.length == 1 and Math.random() < .5 or friends.length == 0
         actors = actors.concat(player)
-
-
+    
     yarn = spin_yarn(actors)
     bonuses = []
     for thing in things
