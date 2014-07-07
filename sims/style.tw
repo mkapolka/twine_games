@@ -1,9 +1,14 @@
 ::Style [stylesheet]
 /*Current color palette: http://www.colourlovers.com/palette/1722286/400_unique_artists_♥ */
 div.attention {
-   border: 1px solid yellow; 
-   color: yellow;
+   border: 3px solid yellow; 
+   background: lightyellow;
+   color: black;
    padding: 10px;
+   display: inline-block;
+
+   min-width: 0;
+   max-width: minimum;
 }
 
 span.green_pips {
