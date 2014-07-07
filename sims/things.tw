@@ -13,6 +13,7 @@ window.init_things = function() {
         {
             id: 'tv',
             relationship: 0,
+            max_relationship: 6,
             name: "the 'Akira' Television",
             actor_class: "Television",
             portrait: "art/tv_portrait.png",
@@ -23,6 +24,7 @@ window.init_things = function() {
         {
             id: 'sex',
             relationship: 0,
+            max_relationship: 6,
             name: "'Jacky', the puddle of ejaculate",
             actor_class: "Jissom",
             portrait: "art/jissom_portrait.png",
@@ -39,6 +41,7 @@ window.init_things = function() {
         {
             id: 'toilet',
             relationship: 1,
+            max_relationship: 6,
             name: "the 'Tucker' toilet",
             actor_class: "Toilet",
             portrait: "art/toilet_portrait.png",
@@ -47,6 +50,7 @@ window.init_things = function() {
         {
             id: 'wallpaper',
             relationship: 0,
+            max_relationship: 6,
             name: "the wallpaper",
             actor_class: "Wallpaper",
             portrait: "art/wallpaper_portrait.png",
@@ -55,6 +59,7 @@ window.init_things = function() {
         {
             id: 'blender',
             relationship: 1,
+            max_relationship: 6,
             name: 'the "Jennifer Lee" blender',
             actor_class: "Blender",
             portrait: "art/blender_portrait.png",
@@ -63,6 +68,7 @@ window.init_things = function() {
         {
             id: 'refrigerator',
             relationship: 0,
+            max_relationship: 6,
             name: 'the "Bianca" refrigerator',
             actor_class: "Fridge",
             portrait: "art/refrigerator_portrait.png",
@@ -71,6 +77,7 @@ window.init_things = function() {
         {
             id: 'shower',
             relationship: 0,
+            max_relationship: 6,
             name: 'the "Serena" standing shower',
             actor_class: "Shower",
             portrait: "art/shower_portrait.png",
@@ -113,7 +120,7 @@ window.antagonism_names = [
 window.MAX_RELATIONSHIP = window.relationship_names.length
 
 window.add_relationship = function(thing, amount) {
-    var relationship = thing.relationship || 0
+    var relationship = thing.relationship
     relationship += amount
     if (relationship >= (thing.max_relationship || window.MAX_RELATIONSHIP)) {
         relationship = thing.max_relationship
@@ -171,14 +178,14 @@ window.knows_thing = function(thing_id) {
 <<then>>\
     The chair is still here! The other customer did not buy it. You decide to not waste any more time and welcome the chair into your home.
 
-    After some initial awkardness finding the right spot in your living room the chair fits right in. <<if $friends.length > 0>>You offer the chair to seat <<print $friends.random().name>> and they gleefully accept.<<endif>>
+    After some initial awkardness finding the right spot in your living room the chair fits right in. <<if $friends.length > 0>>You let the chair seat <<print $friends.random().name>> and they gleefully accept.<<endif>>
 
     You feel that a new chapter in your life is opening up.
     <<AddNeed "things_need" 10>>
     <<AddNeed "hope_need" 10>>
     <<set $chair_home = true>>\
     <<set $chair.can_adventure_with = true>>\
-    <<set $guaranteed_thing = thing_by_id("chair")>>
+    <<set $guaranteed_thing = thing_by_id("chair")>>\
     <<AddRelationship $chair 1>>
 <</first>>\
 
@@ -187,22 +194,19 @@ window.knows_thing = function(thing_id) {
 ::ChairHome
 <<first 'chair_home_first_iterator'>>\
     <<ImagePlate art/chair_home_plate.png>>
-    You watch a romantic movie while sitting in the chair. Midway through you gently set your hand on the armrest and an excited chill runs
+    You watch a romantic movie while sitting in the chair. Midway through you gently set your hand on the armrest and an excited chill runs \
     up your spine. You cry a little bit at the big finale and try not to get any tears on the chair.
-
     <<AddRelationship chair 1>>
     <<AddNeed "things_need" 10>>
 <<then>>\
     <<ImagePlate art/chair_home_plate.png>>
     You sit down to eat a nice homecooked meal with the Christopher Knight leather chair. You drop a vinegary leaf of caprese basil into the chair's cushion crack. The Christopher Knight chair seems to appreciate it. 
-
     <<AddRelationship chair 1>>
     <<AddNeed "things_need" 10>>
 <<then>>\
     <<ImagePlate art/chair_home_plate.png>>
-    Needing an alibi, you bring a book to read in the chair. You get very little reading done. You stroke the sides of the chair gently and frequently readjust yourself so you can feel the leather on your back.
+    Needing an alibi, you bring a book to read in the chair. You get very little reading done. You stroke the sides of the chair gently and frequently readjust yourself so you can feel the leather on your back.\
     You wake up a bit later embarrased that you dozed off. You awkwardly continue your day.
-
     <<AddRelationship chair 1>>
     <<AddNeed "things_need" 10>>
 <<then>>\
@@ -212,7 +216,6 @@ window.knows_thing = function(thing_id) {
     You sit upside down and wrap your legs around the back of the chair like a spider. You do some crazy stuff with the seat cusion.
 
     The network of tendons inside of your body becomes ecstaticly tense and then suddenly slack. You drift off into a deep sleep, fetally curled and wrapped by Chritopher's manly pape.
-
     <<set $pregnant = true>>\
     <<AddRelationship chair 1>>
 <</first>>\
@@ -240,28 +243,23 @@ God and neither are the TV repair men who kept the TV alive all these years. You
 [[Continue|Main]]
 
 ::PlayWithLiquid
-<<switch thing_by_id("sex").relationship>>\
+<<switch Math.abs(thing_by_id("sex").relationship)>>\
 <<when 0>>\
 You dip your fingers into Jacky and have a little whiff. You wipe her off on your pants.
 <<when 1>>\
 You jump into Jacky like a puddle and splash around.
 <<when 2>>\
 You find that Jackie has dried out. You break off a calcified flake and whip it across the room like a ninja star.
-<<else>>\
-I guess there's nothing left
+<<set $splooged = false>>\
 <</switch>>\
-
-Playing with Jacky makes you remember all the good sex you've had.
-<<AddNeed "sex_need" -10>>
-<<AddNeed "things_need" 5>>
 <<set $_sex = thing_by_id("sex")>>\
 <<AddRelationship $_sex 1>>
 
 [[Continue|Main]]
 
 ::CleanUpSexLiquid
-<<switch thing_by_id("sex").relationship>>\
-<<when 0>>
+<<switch "Math.abs(thing_by_id('sex').relationship) * -1">>\
+<<when 0>>\
 You try to pick Jackie up with your hands but it just isn't working!
 <<when -1>>\
 You try to clean up Jackie with sheet of paper but you end up just spreading her around.
@@ -271,11 +269,9 @@ You go in with the sponge but Jackie slips you and you fall on your tuckus.
 You successfully clean up the sex liquid.
 <<set $splooged = false>>\
 <</switch>>\
-
 <<set $_sex = thing_by_id("sex")>>\
 <<AddRelationship $_sex -1>>
 <<AddNeed "sex_need" -10>>
-<<AddNeed "things_need" 5>>
 
 [[Continue|Main]]
 

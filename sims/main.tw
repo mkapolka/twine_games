@@ -3,11 +3,11 @@ Human Need
 
 ::StoryInit
 <<nobr>>
-<<set $sex_need = 100>>
-<<set $anger_need = 100>>
-<<set $funny_need = 100>>
-<<set $hope_need = 100>>
-<<set $things_need = 100>>
+<<set $sex_need = 90>>
+<<set $anger_need = 90>>
+<<set $funny_need = 90>>
+<<set $hope_need = 90>>
+<<set $things_need = 90>>
 <<set $rapport = 0>>
 <<set $rapport_xp = 0>>
 <<set $friends = []>>
@@ -22,9 +22,8 @@ If set, this adventurer class will def. appear in the next adventure.
 <<set $guaranteed_friend = "">>
 <<set $guaranteed_thing = "">>
 
-<<set $rapport = 100>>
+<<set $rapport = 50>>
 
-<<run $friends.push(init_friend_by_id("sex"))>>
 <<run $friends.push(init_friend_by_id("inspiring"))>>
 <<run $friends.push(init_friend_by_id("funny"))>>
 <</nobr>>
@@ -32,6 +31,8 @@ If set, this adventurer class will def. appear in the next adventure.
 <<set $pro_tip_rapport = false>>
 
 ::comment
+<<run $friends.push(init_friend_by_id("sex"))>>
+
 <<set $splooged = true>>
 <<set $chair = thing_by_id("chair")>>
 <<set $chair.can_adventure_with = true>>
@@ -50,7 +51,7 @@ You just moved into a cute house in Gushing Meadows. Your house is filled with s
 
 As a ''human'', you have several ''needs'': Violence Need, Sex Need, Humor Need, Hope Need, and Thing Need. Keep them ''satisfied'' or face ''tragic consequences''.
 
-Do you have what it takes to keep yourself alive and find ''TRUE LOVE''?? Let's find out! It's time to [[chase that American dream!|Main]]!
+Can you keep yourself alive and find ''TRUE LOVE''?? Let's find out! It's time to [[chase that American dream!|Main]]!
 
 ::StatusBar
 <div class="status-bar">\
@@ -63,7 +64,10 @@ Do you have what it takes to keep yourself alive and find ''TRUE LOVE''?? Let's 
 <<if not player_dead()>>\
     <<if $pregnant_counter < 4>>\
         <<if $sex_need <= 0>>\
-            <<notify>>You cannot contain your horniness any longer! You jack off and leave a pool of sex liquids on the floor. You could have prevented this by keeping your sex need in check. You name the pool "Jacky."<</notify>>
+            <<notify>>You cannot contain your horniness any longer! You jack off and leave a pool of sex liquids on the floor. You could have prevented this by keeping your sex need in check. You name the pool "Jacky."
+            <<AddRelationship "sex" 1>>
+            <<set $guaranteed_thing = thing_by_id("sex")>>\
+            <</notify>>
             <<set $sex_need = 30>>\
             <<set $splooged = true>>\
             <<run thing_by_id("sex").relationship = 0>>\
