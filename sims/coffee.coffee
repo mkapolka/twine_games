@@ -137,6 +137,9 @@ class actor_classes.Toilet extends Thing
     act: (others) ->
         human = (x for x in others when x.human).random()
         other = others.random()
+        if not knows_thing('shower') and not @shower_prompted and Math.random() < .5
+            @shower_prompted = true
+            return "[[you notice the toilet's sibling|ShowerMeet]]"
         return [
             "#{@name} slurps up #{human.genitive()} shit",
             "#{@name} flushes",

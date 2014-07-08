@@ -223,6 +223,7 @@ window.knows_thing = function(thing_id) {
 [[Continue|Main]]
 
 ::MeetTV
+<<ImagePlate art/tv_portrait.png>>
 In the corner of the room there's a glowing box with a man trapped inside. Now it's a woman. Now it's a pair of jeans? A label on the box says 'Akira'. He confuses you but he seems lively.
 <<set $guaranteed_thing = thing_by_id('tv')>>\
 <<AddRelationship tv 1>>
@@ -276,8 +277,10 @@ You successfully clean up the sex liquid.
 [[Continue|Main]]
 
 ::FridgeMeet
+<<ImagePlate art/refrigerator_portrait.png>>
 You dash off to the store to see if anyone can help you store this smoothie. A tall and expansive savior comes to your rescue. You buy the "Bianca" refrigerator and invite her to come live with you.
 <<AddRelationship refrigerator 1>>
+<<set $guaranteed_thing = thing_by_id("refrigerator")>>\
 
 [[Continue|Main]]
 
@@ -294,10 +297,11 @@ You put your friends into the refrigerator and mail the tupperware back.
 
 [[Continue|Main]]
 
-::MeetToilet
-The pamphlet is an advertisement for the "Tucker"- a sturdy and reliable brand of toilets. Just the thing you need
-to add some stability to your life. You go the hardware store and introduce yourself to one. You are now living with a new toilet.
-<<set $toilet = thing_by_id("toilet")>>\
-<<AddRelationship $toilet 1>>
+::ShowerMeet
+<<ImagePlate art/shower_portrait.png>>
+There's a damp closet here. A plastic curtain surrounds it, covering its sanitary pudenda. You can feel the weight of your curiosity in the top of your chest and the tips of your fingers. \
+You peel back a lip of the curtain and peek inside. You can see everything. A drop of water falls from the faucet and splashes you in the face.
+<<AddRelationship shower 1>>
 
+<<set $guaranteed_thing = thing_by_id("shower")>>\
 [[Continue|Main]]

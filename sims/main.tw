@@ -230,3 +230,9 @@ You throw <<print $corpse_owner.name>>'s corpse into the trash.
 
 ::Birth
 <<ImagePlate art/birth_plate.png>>
+Today's the day! You give birth to a beautiful ottoman. You and Christopher name it Otto. You live happily ever after.
+
+[[Continue|End]]
+::End
+<<ImagePlate art/finale_plate.png>>
+<h1 style='text-align: center'>THE END</h1>

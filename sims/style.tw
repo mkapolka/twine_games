@@ -39,7 +39,9 @@ div.status-bar {
     border-radius: 10px;
 
     width: fit-content;
-    //display: inline-block;
+    display: inline-block;
+    margin: 0 auto;
+    align: center;
     text-align: center;
 }
 
@@ -54,8 +56,8 @@ div.status-bar {
 div.image_plate > img {
     display: block;
     margin: 0 auto;
-    background: blue;
     border-radius: 10px;
+    background: #C8E7EA;
     border: 10px #C8E7EA solid;
 }
 

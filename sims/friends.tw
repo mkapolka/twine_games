@@ -192,7 +192,7 @@ Who do you want to invite?
         <</each>>\
         [[Nevermind|Main]]
     <<endif>>\
-<<else>>
+<<else>>\
     You don't have enough rapport to invite <<print $friend.name>> to your house.
     [[Return|BuyFriends]]
 <<endif>>
