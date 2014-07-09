@@ -273,7 +273,7 @@ You kill <<print $friend.name>>. All of your pent up range melts away.
 ::FuckSexier
 <<ImagePlate art/dancer_plate.png>>
 You do the nasty with the dancer. Real grade "A" fuckin'. Nice job!
-<<AddNeed "sex_need" 40>>
+<<AddNeed "sex_need" 50>>
 
 [[Continue|Main]]
 
@@ -282,9 +282,8 @@ You do the nasty with the dancer. Real grade "A" fuckin'. Nice job!
 
 ::FunnierJoke
 <<ImagePlate art/clown_plate.png>>
-<<set $gained_humor = 10 + Math.floor(Math.random() * 20)>>\
 The clown throws a pie into the air and it lands on his face. What a riot!
-<<AddNeed "funny_need" $gained_humor>>
+<<AddNeed "funny_need" 50>>
 
 [[Continue|Main]]
 
@@ -293,9 +292,8 @@ The clown throws a pie into the air and it lands on his face. What a riot!
 
 ::PriestTalk
 <<ImagePlate art/priest_plate.png>>
-<<set $gained_hope = 10 + Math.floor(Math.random() * 20)>>\
 Your priest friend tells you that God loves all his/her creations equally.
-<<AddNeed "hope_need" $gained_hope>>
+<<AddNeed "hope_need" 50>>
 
 [[Continue|Main]]
 

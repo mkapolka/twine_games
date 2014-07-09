@@ -299,8 +299,8 @@ You put your friends into the refrigerator and mail the tupperware back.
 
 ::ShowerMeet
 <<ImagePlate art/shower_portrait.png>>
-There's a damp closet here. A plastic curtain surrounds it, covering its sanitary pudenda. You can feel the weight of your curiosity in the top of your chest and the tips of your fingers. \
-You peel back a lip of the curtain and peek inside. You can see everything. A drop of water falls from the faucet and splashes you in the face.
+There's a damp closet here. A plastic curtain covers its sanitary pudenda. You can feel the weight of your curiosity in the top of your chest and the tips of your fingers. \
+You peel back a lip of the curtain and peek inside. You can see everything. The bottom of your stomach feels cold. A drop of water falls from the faucet and splashes you in the face.
 <<AddRelationship shower 1>>
 
 <<set $guaranteed_thing = thing_by_id("shower")>>\

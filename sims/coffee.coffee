@@ -303,35 +303,69 @@ class actor_classes.Player extends Human
 class actor_classes.Comedian extends Human
     name: "the comedian"
     act: (others) ->
-        thing = (t for t in others when not t.human).random()
+        human = (t for  t in others when t.human).random() or new actor_classes.Player()
         other = others.random()
-        return [
+        actions = [
             "#{@name} laughs"
             "#{@name} tells #{other.name} a joke"
             "#{@name} tells a mean joke about #{other.name}"
-            "#{thing.name} inspires one of #{@genitive()} jokes",
+            "#{@name} makes fun of #{other.name}",
+            "#{@name} makes fun of #{human.genitive()} #{human_body_parts.random()}",
+            "#{other.name} inspires one of #{@genitive()} jokes",
+            "#{@name} roasts #{other.name}",
+            "#{@name} ribs #{other.name}",
+            "#{@name} jibes #{other.name}",
         ].random()
 
 class actor_classes.Dancer extends Human
     name: "the dancer"
     act: (others) ->
+        human = (h for h in others when h.human).random() or new actor_classes.Player()
+        other = others.random()
         return [
-            "#{@name} twirls on her foot"
+            "#{@name} twirls on her foot",
+            "#{@name} does a saucy jig",
+            "#{@name} bends in surprising ways",
+            "#{human.name} spins and dips #{@name}",
+            "#{@name} grinds on #{other.name}",
+            "#{@name} twerks towards #{other.name}",
+            "#{@name} thrusts her hips towards #{other.name}",
+            "#{@genitive()} hips lie",
+            "#{@name} shakes what her mother gave her",
+            "#{@name} shakes her money maker"
         ].random()
 
 class actor_classes.Priest extends Human
     name: "the priest"
     act: (others) ->
+        other = others.random()
         return [
-            "#{@name} prays"
+            "#{@name} prays for peace",
+            "#{@name} prays for #{other.name}",
+            "#{@name} believes in #{other.name}",
+            "#{@name} gives a sermon",
+            "#{@name} debates #{other.name}",
+            "#{@name} weeps for #{other.genitive()} soul",
+            "#{@name} fears hell",
+            "#{@name} persuades #{other.name} to fear God",
         ].random()
 
 class actor_classes.Clown extends Human
     name: "the clown"
     act: (others) ->
         other = others.random()
+        human = (h for h in other when h.human).random() or new actor_classes.Player()
         return [
             "#{@name} throws a pie at #{other.name}"
+            "#{@name} clowns around with #{other.name}",
+            "#{@name} honks a horn at #{other.name}",
+            "#{@name} bumbles",
+            "#{@name} steps on #{human.genitive()} feet",
+            "#{@name} plays with a rubber chicken",
+            "#{@name} grins at #{other.name}",
+            "#{@name} cries at #{other.name}",
+            "#{@name} points and laughs at #{other.name}",
+            "#{@name} rides a little tricycle around the house",
         ].random()
 
 class actor_classes.Fascist extends Human
@@ -340,6 +374,14 @@ class actor_classes.Fascist extends Human
         other = others.random()
         return [
             "#{@name} oppresses #{other.name}"
+            "#{@name} demands #{other.name} respect him"
+            "#{@name} invents a salute"
+            "#{@name} salutes #{other.name}"
+            "#{@name} commits war crimes"
+            "#{@name} convinces #{other.name} of his greatness"
+            "#{other.name} respects #{@name}"
+            "#{other.name} follows #{@name}"
+            "#{other.name} joins #{@genitive()} regime"
         ].random()
 
 class actor_classes.Enduring extends Human
@@ -347,7 +389,14 @@ class actor_classes.Enduring extends Human
     act: (others) ->
         other = others.random()
         return [
-            "#{@name} endures"
+            "#{@name} endures",
+            "#{@name} inspires #{other.name}",
+            "#{@name} is an example for us all",
+            "#{@name} never complains",
+            "#{@name} forgives #{other.name}",
+            "#{@name} tells a story about her hardships",
+            "#{@name} tells #{other.name} a story about her hardships",
+            "#{@name} reminds #{other.name} to be thankful for what they have",
         ].random()
 
 

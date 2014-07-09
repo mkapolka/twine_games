@@ -30,6 +30,7 @@ If set, this adventurer class will def. appear in the next adventure.
 
 <<set $pro_tip_rapport = false>>
 
+
 ::comment
 <<run $friends.push(init_friend_by_id("sex"))>>
 
@@ -77,8 +78,10 @@ Can you keep yourself alive and find ''TRUE LOVE''?? Let's find out! It's time t
             <<notify>>Your anger need is getting dangerously low! You'd better take your aggressions out on one of your friends.<</notify>>
         <<endif>>\
         <<display SpinHomeYarn>>
-        <<display StatusBar>>\
+        <<display StatusBar>>
         <<if $anger_need < 60>>\
+
+            <<notify>>\
             You are very angry...
             <<if $friends.length > 0>>\
                 <ul>\
@@ -93,6 +96,7 @@ Can you keep yourself alive and find ''TRUE LOVE''?? Let's find out! It's time t
             <<else>>\
                 .. but you don't have anyone to take this aggresion out on!
             <<endif>>\
+            <</notify>>
         <</if>>\
         <ul>\
         <<if $friends.length == 0>>\
