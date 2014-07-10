@@ -117,9 +117,11 @@ If you spend your ''CLOUT'' you can invite friends to your house.
 Who do you want to invite?
 
 [[< Return home|Main]]
-
-<table class="friend_purchase">
-<tr>
+<table class="friend_purchase">\
+<tr>\
+    <td colspan="3" style="text-align: center"><h2>You have <<print $rapport>> ''Clout''.</h2></td>
+</tr>\
+<tr>\
     <td><<Portrait art/sexy_portrait.png>></td>\
     <td><<Portrait art/inspiring_portrait.png>></td>\
     <td><<Portrait art/funny_portrait.png>></td>\
@@ -181,7 +183,7 @@ Who do you want to invite?
 <<if $rapport >= $friend.cost>>\
     <<if $friends.length < 3>>\
         <<Portrait $friend.portrait>>
-        You invite <<print $friend.name>> over to your house. You lose <<print $friend.cost>> rapport.
+        You invite <<print $friend.name>> over to your house. You lose <<print $friend.cost>> ''clout''.
         <<run $friends.push(init_friend_by_id($friend_template_id))>>\
         <<set $rapport -= $friend.cost>>\
         [[Continue|Main]]
@@ -190,10 +192,10 @@ Who do you want to invite?
         <<each $friends>>\
             <<print "[[Evict "+$o.name+"|EvictFriend][$evicted_friend_id = "+$o.id+"]]">>
         <</each>>\
-        [[Nevermind|Main]]
+        [[Nevermind|BuyFriends]]
     <<endif>>\
 <<else>>\
-    You don't have enough rapport to invite <<print $friend.name>> to your house.
+    You don't have enough ''clout'' to invite <<print $friend.name>> to your house.
     [[Return|BuyFriends]]
 <<endif>>
 
@@ -201,7 +203,7 @@ Who do you want to invite?
 <<set $friend = friend_by_id($evicted_friend_id)>>\
 <<run remove_friend($friend)>>\
 <<set $recouped_cost = Math.floor($friend.cost * .5)>>\
-You kick <<print $friend.name>> out. You get back <<print $recouped_cost>> of the rapport you used on them in the first place.
+You kick <<print $friend.name>> out. You get back <<print $recouped_cost>> of the ''clout'' you used on them in the first place.
 
 <<display BuyFriend>>
 
