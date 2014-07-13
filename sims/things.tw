@@ -243,13 +243,15 @@ window.knows_thing = function(thing_id) {
     You sit upside down and wrap your legs around the back of the chair like a spider. You do some crazy stuff with the seat cusion.
 
     The network of tendons inside of your body becomes ecstaticly tense and then suddenly slack. You drift off into a deep sleep, fetally curled and wrapped by Chritopher's manly pape.
+
+    You are pregnant.
     <<set $pregnant = true>>\
     <<AddRelationship chair 1>>
 
     [[Continue|NextDay]]
 <<then>>\
     <<ImagePlate art/birth_plate.png>>
-    Today's the day! You give birth to a beautiful ottoman. You and Christopher name it Otto. You live happily ever after.
+    You give birth to a beautiful ottoman. Christopher stays by your side and supports you throughout the ordeal. You and Christopher name it Otto. You live happily ever after.
 
     [[Continue|End]]
 <</first>>\
@@ -271,6 +273,7 @@ You fit the TV into a cardboard box, snug with custom shaped styrofoam and all i
 You gently lower it into the ground. You and all the TV's viewers say a few words about what the TV meant to you. It was an old TV but you hoped to have many more years of entertainment out of it. In the end you're not \
 God and neither are the TV repair men who kept the TV alive all these years. You all did your best and you gave the TV a good life. It's time to let go. You cry. Everyone cries.
 
+<<set thing_by_id("tv").can_adventure_with = false>>\
 <<set thing_by_id("tv").dead = true>>\
 <<set $tv_buried = true>>\
 <<AddNeed "hope_need" 30>>
