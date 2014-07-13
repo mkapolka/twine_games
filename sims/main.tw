@@ -75,24 +75,22 @@ Can you keep yourself alive and find ''TRUE LOVE''?? Let's find out! It's time t
     <<display StatusBar>>\
     You return home weary after a long day of partying. What would you like to do?
     You have <<print to_sentence($friends.map(function(x){return x.name}))>>. <<print capitalize($random_thing.name)>> is also here.
-    <table class="friend_action_table">\
-        <tr>\
-        <<each $friends>>
-            <td>\
+    <div class="actions">
+        <<each $friends>>\
+            <div class="action_pane">\
                 <<Portrait $o.portrait>>
                 <<dyn_display $o.display_passage>>
-            </td>
-        <</each>>
-        <td>\
+            </div>\
+        <</each>>\
+        <div class="action_pane">\
             <<Portrait $random_thing.portrait>>
             <<set $acted_thing = $random_thing>>\
             <<print "[[" + $random_thing.action_prompt + "|ThingInteraction]]">>
-        </td>
+        </div>
         <<each [1,2,3].slice($friends.length)>>\
-            <td>[[Room For One More...|BuyFriends]]</td>
+            <div class="action_pane">[[Room For One More...|BuyFriends]]</div>
         <</each>>
-        </tr>
-    </table>\
+    </div>
     <div style="text-align: center; width: 100%"><h1>[[Buy friends?|BuyFriends]]</h1></div>
 <<else>>
     <<display Dead>>

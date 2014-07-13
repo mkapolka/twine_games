@@ -105,13 +105,19 @@ table.friend_table td {
     width: 33%;
 }
 
-table.friend_action_table {
+div.actions {
+    display: table;
     width: 100%;
-    text-align: center;
-    style: block;
 }
 
-table.friends_action_table td {
+div.action_pane {
+    display: table-row;
+    overflow: auto;
+    float: left;
     width: 25%;
-    style: block;
+    text-align: center;
+}
+
+div.action_pane img {
+    display: inline-block;
 }
