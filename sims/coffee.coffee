@@ -418,12 +418,13 @@ class actor_classes.Jissom extends Thing
 
 window.pick_some = (array, min, max) ->
     a = shuffle(array.slice(0))
-    n = Math.ceil(Math.random() * (min + (max - min)))
+    n = min + Math.ceil(Math.random() * (max - min))
     n = min if n == 0
     return a.slice(0, n)
 
 capitalize = (string) ->
     return string.charAt(0).toUpperCase() + string.slice(1)
+window.capitalize = capitalize
 
 window.main_story = () ->
     friendly_things = (t for t in state.active.variables.things when t.can_adventure_with)
@@ -453,18 +454,7 @@ window.main_story = () ->
             add_relationship(thing_by_id(thing['id']), 1)
             bonuses.push("Your relationship level with #{thing.name} has increased to \"#{get_relationship_name(thing['relationship'])}\"")
 
-    # Portraits
-    portraits = ""
-    for friend in friends
-        portraits += "<<Portrait #{friend.portrait}>>"
-    for thing in things
-        portraits += "<<Portrait #{thing.portrait}>>"
-    if player in actors
-        portraits += "<<Portrait art/player_portrait.png>>"
-
-    intro = "You are home. "
-
-    yarn = portraits + "\n" + intro + yarn
+    yarn = yarn
 
     if bonuses.length > 0
         return yarn + "\n\n" + bonuses.join("\n")
@@ -473,7 +463,7 @@ window.main_story = () ->
 window.spin_yarn = (all_actors) ->
     acted = []
     output = []
-    for i in [0..3 + Math.random() * 5]
+    for i in [0..2 + Math.random() * 2]
         actors = (a for a in all_actors when not a.dead)
         havent_acted = (a for a in actors when a not in acted)
         if havent_acted.length == 0
@@ -487,14 +477,14 @@ window.spin_yarn = (all_actors) ->
     string = ""
 
     # Names of actors
-    string += capitalize((a.name for a in actors[0...-1]).join(", ")) + " and " + actors[actors.length - 1].name
-    string += [
-        " are spending time together."
-        " are hanging out."
-        " are kickin' it."
-        " are playing around."
-        " are having a discussion."
-    ].random() + "\n"
+    # string += capitalize((a.name for a in actors[0...-1]).join(", ")) + " and " + actors[actors.length - 1].name
+    # string += [
+        # " are spending time together."
+        # " are hanging out."
+        # " are kickin' it."
+        # " are playing around."
+        # " are having a discussion."
+    # ].random() + "\n"
     
     for i in [0...output.length] by 2
         if output[i+1]?

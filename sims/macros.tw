@@ -264,5 +264,16 @@ Your relationship level with <<print $args[0].name>> is now <<print get_relation
 You gain <<print $args[1]>> <<print need_name($args[0])>>.\
 <</widget>>\
 
+<<widget ReduceNeed>>\
+<<run add_need($args[0], -$args[1])>>\
+You lose <<print $args[1]>> <<print need_name($args[0])>>.\
+<</widget>>\
+
+<<widget AtrophyNeeds>>\
+<<set $n = pick_some(["things_need", "anger_need", "funny_need", "sex_need", "hope_need"], 2, 2)>>\
+<<ReduceNeed $n[0] 10>>
+<<ReduceNeed $n[1] 10>>
+<</widget>>
+
 ::need_words [script]
 window.need_name

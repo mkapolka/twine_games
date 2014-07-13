@@ -18,6 +18,8 @@ Human Need
 <<run init_friends()>>
 <<set $pregnant_counter = 0>>
 
+<<set $day = 0>>
+
 If set, this adventurer class will def. appear in the next adventure.
 <<set $guaranteed_friend = "">>
 <<set $guaranteed_thing = "">>
@@ -52,14 +54,49 @@ You just moved into a cute house in Gushing Meadows. Your house is filled with s
 
 As a ''human'', you have several ''needs'': Violence Need, Sex Need, Humor Need, Hope Need, and Thing Need. Keep them ''satisfied'' or face ''tragic consequences''.
 
-Can you keep yourself alive and find ''TRUE LOVE''?? Let's find out! It's time to [[chase that American dream!|Main]]!
+Can you keep yourself alive and find ''TRUE LOVE''?? Let's find out! It's time to [[chase that American dream!|Afternoon]]!
 
 ::StatusBar
+<div style="text-align: center">\
 <div class="status-bar">\
-<h3>__STATUS__</h3>
 <h3>Needs: </h3>Violence (<<display_need "anger_need">>) Sex (<<display_need "sex_need">>) Humor (<<display_need "funny_need">>) Hope (<<display_need "hope_need">>) Things (<<display_need "things_need">>)
 <h3>Clout: </h3><<print $rapport>>
 </div>
+</div>
+
+::Afternoon
+<<if not player_dead()>>\
+    <<if $guaranteed_thing>>\
+        <<set $random_thing = $guaranteed_thing>>\
+    <<else>>\
+        <<set var ft = $things.filter(function(x){return x.can_adventure_with}); $random_thing = ft[$day % ft.length]>>\
+    <<endif>>\
+    <h1>AFTERNOON</h1>\
+    <<display StatusBar>>\
+    You return home weary after a long day of partying. What would you like to do?
+    You have <<print to_sentence($friends.map(function(x){return x.name}))>>. <<print capitalize($random_thing.name)>> is also here.
+    <table class="friend_action_table">\
+        <tr>\
+        <<each $friends>>
+            <td>\
+                <<Portrait $o.portrait>>
+                <<dyn_display $o.display_passage>>
+            </td>
+        <</each>>
+        <td>\
+            <<Portrait $random_thing.portrait>>
+            <<set $acted_thing = $random_thing>>\
+            <<print "[[" + $random_thing.action_prompt + "|ThingInteraction]]">>
+        </td>
+        <<each [1,2,3].slice($friends.length)>>\
+            <td>[[Room For One More...|BuyFriends]]</td>
+        <</each>>
+        </tr>
+    </table>\
+    <div style="text-align: center; width: 100%"><h1>[[Buy friends?|BuyFriends]]</h1></div>
+<<else>>
+    <<display Dead>>
+<<endif>>
 
 ::Main
 <<if not player_dead()>>\
@@ -145,16 +182,12 @@ Can you keep yourself alive and find ''TRUE LOVE''?? Let's find out! It's time t
 <<else>>\
     <<display Dead>>\
 <<endif>>\
-::Go party
-<<if not $pro_tip_rapport>>\
-    <<ProTip>>\
-        <<set $pro_tip_rapport = true>>\
-        Pro tip: Partying will earn you ''Clout''. Spend ''Clout'' on ''friends'' at the [[friend store|BuyFriends]]!
-    <</ProTip>>\
-<<endif>>\
+::Morning
+<h1>MORNING</h1>\
+<<ImagePlate art/party_plate.png>>\
 <<set $rapport_gained = Math.floor(25 + Math.random() * 100) * ($rapport_xp + 1)>>\
 <<set $rapport += $rapport_gained>>\
-You party for 8 hours. \
+You wake up, go through your morning routine, and go party. You party for 8 hours. \
 <<random>>\
     You meet a lot of people!
     <<or>>\
@@ -168,8 +201,9 @@ You party for 8 hours. \
     <<or>>\
     You eat way too much cake! Ha ha
 <</random>>\
-You gain <<print $rapport_gained>> rapport.
-<<if Math.random() > .75 and $rapport_xp <= 4>>\
+
+You gain <<print $rapport_gained>> ''Clout''.
+<<if Math.random() > .75 and $rapport_xp <= 4>>
     <<notify>>\
     You move up in your social circle! You are now \
     <<switch $rapport_xp>>\
@@ -190,19 +224,19 @@ You gain <<print $rapport_gained>> rapport.
     <</notify>>
     <<set $rapport_xp += 1>>\
 <<endif>>\
-
-[[Return home|Main]]
+<<AtrophyNeeds>>
+[[Return home|Afternoon]]
 
 ::Dead
+<<ImagePlate art/death_plate.png>>
 <<if $anger_need <= 0>>\
-You failed to keep your anger need sated! You die of an aneurism.
+<center>You failed to keep your anger need sated! You die of an aneurism.</center>
 <<elseif $hope_need <= 0>>\
-You failed to keep your hope need sated. You no longer have the will to live. You just die.
+<center>You failed to keep your hope need sated. You no longer have the will to live. You just die.</center>
 <<elseif $funny_need <= 0>>\
-You failed to keep your humor need sated. Your mind collapses into a zero dimensional point. You live out the rest of your days as a humorless automaton.
+<center>You failed to keep your humor need sated. Your mind collapses into a zero dimensional point. You live out the rest of your days as a humorless automaton.</center>
 <<endif>>\
-
-Game Over.
+<center>Game Over.</center>
 
 ::CleanCorpse
 <<set $corpse_owner = friend_by_id($corpse_id)>>\
@@ -240,3 +274,8 @@ Today's the day! You give birth to a beautiful ottoman. You and Christopher name
 ::End
 <<ImagePlate art/finale_plate.png>>
 <h1 style='text-align: center'>THE END</h1>
+
+::NextDay
+<<ImagePlate art/morning_plate.png>>
+<<set $day = $day + 1>>\
+<h1><<print "[[" + ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][$day % 7] + "|Morning]]">></h1>

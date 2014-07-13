@@ -8,7 +8,9 @@ window.init_things = function() {
             name: "the 'Timothy' Table Lamp",
             actor_class: "Lamp",
             portrait: "art/lamp_portrait.png",
-            can_adventure_with: true
+            can_adventure_with: true,
+            action_prompt: "Bask in the lamp's light?",
+            action_text: "Timothy shines light on you."
         },
         {
             id: 'tv',
@@ -20,6 +22,9 @@ window.init_things = function() {
             can_adventure_with: false,
             dead: false,
             hp: 5,
+            display_passage: 'TVDisplay',
+            action_prompt: "Watch TV?",
+            action_text: "Akira shows you a nature documentary."
         },
         {
             id: 'sex',
@@ -28,7 +33,9 @@ window.init_things = function() {
             name: "'Jacky', the puddle of ejaculate",
             actor_class: "Jissom",
             portrait: "art/jissom_portrait.png",
-            can_adventure_with: false
+            can_adventure_with: false,
+            action_prompt: "Play with the puddle of ejaculate?",
+            action_text: "Jacky smears on your clothes."
         },
         {
             id: 'chair',
@@ -36,7 +43,9 @@ window.init_things = function() {
             name: "the 'Christopher Knight' bonded leather chair",
             actor_class: "Chair",
             portrait: "art/chair_portrait.png",
-            can_adventure_with: false
+            can_adventure_with: false,
+            action_prompt: "Sit on the chair?",
+            action_text: "Christopher Knight seats you."
         },
         {
             id: 'toilet',
@@ -45,7 +54,9 @@ window.init_things = function() {
             name: "the 'Tucker' toilet",
             actor_class: "Toilet",
             portrait: "art/toilet_portrait.png",
-            can_adventure_with: true
+            can_adventure_with: true,
+            action_prompt: "Use the toilet?",
+            action_text: "Tucker accepts your waste."
         },
         {
             id: 'wallpaper',
@@ -54,7 +65,9 @@ window.init_things = function() {
             name: "the wallpaper",
             actor_class: "Wallpaper",
             portrait: "art/wallpaper_portrait.png",
-            can_adventure_with: false
+            can_adventure_with: false,
+            action_prompt: "Examine the wallpaper?",
+            action_text: "The wallpaper offers you a glimpse into the house's past."
         },
         {
             id: 'blender',
@@ -63,7 +76,9 @@ window.init_things = function() {
             name: 'the "Jennifer Lee" blender',
             actor_class: "Blender",
             portrait: "art/blender_portrait.png",
-            can_adventure_with: true
+            can_adventure_with: true,
+            action_prompt: "Blend some fruits?",
+            action_text: 'The "Jennifer Lee" Blender helps you make a margarita.'
         },
         {
             id: 'refrigerator',
@@ -72,7 +87,9 @@ window.init_things = function() {
             name: 'the "Bianca" refrigerator',
             actor_class: "Fridge",
             portrait: "art/refrigerator_portrait.png",
-            can_adventure_with: false
+            can_adventure_with: false,
+            action_prompt: "Eat food?",
+            action_text: 'You take an apple from the "Bianca" refrigerator and eat it.'
         },
         {
             id: 'shower',
@@ -81,7 +98,9 @@ window.init_things = function() {
             name: 'the "Serena" standing shower',
             actor_class: "Shower",
             portrait: "art/shower_portrait.png",
-            can_adventure_with: false
+            can_adventure_with: false,
+            action_prompt: "Take a shower?",
+            action_text: 'You take a shower in the "Serena" standing shower.'
         }
     ]
 }
@@ -148,15 +167,17 @@ window.knows_thing = function(thing_id) {
     return thing_by_id(thing_id).relationship > 0 && !thing_by_id(thing_id).dead
 }
 
-::ChairVisit
-<<ImagePlate art/chair_mall_plate.png>>
+::Evening
+<h1>EVENING</h1>\
 <<set $chair = thing_by_id("chair")>>\
 <<first>>\
-    It's your first time in a new mall. You have butterflies. The air is buzzing with the activity of televisions, illuminated signs, and loudspeakers. All around you shiny products are luring in potential customers. You spend some time becoming acquainted with the different shops. Today you are just getting an overview- there's too much spendor to take in.
+    <<ImagePlate art/chair_mall_plate.png>>
+    You take a trip to the mall. It's your first time in a new mall. You have butterflies. The air is buzzing with the activity of televisions, illuminated signs, and loudspeakers. All around you shiny products are luring in potential customers. You spend some time becoming acquainted with the different shops. Today you are just getting an overview- there's too much spendor to take in.
 
     You don't quite get a chance to visit the furnature store before it closes. You look through the window and get a glimpse of a beautiful leather chair in the far corner of the store. You bob and wiggle to try to get a better view of it but the shopkeepr slams \
     a metal barrier in your face. You'll have to come back tomorrow.
 <<then>>\
+    <<ImagePlate art/chair_mall_plate.png>>
     You return to check on the chair.
 
     Your eyes instinctively dart away, afraid of your habit of staring. The glance leaves an incomplete form in your imagination: a shiny brown shape, impossible welcoming curves, plush but firm cusions. \
@@ -167,6 +188,7 @@ window.knows_thing = function(thing_id) {
     <<AddNeed "things_need" 40>>
     <<AddRelationship $chair 1>>
 <<then>>\
+    <<ImagePlate art/chair_mall_plate.png>>
     You cordially approach the chair and sit down in it with your back straight. You bounce up and down a bit to test its give. You aren't sure what to do with your hands so you set them on the armrests. \
     You suddenly feel very self conscious. You are worried that you have made a mistake and this might not be the chair for you. \
     Another customer walks up, nods and smiles at the chair. You walk away. You are sure this other customer is going to buy the chair and live a happy life with it.
@@ -176,6 +198,7 @@ window.knows_thing = function(thing_id) {
     <<AddNeed "hope_need" -10>>
     <<AddRelationship $chair 1>>
 <<then>>\
+    <<ImagePlate art/chair_mall_plate.png>>
     The chair is still here! The other customer did not buy it. You decide to not waste any more time and welcome the chair into your home.
 
     After some initial awkardness finding the right spot in your living room the chair fits right in. <<if $friends.length > 0>>You let the chair seat <<print $friends.random().name>> and they gleefully accept.<<endif>>
@@ -187,12 +210,7 @@ window.knows_thing = function(thing_id) {
     <<set $chair.can_adventure_with = true>>\
     <<set $guaranteed_thing = thing_by_id("chair")>>\
     <<AddRelationship $chair 1>>
-<</first>>\
-
-[[Continue|Main]]
-
-::ChairHome
-<<first 'chair_home_first_iterator'>>\
+<<then>>\
     <<ImagePlate art/chair_home_plate.png>>
     You watch a romantic movie while sitting in the chair. Midway through you gently set your hand on the armrest and an excited chill runs \
     up your spine. You cry a little bit at the big finale and try not to get any tears on the chair.
@@ -220,15 +238,16 @@ window.knows_thing = function(thing_id) {
     <<AddRelationship chair 1>>
 <</first>>\
 
-[[Continue|Main]]
+[[Continue|NextDay]]
 
 ::MeetTV
+<h1>EVENING</h1>\
 <<ImagePlate art/tv_portrait.png>>
 In the corner of the room there's a glowing box with a man trapped inside. Now it's a woman. Now it's a pair of jeans? A label on the box says 'Akira'. He confuses you but he seems lively.
 <<set $guaranteed_thing = thing_by_id('tv')>>\
 <<AddRelationship tv 1>>
 
-[[Continue|Main]]
+[[Continue|NextDay]]
 
 ::BuryTV
 <<ImagePlate art/tv_burial_plate.png>>
@@ -277,12 +296,13 @@ You successfully clean up the sex liquid.
 [[Continue|Main]]
 
 ::FridgeMeet
+<h1>EVENING</h1>\
 <<ImagePlate art/refrigerator_portrait.png>>
 You dash off to the store to see if anyone can help you store this smoothie. A tall and expansive savior comes to your rescue. You buy the "Bianca" refrigerator and invite her to come live with you.
 <<AddRelationship refrigerator 1>>
 <<set $guaranteed_thing = thing_by_id("refrigerator")>>\
 
-[[Continue|Main]]
+[[Continue|NextDay]]
 
 ::TupperwareParty
 <<ImagePlate art/tupperware_plate.png>>
@@ -298,10 +318,20 @@ You put your friends into the refrigerator and mail the tupperware back.
 [[Continue|Main]]
 
 ::ShowerMeet
+<h1>EVENING</h1>\
 <<ImagePlate art/shower_portrait.png>>
 There's a damp closet here. A plastic curtain covers its sanitary pudenda. You can feel the weight of your curiosity in the top of your chest and the tips of your fingers. \
 You peel back a lip of the curtain and peek inside. You can see everything. The bottom of your stomach feels cold. A drop of water falls from the faucet and splashes you in the face.
 <<AddRelationship shower 1>>
 
 <<set $guaranteed_thing = thing_by_id("shower")>>\
-[[Continue|Main]]
+[[Continue|NextDay]]
+
+::ThingInteraction
+<h1>AFTERNOON</h1>
+<<ImagePlate $acted_thing.portrait>>
+<<set $guaranteed_thing = $acted_thing>>
+<<print $acted_thing.action_text>> <<AddNeed "things_need" 30>>
+<<print main_story()>>
+
+[[Continue|Evening]]
