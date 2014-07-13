@@ -447,18 +447,7 @@ window.main_story = () ->
     if friends.length == 1 and Math.random() < .5 or friends.length == 0
         actors = actors.concat(player)
     
-    yarn = spin_yarn(actors)
-    bonuses = []
-    for thing in things
-        if Math.random() < .2 and thing.id != 'chair'
-            add_relationship(thing_by_id(thing['id']), 1)
-            bonuses.push("Your relationship level with #{thing.name} has increased to \"#{get_relationship_name(thing['relationship'])}\"")
-
-    yarn = yarn
-
-    if bonuses.length > 0
-        return yarn + "\n\n" + bonuses.join("\n")
-    return yarn
+    return spin_yarn(actors)
 
 window.spin_yarn = (all_actors) ->
     acted = []

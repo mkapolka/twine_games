@@ -236,6 +236,11 @@ window.knows_thing = function(thing_id) {
     The network of tendons inside of your body becomes ecstaticly tense and then suddenly slack. You drift off into a deep sleep, fetally curled and wrapped by Chritopher's manly pape.
     <<set $pregnant = true>>\
     <<AddRelationship chair 1>>
+<<then>>\
+    <<ImagePlate art/birth_plate.png>>
+    Today's the day! You give birth to a beautiful ottoman. You and Christopher name it Otto. You live happily ever after.
+
+    [[Continue|End]]
 <</first>>\
 
 [[Continue|NextDay]]
@@ -330,8 +335,10 @@ You peel back a lip of the curtain and peek inside. You can see everything. The 
 ::ThingInteraction
 <h1>AFTERNOON</h1>
 <<ImagePlate $acted_thing.portrait>>
-<<set $guaranteed_thing = $acted_thing>>
+<<set $guaranteed_thing = $acted_thing>>\
 <<print $acted_thing.action_text>> <<AddNeed "things_need" 30>>
 <<print main_story()>>
+<<AddRelationship $acted_thing 1>>
+<<set $guaranteed_thing = null>>\
 
 [[Continue|Evening]]

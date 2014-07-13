@@ -75,6 +75,25 @@ Can you keep yourself alive and find ''TRUE LOVE''?? Let's find out! It's time t
     <<display StatusBar>>\
     You return home weary after a long day of partying. What would you like to do?
     You have <<print to_sentence($friends.map(function(x){return x.name}))>>. <<print capitalize($random_thing.name)>> is also here.
+    <<if $anger_need < 60>>\
+
+        <<notify>>\
+        You are very angry...
+        <<if $friends.length > 0>>\
+            <ul>\
+            <<each $friends>>\
+                <<if $anger_need > 25>>\
+                    <li><<print "[[Beat " + $o.name + "|BeatFriend][$beat_friend_id="+$o.id+"]]">></li>\
+                <<else>>\
+                    <li><<print "[[Kill " + $o.name + "|KillFriend][$kill_friend_id="+$o.id+"]]">></li>\
+                <</if>>\
+            <</each>>\
+            </ul>\
+        <<else>>\
+            .. but you don't have anyone to take this aggresion out on!
+        <<endif>>\
+        <</notify>>
+    <</if>>\
     <div class="actions">
         <<each $friends>>\
             <div class="action_pane">\
@@ -96,90 +115,6 @@ Can you keep yourself alive and find ''TRUE LOVE''?? Let's find out! It's time t
     <<display Dead>>
 <<endif>>
 
-::Main
-<<if not player_dead()>>\
-    <<if $pregnant_counter < 4>>\
-        <<if $sex_need <= 0>>\
-            <<notify>>You cannot contain your horniness any longer! You jack off and leave a pool of sex liquids on the floor. You could have prevented this by keeping your sex need in check. You name the pool "Jacky."
-            <<AddRelationship "sex" 1>>
-            <<set $guaranteed_thing = thing_by_id("sex")>>\
-            <</notify>>
-            <<set $sex_need = 30>>\
-            <<set $splooged = true>>\
-            <<run thing_by_id("sex").relationship = 0>>\
-
-        <<endif>>\
-        <<if $anger_need < 30>>\
-            <<notify>>Your anger need is getting dangerously low! You'd better take your aggressions out on one of your friends.<</notify>>
-        <<endif>>\
-        <<display SpinHomeYarn>>
-        <<display StatusBar>>
-        <<if $anger_need < 60>>\
-
-            <<notify>>\
-            You are very angry...
-            <<if $friends.length > 0>>\
-                <ul>\
-                <<each $friends>>\
-                    <<if $anger_need > 25>>\
-                        <li><<print "[[Beat " + $o.name + "|BeatFriend][$beat_friend_id="+$o.id+"]]">></li>\
-                    <<else>>\
-                        <li><<print "[[Kill " + $o.name + "|KillFriend][$kill_friend_id="+$o.id+"]]">></li>\
-                    <</if>>\
-                <</each>>\
-                </ul>\
-            <<else>>\
-                .. but you don't have anyone to take this aggresion out on!
-            <<endif>>\
-            <</notify>>
-        <</if>>\
-        <ul>\
-        <<if $friends.length == 0>>\
-            You don't have any friends yet.
-
-        <<else>>\
-            <h2>What would you like to do?</h2>\
-            <!--You have <<print to_sentence($friends.map(function(a){return a.name}))>>.-->\
-            <<each $friends>>\
-                <<if not $o.dead>>\
-                    <li><<dyn_display $o.display_passage>></li>\
-                <</if>>\
-            <</each>>\
-            <<each $friends>>\
-                <<if $o.dead>>\
-                    <<print $o.name>> is dead. <<print "[[Clean up their corpse|CleanCorpse][$corpse_id="+$o.id+"]]">>
-                    <<if $o.rotting>>\
-                        <<set $rneed = random_need(); $r = Math.floor(Math.random() * -10)>>\
-                        <<print $o.name>>'s corpse really stinks! <<AddNeed $rneed $r>>
-                    <<endif>>\
-                <<endif>>\
-            <</each>>\
-        <</if>>\
-        <li>[[Go party|Go party]]</li>
-        <li>[[Buy friends|BuyFriends]]</li>
-        <<if not $chair_home>>\
-            <li>[[Go to the mall|ChairVisit]]</li>
-        <<elseif not $pregnant>>\
-            <li>The [[leather chair|ChairHome]] is here.</li>\
-        <<else>>\
-            <li>You are pregnant.</li>\
-        <<endif>>\
-        <<if $splooged>>\
-            <li>There's a pool of ejaculate named "Jacky" on the floor here.\
-                <ul>\
-                    <li>[[Play with Jacky. (Paragon)|PlayWithLiquid]]</li>\
-                    <li>[[Attempt to clean her up. (Renegade)|CleanUpSexLiquid]]</li>\
-                </ul>\
-            </li>\
-        <<endif>>\
-        </ul>\
-    <<else>>\
-        <<display Birth>>
-    <<endif>>\
-    <<run atrophy_needs()>>\
-<<else>>\
-    <<display Dead>>\
-<<endif>>\
 ::Morning
 <h1>MORNING</h1>\
 <<ImagePlate art/party_plate.png>>\
@@ -264,11 +199,6 @@ You throw <<print $corpse_owner.name>>'s corpse into the trash.
 <<AddNeed "things_need" $_gained_thing_need>>
 </div>\
 
-::Birth
-<<ImagePlate art/birth_plate.png>>
-Today's the day! You give birth to a beautiful ottoman. You and Christopher name it Otto. You live happily ever after.
-
-[[Continue|End]]
 ::End
 <<ImagePlate art/finale_plate.png>>
 <h1 style='text-align: center'>THE END</h1>
