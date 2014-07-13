@@ -77,7 +77,7 @@ window.init_things = function() {
             actor_class: "Blender",
             portrait: "art/blender_portrait.png",
             can_adventure_with: true,
-            action_prompt: "Blend some fruits?",
+            action_prompt: "Blend some stuff?",
             action_text: 'The "Jennifer Lee" Blender helps you make a margarita.'
         },
         {
@@ -176,6 +176,8 @@ window.knows_thing = function(thing_id) {
 
     You don't quite get a chance to visit the furnature store before it closes. You look through the window and get a glimpse of a beautiful leather chair in the far corner of the store. You bob and wiggle to try to get a better view of it but the shopkeepr slams \
     a metal barrier in your face. You'll have to come back tomorrow.
+
+    [[Continue|NextDay]]
 <<then>>\
     <<ImagePlate art/chair_mall_plate.png>>
     You return to check on the chair.
@@ -185,8 +187,9 @@ window.knows_thing = function(thing_id) {
     You circle the chair exactly once, slowly. You don't want to seem timid or unsure. \
     You run your index finger along the ridge of the chair's back and your finger neither sticks nor chafes. You gently prod the armrest. Adrenaline shoots through your body when you start to sit in it. You decide there's no reason to rush.
 
-    <<AddNeed "things_need" 40>>
     <<AddRelationship $chair 1>>
+
+    [[Continue|NextDay]]
 <<then>>\
     <<ImagePlate art/chair_mall_plate.png>>
     You cordially approach the chair and sit down in it with your back straight. You bounce up and down a bit to test its give. You aren't sure what to do with your hands so you set them on the armrests. \
@@ -197,6 +200,8 @@ window.knows_thing = function(thing_id) {
     <<AddNeed "things_need" -10>>
     <<AddNeed "hope_need" -10>>
     <<AddRelationship $chair 1>>
+
+    [[Continue|NextDay]]
 <<then>>\
     <<ImagePlate art/chair_mall_plate.png>>
     The chair is still here! The other customer did not buy it. You decide to not waste any more time and welcome the chair into your home.
@@ -204,29 +209,33 @@ window.knows_thing = function(thing_id) {
     After some initial awkardness finding the right spot in your living room the chair fits right in. <<if $friends.length > 0>>You let the chair seat <<print $friends.random().name>> and they gleefully accept.<<endif>>
 
     You feel that a new chapter in your life is opening up.
-    <<AddNeed "things_need" 10>>
     <<AddNeed "hope_need" 10>>
     <<set $chair_home = true>>\
     <<set $chair.can_adventure_with = true>>\
     <<set $guaranteed_thing = thing_by_id("chair")>>\
     <<AddRelationship $chair 1>>
+
+    [[Continue|NextDay]]
 <<then>>\
     <<ImagePlate art/chair_home_plate.png>>
     You watch a romantic movie while sitting in the chair. Midway through you gently set your hand on the armrest and an excited chill runs \
     up your spine. You cry a little bit at the big finale and try not to get any tears on the chair.
     <<AddRelationship chair 1>>
-    <<AddNeed "things_need" 10>>
+
+    [[Continue|NextDay]]
 <<then>>\
     <<ImagePlate art/chair_home_plate.png>>
     You sit down to eat a nice homecooked meal with the Christopher Knight leather chair. You drop a vinegary leaf of caprese basil into the chair's cushion crack. The Christopher Knight chair seems to appreciate it. 
     <<AddRelationship chair 1>>
-    <<AddNeed "things_need" 10>>
+
+    [[Continue|NextDay]]
 <<then>>\
     <<ImagePlate art/chair_home_plate.png>>
     Needing an alibi, you bring a book to read in the chair. You get very little reading done. You stroke the sides of the chair gently and frequently readjust yourself so you can feel the leather on your back.\
     You wake up a bit later embarrased that you dozed off. You awkwardly continue your day.
     <<AddRelationship chair 1>>
-    <<AddNeed "things_need" 10>>
+
+    [[Continue|NextDay]]
 <<then>>\
     <<ImagePlate art/chair_lounge_plate.png>>
     You sit in the chair with no pretense. You are here to lounge. Christopher sighs contentedly as you sit down. You kick off your shoes and stretch out your toes. \
@@ -236,14 +245,14 @@ window.knows_thing = function(thing_id) {
     The network of tendons inside of your body becomes ecstaticly tense and then suddenly slack. You drift off into a deep sleep, fetally curled and wrapped by Chritopher's manly pape.
     <<set $pregnant = true>>\
     <<AddRelationship chair 1>>
+
+    [[Continue|NextDay]]
 <<then>>\
     <<ImagePlate art/birth_plate.png>>
     Today's the day! You give birth to a beautiful ottoman. You and Christopher name it Otto. You live happily ever after.
 
     [[Continue|End]]
 <</first>>\
-
-[[Continue|NextDay]]
 
 ::MeetTV
 <h1>EVENING</h1>\
@@ -265,40 +274,7 @@ God and neither are the TV repair men who kept the TV alive all these years. You
 <<set thing_by_id("tv").dead = true>>\
 <<set $tv_buried = true>>\
 <<AddNeed "hope_need" 30>>
-[[Continue|Main]]
-
-::PlayWithLiquid
-<<switch Math.abs(thing_by_id("sex").relationship)>>\
-<<when 0>>\
-You dip your fingers into Jacky and have a little whiff. You wipe her off on your pants.
-<<when 1>>\
-You jump into Jacky like a puddle and splash around.
-<<when 2>>\
-You find that Jackie has dried out. You break off a calcified flake and whip it across the room like a ninja star.
-<<set $splooged = false>>\
-<</switch>>\
-<<set $_sex = thing_by_id("sex")>>\
-<<AddRelationship $_sex 1>>
-
-[[Continue|Main]]
-
-::CleanUpSexLiquid
-<<switch "Math.abs(thing_by_id('sex').relationship) * -1">>\
-<<when 0>>\
-You try to pick Jackie up with your hands but it just isn't working!
-<<when -1>>\
-You try to clean up Jackie with sheet of paper but you end up just spreading her around.
-<<when -2>>\
-You go in with the sponge but Jackie slips you and you fall on your tuckus.
-<<when -3>>\
-You successfully clean up the sex liquid.
-<<set $splooged = false>>\
-<</switch>>\
-<<set $_sex = thing_by_id("sex")>>\
-<<AddRelationship $_sex -1>>
-<<AddNeed "sex_need" -10>>
-
-[[Continue|Main]]
+[[Continue|NextDay]]
 
 ::FridgeMeet
 <h1>EVENING</h1>\
@@ -320,7 +296,7 @@ You put your friends into the refrigerator and mail the tupperware back.
 <<set $tupperware_partied = true>>\
 <<AddNeed "things_need" 10>>
 
-[[Continue|Main]]
+[[Continue|NextDay]]
 
 ::ShowerMeet
 <h1>EVENING</h1>\
@@ -338,7 +314,8 @@ You peel back a lip of the curtain and peek inside. You can see everything. The 
 <<set $guaranteed_thing = $acted_thing>>\
 <<print $acted_thing.action_text>> <<AddNeed "things_need" 30>>
 <<print main_story()>>
-<<AddRelationship $acted_thing 1>>
+<<set $added_relationship = Math.floor(Math.random() * 3)>>\
+<<AddRelationship $acted_thing $added_relationship>>
 <<set $guaranteed_thing = null>>\
 
 [[Continue|Evening]]

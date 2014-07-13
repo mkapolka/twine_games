@@ -220,18 +220,24 @@ You kick <<print $friend.name>> out. You get back <<print $recouped_cost>> of th
 <<display BuyFriend>>
 
 ::BeatFriend
+<h1>AFTERNOON</h1>
+<<ImagePlate art/beat_plate.png>>
 <<set $friend = friend_by_id($beat_friend_id)>>\
-<<set $gained_anger = Math.ceil(Math.random() * 50) + 25>>\
-You savagely beat <<print $friend.name>>. That was very cathartic.
-<<AddNeed "anger_need" $gained_anger>>
+<<set $guaranteed_friend = $friend>>\
+You savagely beat <<print $friend.name>>. That was very cathartic. <<AddNeed "anger_need" 30>>
+<<print main_story()>>
 
 [[Continue|Evening]]
 
 ::KillFriend
+<h1>AFTERNOON</h1>\
+<<ImagePlate art/kill_plate.png>>
 <<set $friend = friend_by_id($kill_friend_id)>>\
-<<set $friend.dead = true>>\
-You kill <<print $friend.name>>. All of your pent up range melts away.
-<<set $anger_need = 100>>\
+<<run remove_friend($friend)>>\
+<<set $guaranteed_friend = null>>\
+You kill <<print $friend.name>>. All of your pent up range melts away. <<AddNeed "anger_need" 100>>
+<<print main_story()>>
+
 [[Continue|Evening]]
 
 ::SexDisplay
@@ -261,7 +267,6 @@ Your friend says, "What's a dentists favorite time? Tooth hurty!" <<AddNeed "fun
 <h1>AFTERNOON</h1>\
 <<ImagePlate art/inspiring_plate.png>>
 You hang out with the microblogger. He tells you to not be ashamed of who you are. <<AddNeed "hope_need" 30>>
-
 <<print main_story()>>
 
 <<run add_need("hope_need", 30)>>\

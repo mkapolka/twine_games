@@ -30,9 +30,6 @@ If set, this adventurer class will def. appear in the next adventure.
 <<run $friends.push(init_friend_by_id("funny"))>>
 <</nobr>>
 
-<<set $pro_tip_rapport = false>>
-
-
 ::comment
 <<run $friends.push(init_friend_by_id("sex"))>>
 
