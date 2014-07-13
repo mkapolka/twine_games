@@ -131,14 +131,17 @@ Who do you want to invite?
     <td>\
     [[A sexy gigolo|BuyFriend][$friend_template_id="sex"]]
     Cost: 50 Clout
+    Stats: Sex +
     </td>\
     <td>\
     [[An upbeat microblogger|BuyFriend][$friend_template_id="inspiring"]]
     Cost: 75 Clout
+    Stats: Hope +
     </td>\
     <td>\
     [[A funny comedian|BuyFriend][$friend_template_id="funny"]]
     Cost: 120 Clout
+    Stats: Funny +
     </td>\
 </tr>
 
@@ -151,14 +154,17 @@ Who do you want to invite?
     <td>\
     [[A sexy dancer|BuyFriend][$friend_template_id="sexier"]]
     Cost: 500 Clout
+    Stats: Sex ++
     </td>
     <td>\
     [[A funny clown|BuyFriend][$friend_template_id="funnier"]]
     Cost: 750 Clout
+    Stats: Funny ++
     </td>
     <td>\
     [[An inspiring priest|BuyFriend][$friend_template_id="priest"]]
     Cost: 800 Clout
+    Stats: Hope ++
     </td>
 </tr>
     <td><<Portrait art/fascist_portrait.png>></td>
@@ -169,10 +175,12 @@ Who do you want to invite?
     <td>
     [[A fascist|BuyFriend][$friend_template_id="fascist"]]
     Cost: 1200 Clout
+    Stats: Violence ++++, Sex ++++
     </td>
     <td>
     [[A survivor of many atrocities|BuyFriend][$friend_template_id="enduring"]]
     Cost: 1800 Clout
+    Stats: Hope: ++++
     </td>
 </tr>\
 </table>\
@@ -231,12 +239,8 @@ You kill <<print $friend.name>>. All of your pent up range melts away.
 
 ::FuckFriend
 <<ImagePlate art/sexy_plate.png>>
-<<if Math.random() < .75>>\
-    You fuck the gigolo. That sure hit the spot!
-    <<AddNeed "sex_need" 30>>
-<<else>>\
-    You tried to fuck the gigolo but he couldn't get it up.
-<</if>>\
+You fuck the gigolo. That sure hit the spot!  <<AddNeed "sex_need" 30>>
+<<print main_story()>>
 
 [[Continue|Evening]]
 
@@ -245,12 +249,8 @@ You kill <<print $friend.name>>. All of your pent up range melts away.
 
 ::JokeFriend
 <<ImagePlate art/funny_plate.png>>
-<<if Math.random() < .75>>\
-    Your friend tells you a great joke!
-    <<AddNeed "funny_need" 30>>
-<<else>>\
-    Your friend tries to tell you a joke, but it's a real stinker.
-<</if>>\
+Your friend says, "What's a dentists favorite time? Tooth hurty!" <<AddNeed "funny_need" 30>>
+<<print main_story()>>
 
 [[Continue|Evening]]
 
@@ -272,8 +272,8 @@ You hang out with the microblogger. He tells you to not be ashamed of who you ar
 
 ::FuckSexier
 <<ImagePlate art/dancer_plate.png>>
-You do the nasty with the dancer. Real grade "A" fuckin'. Nice job!
-<<AddNeed "sex_need" 50>>
+You do the nasty with the dancer. Real grade "A" fuckin'. Nice job!  <<AddNeed "sex_need" 50>>
+<<print main_story()>>
 
 [[Continue|Evening]]
 
@@ -282,8 +282,8 @@ You do the nasty with the dancer. Real grade "A" fuckin'. Nice job!
 
 ::FunnierJoke
 <<ImagePlate art/clown_plate.png>>
-The clown throws a pie into the air and it lands on his face. What a riot!
-<<AddNeed "funny_need" 50>>
+The clown throws a pie into the air and it lands on his face. What a riot!  <<AddNeed "funny_need" 50>>
+<<print main_story()>>
 
 [[Continue|Evening]]
 
@@ -292,8 +292,8 @@ The clown throws a pie into the air and it lands on his face. What a riot!
 
 ::PriestTalk
 <<ImagePlate art/priest_plate.png>>
-Your priest friend tells you that God loves all his/her creations equally.
-<<AddNeed "hope_need" 50>>
+Your priest friend tells you that God loves all his/her creations equally. <<AddNeed "hope_need" 50>>
+<<print main_story()>>
 
 [[Continue|Evening]]
 
@@ -302,9 +302,8 @@ Your priest friend tells you that God loves all his/her creations equally.
 
 ::FuckFascist
 <<ImagePlate art/fascist_plate.png>>
-You grease up your friend's asshole and brutally fist him. You climax and he does not.
-<<AddNeed "sex_need" 100>>
-<<AddNeed "anger_need" 100>>
+You grease up your friend's asshole and brutally fist him. You climax and he does not. <<AddNeed "sex_need" 100>> <<AddNeed "anger_need" 100>>
+<<print main_story()>>
 
 [[Continue|Evening]]
 
@@ -313,7 +312,7 @@ You grease up your friend's asshole and brutally fist him. You climax and he doe
 
 ::LearnEnduring
 <<ImagePlate art/enduring_plate.png>>
-Your inpsiring friend tells you depressing stories about her life. You share heaving sobs of empathy.
-<<AddNeed "hope_need" 100>>
+Your inpsiring friend tells you depressing stories about her life. You share heaving sobs of empathy. <<AddNeed "hope_need" 100>>
+<<print main_story()>>
 
 [[Continue|Evening]]
