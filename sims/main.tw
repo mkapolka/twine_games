@@ -24,8 +24,6 @@ If set, this adventurer class will def. appear in the next adventure.
 <<set $guaranteed_friend = "">>
 <<set $guaranteed_thing = "">>
 
-<<set $rapport = 50>>
-
 <<run $friends.push(init_friend_by_id("inspiring"))>>
 <<run $friends.push(init_friend_by_id("funny"))>>
 <</nobr>>
@@ -124,7 +122,7 @@ Can you keep yourself alive and find ''TRUE LOVE''?? Let's find out! It's time t
 ::Morning
 <h1>MORNING</h1>\
 <<ImagePlate art/party_plate.png>>\
-<<set $rapport_gained = Math.floor(25 + Math.random() * 100) * ($rapport_xp + 1)>>\
+<<set $rapport_gained = 100 * ($rapport_xp + 1)>>\
 <<set $rapport += $rapport_gained>>\
 You wake up, go through your morning routine, and go party. You party for 8 hours. \
 <<random>>\
@@ -142,7 +140,7 @@ You wake up, go through your morning routine, and go party. You party for 8 hour
 <</random>>\
 
 You gain <<print $rapport_gained>> ''Clout''.
-<<if Math.random() > .75 and $rapport_xp <= 4>>
+<<if $day % 2 == 1 and $rapport_xp < 6>>
     <<notify>>\
     You move up in your social circle! You are now \
     <<switch $rapport_xp>>\
@@ -157,10 +155,15 @@ You gain <<print $rapport_gained>> ''Clout''.
     <<when 3>>\
         "Respected"!
     <<when 4>>\
+        "Welcomed"!
+    <<when 5>>\
+        "Admired"!
+    <<when 6>>\
         "Loved"!
     <</switch>>\
     You will now earn more ''clout'' when partying!
     <</notify>>
+
     <<set $rapport_xp += 1>>\
 <<endif>>\
 <<AtrophyNeeds>>
@@ -212,6 +215,7 @@ You throw <<print $corpse_owner.name>>'s corpse into the trash.
 <h1 style='text-align: center'>THE END</h1>
 
 ::NextDay
+<h1>MORNING</h1>
 <<ImagePlate art/morning_plate.png>>
 <<set $day = $day + 1>>\
 <h1><<print "[[" + ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][$day % 7] + "|Morning]]">></h1>

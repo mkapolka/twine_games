@@ -124,7 +124,6 @@ window.relationship_names = [
     'Pals',
     'Buddies',
     'Lovers',
-    'Partners',
     'Married',
     'Soul Mate'
 ]
@@ -250,8 +249,22 @@ window.knows_thing = function(thing_id) {
 
     [[Continue|NextDay]]
 <<then>>\
+    <<ImagePlate art/chair_lounge_plate.png>>
+    You find a diamond ring nestled in Christopher's cushions. You accept. You have a small and tender ceremony. You vow never to scuff his leather and to love him \
+    even when he's sun damaged and his stitching falls apart. Then you rush back for your honeymoon. You lounge several times with the pent up ferver built up over your relationship.
+    <<AddRelationship chair 1>>
+
+    [[Continue|NextDay]]
+<<then>>\
+    <<ImagePlate art/chair_lounge_plate.png>>
+    You feel your cuboid child growing inside of you. You enjoy a peaceful silence with the 'Christopher Knight' leather chair and then drift off to sleep.
+
+    <<AddRelationship chair 1>>
+
+    [[Continue|NextDay]]
+<<then>>\
     <<ImagePlate art/birth_plate.png>>
-    You give birth to a beautiful ottoman. Christopher stays by your side and supports you throughout the ordeal. You and Christopher name it Otto. You live happily ever after.
+    Today's the day! You give birth to a beautiful ottoman. Christopher stays by your side and supports you throughout the ordeal. You and Christopher name it Otto. You live happily ever after.
 
     [[Continue|End]]
 <</first>>\
