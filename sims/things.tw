@@ -10,7 +10,8 @@ window.init_things = function() {
             portrait: "art/lamp_portrait.png",
             can_adventure_with: true,
             action_prompt: "Bask in the lamp's light?",
-            action_text: "Timothy shines light on you."
+            action_text: "Timothy shines light on you.",
+            action_plate: "art/lamp_plate.png"
         },
         {
             id: 'tv',
@@ -24,7 +25,8 @@ window.init_things = function() {
             hp: 5,
             display_passage: 'TVDisplay',
             action_prompt: "Watch TV?",
-            action_text: "Akira shows you a nature documentary."
+            action_text: "Akira shows you a nature documentary.",
+            action_plate: "art/tv_plate.png"
         },
         {
             id: 'sex',
@@ -35,7 +37,8 @@ window.init_things = function() {
             portrait: "art/jissom_portrait.png",
             can_adventure_with: false,
             action_prompt: "Play with the puddle of ejaculate?",
-            action_text: "Jacky smears on your clothes."
+            action_text: "Jacky smears on your clothes.",
+            action_plate: null
         },
         {
             id: 'chair',
@@ -45,7 +48,8 @@ window.init_things = function() {
             portrait: "art/chair_portrait.png",
             can_adventure_with: false,
             action_prompt: "Sit on the chair?",
-            action_text: "Christopher Knight seats you."
+            action_text: "Christopher Knight seats you.",
+            action_plate: "art/chair_home_plate.png"
         },
         {
             id: 'toilet',
@@ -56,7 +60,8 @@ window.init_things = function() {
             portrait: "art/toilet_portrait.png",
             can_adventure_with: true,
             action_prompt: "Use the toilet?",
-            action_text: "Tucker accepts your waste."
+            action_text: "Tucker accepts your waste.",
+            action_plate: null
         },
         {
             id: 'wallpaper',
@@ -67,7 +72,8 @@ window.init_things = function() {
             portrait: "art/wallpaper_portrait.png",
             can_adventure_with: false,
             action_prompt: "Examine the wallpaper?",
-            action_text: "The wallpaper offers you a glimpse into the house's past."
+            action_text: "The wallpaper offers you a glimpse into the house's past.",
+            action_plate: null
         },
         {
             id: 'blender',
@@ -78,7 +84,8 @@ window.init_things = function() {
             portrait: "art/blender_portrait.png",
             can_adventure_with: true,
             action_prompt: "Blend some stuff?",
-            action_text: 'The "Jennifer Lee" Blender helps you make a margarita.'
+            action_text: 'The "Jennifer Lee" Blender helps you make a margarita.',
+            action_plate: "art/blender_plate.png"
         },
         {
             id: 'refrigerator',
@@ -89,7 +96,8 @@ window.init_things = function() {
             portrait: "art/refrigerator_portrait.png",
             can_adventure_with: false,
             action_prompt: "Eat food?",
-            action_text: 'You take an apple from the "Bianca" refrigerator and eat it.'
+            action_text: 'You take an apple from the "Bianca" refrigerator and eat it.',
+            action_plate: null
         },
         {
             id: 'shower',
@@ -100,7 +108,8 @@ window.init_things = function() {
             portrait: "art/shower_portrait.png",
             can_adventure_with: false,
             action_prompt: "Take a shower?",
-            action_text: 'You take a shower in the "Serena" standing shower.'
+            action_text: 'You take a shower in the "Serena" standing shower.',
+            action_plate: null
         }
     ]
 }
@@ -325,9 +334,13 @@ You peel back a lip of the curtain and peek inside. You can see everything. The 
 [[Continue|NextDay]]
 
 ::ThingInteraction
-<h1>AFTERNOON</h1>
-<<ImagePlate $acted_thing.portrait>>
+<h1>AFTERNOON</h1>\
 <<set $guaranteed_thing = $acted_thing>>\
+<<if $acted_thing.action_plate != null>>\
+    <<ImagePlate $acted_thing.action_plate>>\
+<<else>>\
+    <<ImagePlate $acted_thing.portrait>>\
+<<endif>>
 <<print $acted_thing.action_text>> <<AddNeed "things_need" 30>>
 <<print main_story()>>
 <<set $added_relationship = Math.floor(Math.random() * 3)>>\
