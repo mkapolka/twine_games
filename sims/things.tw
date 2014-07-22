@@ -38,7 +38,7 @@ window.init_things = function() {
             can_adventure_with: false,
             action_prompt: "Play with the puddle of ejaculate?",
             action_text: "Jacky smears on your clothes.",
-            action_plate: null
+            action_plate: "art/sex_plate.png"
         },
         {
             id: 'chair',
@@ -61,19 +61,19 @@ window.init_things = function() {
             can_adventure_with: true,
             action_prompt: "Use the toilet?",
             action_text: "Tucker accepts your waste.",
-            action_plate: null
+            action_plate: "art/toilet_plate.png"
         },
         {
             id: 'wallpaper',
-            relationship: 0,
+            relationship: 1,
             max_relationship: 6,
-            name: "the wallpaper",
+            name: "the unnamed wallpaper",
             actor_class: "Wallpaper",
             portrait: "art/wallpaper_portrait.png",
-            can_adventure_with: false,
+            can_adventure_with: true,
             action_prompt: "Examine the wallpaper?",
             action_text: "The wallpaper offers you a glimpse into the house's past.",
-            action_plate: null
+            action_plate: "art/wallpaper_plate.png"
         },
         {
             id: 'blender',
