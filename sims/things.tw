@@ -97,7 +97,7 @@ window.init_things = function() {
             can_adventure_with: false,
             action_prompt: "Eat food?",
             action_text: 'You take an apple from the "Bianca" refrigerator and eat it.',
-            action_plate: null
+            action_plate: "art/refrigerator_plate.png"
         },
         {
             id: 'shower',
@@ -109,7 +109,7 @@ window.init_things = function() {
             can_adventure_with: false,
             action_prompt: "Take a shower?",
             action_text: 'You take a shower in the "Serena" standing shower.',
-            action_plate: null
+            action_plate: "art/shower_plate.png"
         }
     ]
 }
