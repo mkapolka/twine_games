@@ -319,6 +319,9 @@ You split the salad between the lawyer and his secretary and squeeze the little 
 You put your friends into the refrigerator and mail the tupperware back.
 
 <<set $tupperware_partied = true>>\
+<<set $f = thing_by_id("refrigerator")>>\
+<<set $f.action_text = "You tickle your mother in the stomach and she regurgitates some mashed potatoes into your mouth.">>\
+<<set $f.action_plate = "art/refrigerator_plate_2.png">>\
 <<AddNeed "things_need" 10>>
 
 [[Continue|NextDay]]
